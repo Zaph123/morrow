@@ -1,0 +1,52 @@
+Continue Morrow as my frontend/backend/motion engineering colleague. I have not
+granted full autonomy. Read this revision5 packet, which includes revision3's
+UIArc guidance. Follow CODEX-COLLABORATION.txt: inspect and propose a bounded phase
+first; wait for my approval before implementing it. Once approved, complete its
+normal edits and verification without asking permission for each routine step.
+
+I have already created the Morrow Supabase project, and UIArc plus some components
+are already installed. Keep shadcn/Base UI as the baseline. Do not reinstall Arc,
+initialize another app, create another Supabase project, or import Arc foundation
+globally without resolving token interactions. Arc's AI tools are not Morrow's
+application AI provider; that provider remains unresolved.
+
+First inspect live git status/diff and current repository instructions. Preserve
+my existing work and data. Treat the uploaded repository review as snapshot
+evidence, not proof of the current IDE state. Read START-HERE.txt, DESIGN.md,
+DESIGN-DECISIONS.txt, UIARC-INTEGRATION.txt, FIRST-BUILD-SCOPE.txt,
+REPOSITORY-REVIEW.txt, PERSISTENCE-AND-MIGRATION.txt and the flow/Next.js rules.
+
+The previous root DESIGN.md, old warm-green/Georgia/Inter guidance and the “dark
+editorial” AGENTS.md wording are superseded by my approved light neutral/lime/
+DM Sans direction. Propose the exact documentation/rule updates to resolve those
+conflicts while retaining valid component review and data-protection rules.
+The replacement DESIGN.md supplied here has not been installed in the live repo.
+Existing visual code is not design authority merely because it is implemented.
+Reuse useful logic and fitting components; don't carry old appearance forward.
+
+Verify the two active storage models and all callers. Do not delete either,
+migrate data, reset browser keys or switch routes blindly. Review the reported
+createContent corrupt-data overwrite, Idea detail Save visibility/timer and blocked
+storage handling. Show a minimal reliability slice before wider visual work.
+Recommend cleanup candidates with references and risks; do not bulk-delete files.
+
+The designed core is Home, Studio, Ideas/context, Library, Brand Brain, You and
+Supabase email/password + Google. Calendar and publication recording are later.
+Preserve historical data/statuses. Browser recovery may remain, with Supabase
+canonical and a single UI-facing data layer; propose its contract first.
+
+Return a short live-repo assessment and a concrete first phase with likely files,
+acceptance criteria and checks. My suggested start is documentation alignment
+and focused data/save reliability, followed by shared tokens/fonts/shell + Home.
+Do not begin broad conversion, migrations, deletion, live service changes,
+dependency additions, commits, pushes or deployment without approved scope.
+Show browser captures before claiming visual fidelity; report tests actually run
+and blockers accurately. We want coherent useful progress, not perfection first.
+
+Environment update: read ENVIRONMENT-SETUP.txt. The user requested a root
+.env.sample. Copy the supplied template and add !/.env.sample after .env* in the
+existing .gitignore. Preserve all existing .env.local values and keep that file
+ignored. Do not collect credentials in chat. These environment-template changes
+are requested; SDK integration and live service changes still follow the approved
+phase boundaries. SITE_URL is a proposed Morrow convention, not a built-in or
+automatic Dashboard setting. Check actual env consumers before wiring them.

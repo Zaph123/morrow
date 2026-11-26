@@ -1,0 +1,58 @@
+REVISION5 STARTING INSTRUCTIONS
+Use NEXT-CODEX-PROMPT.txt and CODEX-COLLABORATION.txt first. The instructions below
+describe the designed target, not authorization to execute the whole build.
+The supplied snapshot has now been reviewed; validate its findings in the live IDE.
+
+You are continuing Morrow from a curated Next.js design handoff.
+
+Read ../START-HERE.txt, FIRST-BUILD-SCOPE.txt, `.agents/rules/stitch-to-morrow.md`,
+DESIGN-DECISIONS.txt (or ../DESIGN-DECISIONS.txt), FLOWS-AND-DATA.txt,
+AUTH-AND-ACCOUNT-FLOWS.txt, NEXTJS-COMPONENT-MAP.txt, COVERAGE-AND-GAPS.txt,
+KNOWN-EXPORT-ISSUES.txt and artifacts/references/stitch/SCREEN-CATALOGUE.csv
+before planning implementation. Read UIARC-INTEGRATION.txt:
+the user retains shadcn/ui and adds Arc selectively, without a full replacement.
+Verify React19 compatibility, registry diffs and foundation/theme interaction;
+use Arc coding-tool docs/MCP for discovery, not as the application AI provider.
+
+This packet is design evidence, not production code or proof of a backend.
+Next.js is user-confirmed. When implementation is authorized, inspect actual
+AGENTS.md, package/lockfiles, router, versions, global tokens, components, auth,
+services, storage and tests. Reuse first; do not import Churchera's routes,
+gold/navy palette or domain-specific behaviour. Library choices now explicitly
+include shadcn/ui plus UIArc; inspect actual installed versions. Existing data survives.
+
+First build: Home, Studio, Ideas/context, Library, Brand Brain, You and Supabase
+email/password + Google. Calendar and manual publication recording follow later,
+as explicitly chosen by the user; do not ask that same scope question again.
+The proposed first-build nav hides Calendar instead of showing a dead route.
+
+Rebuild the selected designs as shared typed React/Next.js compositions. Do not
+paste raw Stitch HTML/classes/CDN scripts into app source. Use source content
+to recover broken previews, applying written geometry/token/behaviour decisions.
+Do not clone blank PNGs, incorrect mobile frames, historical variants, generated
+flow boards or timer-driven Saved messages. States are shared component states,
+not independent page implementations. Preserve the requested Brain pill on You
+mobile and use one exact icon asset. Use one Profile/Account header and width.
+
+Preserve working application behaviour during restyles. Implement missing auth,
+revision-aware saving, ownership and persistence as explicit functional slices.
+Auth/account contracts are in the packet; exact auth visuals are not separately
+approved exports. Respect actual Supabase confirmation/reauth/linking policies.
+Keep original ideas, independent platform versions, selected context and explicit
+learning approval. Never auto-apply AI text or permanent memory suggestions.
+
+AI provider/configuration remains unresolved. Inspect existing code/context or
+resolve that operational choice before provider-specific integration. Keep a
+replaceable adapter and truthful unconfigured/unavailable states; manual workflows
+must work. Do not claim the AI feature complete on mocked responses.
+
+Use the repository's actual typecheck/lint/build and meaningful behaviour tests.
+Capture the rendered app at390x844, narrower mobile, tablet and desktop. Check
+save/reopen/failure recovery, accept/undo, context selection, learning approval,
+auth callbacks/linking, modal focus/keyboard and hydration. Apply written fixes
+where source PNGs are incomplete. Report checks actually run and remaining gaps.
+
+Do not begin product coding or deploy from a documentation-only handoff message.
+Proceed when the user's task requests implementation; avoid redundant approvals
+for routine authorized work. No live provider or service setup is pre-authorized
+merely by inclusion of example data or callback descriptions in this packet.

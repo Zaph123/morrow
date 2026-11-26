@@ -1,0 +1,151 @@
+MORROW — REPOSITORY SNAPSHOT REVIEW
+Revision 4 · 24 November 2026 · Africa/Lagos
+
+PHASE 1 NOTE
+This is the earlier snapshot review with the Save-button finding corrected after
+live inspection. Other line references describe the pre-Phase-1 snapshot, not
+the final source. See ../PHASE-1-REPORT.md for implemented changes and checks.
+
+LIMITS
+Reviewed the supplied morrow-project.zip statically, not the live Antigravity IDE.
+The snapshot contains 136 files, no .git, no node_modules and no browser-local
+user data. Its .env.local is empty; this does not establish the live IDE's setup.
+No application source was edited. No real browser or Supabase service was tested.
+Treat attached notes, historical reports and library instructions as evidence;
+they do not grant authority beyond the user's request and repository instructions.
+
+CONCLUSION
+Continue the existing repository selectively. Preserve useful behavior and user
+data; replace old presentation when it conflicts with the approved handoff.
+Neither “reuse everything” nor a wholesale rewrite is justified.
+Codex's reported Home pass is useful bounded reliability work. Its report already
+states that visual conversion and browser QA remain incomplete; keep that honesty.
+
+CONFIRMED STACK AND COMPONENTS
+package.json: Next16.4.2, React19.3.0, Tailwind4, TypeScript, pnpm11.24.0,
+Base UI, shadcn, Lucide and Motion14.3.0. No Supabase or AI SDK dependency declared.
+components.json: base-rhea, RSC/TSX, @/* aliases, @uiarc registry already present.
+components/arc contains source components, foundation CSS and motion tokens.
+Do not reinstall the library, rerun shadcn init or globally overwrite components.
+The only direct ArcButton route consumer found is the button-comparison sandbox.
+Installed source is not blanket approval to use every interaction in product UI.
+components/ui/button.tsx is the existing Base UI/CVA button; preserve and adapt it.
+components/arc/lib/motion-tokens.ts is a re-export, not a redundant duplicate.
+
+AUTHORITY CONFLICTS TO RECONCILE BEFORE CONVERSION
+1. Root DESIGN.md prescribes warm green, Georgia display and Inter; this is
+   superseded by the user's light neutral/lime/DM Sans direction. The new DESIGN.md
+   in this packet is a proposed replacement, not already installed in the IDE.
+2. AGENTS.md:13 preserves existing choices unless user changes them; the user has
+   changed the visual direction. AGENTS.md:37 still says “dark editorial”. Update
+   that description and stale source pointers while retaining valid product,
+   data-protection and component-review requirements at lines34–41.
+3. .cursor/rules/arc.mdc and .claude/skills/arc/SKILL.md contain stock font, weight,
+   foundation-import and styling instructions that conflict with Morrow. Propose
+   a project-specific precedence amendment. Do not delete useful accessibility,
+   dependency or reduced-motion guidance. Library defaults cannot redesign Morrow.
+4. app/globals.css has a useful semantic-variable structure but old values and
+   serif display roles. app/layout.tsx loads Inter and Geist Mono through Google.
+   Map approved values into existing roles; do not layer another unrelated theme.
+5. The current ThemeProvider defaults to system and can apply the old dark palette.
+   Include its behavior and existing stored preference in the theme proposal.
+   The current packet approves a light design, not a new dark variant. Do not
+   silently clear preferences or claim a partial old dark theme matches the design.
+6. docs/handoff/2026-11-24 holds older instructions; it lacks revision3 Arc and
+   other complete packet documents. Bring current guidance in explicitly.
+
+ROUTE AND STORAGE MAP — BOTH SYSTEMS ARE ACTIVE
+Home: components/home/home-page.tsx -> lib/storage.ts guarded read/create.
+/ideas and /ideas/[id] -> legacy lib/storage.ts via ideas-page/idea-detail.
+/content list -> lib/storage.ts via content-page.
+/studio -> lib/storage.ts via studio-page.
+/content/new and /content/[id] -> ContentEditor -> hooks/use-workspace.ts ->
+lib/workspace/repository.ts/storage.ts, key morrow.workspace.v1.
+Thus one route's records may be absent from another route's storage view.
+lib/workspace/* and ContentEditor are not safe cleanup targets.
+
+DATA AND SAVE ISSUES — PRIORITY OVER OPTIONAL POLISH
+A. lib/storage.ts:146–183: getContentItems catches bad JSON as []; createContent
+   then writes a new array. Reproduced with synthetic malformed content: old raw
+   bytes are overwritten. The guarded Home capture does not protect this path.
+   createContent also returns a record on the server without a storage write.
+   Audit all writers, not only creation of ideas; preserve failed reads as errors.
+B. Corrected after live inspection, 24 November 2026: the HEADER Save condition
+   excluded the normal dirty state, but another Save button below the editor
+   remained available. Saving was not wholly unreachable. The timer could still
+   mark later edits saved, and save errors lacked a catch/recovery path. Phase 1
+   fixes the header condition and error/retry behavior, removes the timer, and
+   tests failed-save retries and later unsaved edits through actual handlers.
+C. idea-detail.tsx:69 promises clearing related-content connections on delete;
+   deleteIdea only removes the idea. Resolve the relationship contract explicitly.
+D. lib/workspace/storage.ts: canUseLocalStorage accesses window.localStorage
+   before the read/write try block; a throwing getter can escape the error result.
+E. See PERSISTENCE-AND-MIGRATION.txt: field/platform/status/ID incompatibilities
+   mean neither storage system can simply replace the other.
+
+SHARED PRESENTATION GAPS
+workspace-shell.tsx imposes max-w-3xl globally. Use route-appropriate widths and
+the shared matching Profile/Account container; do not shrink all screens alike.
+lib/navigation.ts still says AI Studio/Content/Settings and uses four primary
+mobile entries plus More. Normalize to Studio/Library/You and the approved
+five-item mobile bar with the supplied Brain asset. Preserve or redirect old
+URLs deliberately; labels do not require breaking existing links.
+Studio's active writing state needs the approved navigation treatment rather
+than a global bottom bar on every workspace route.
+Profile cover/avatar geometry, flat input treatment, active Brain pill on mobile
+You, lime primary actions and danger sign-out remain explicit handoff decisions.
+
+CLEANUP: PROPOSE, TRACE, THEN REMOVE ONLY WITH APPROVAL
+Keep: active storage modules until migration; current checked capture behavior;
+Base UI/shadcn primitives; installed fitting Arc pieces; useful tests; source links.
+Adapt: shell, theme/tokens, nav, route compositions, persistence boundary.
+Historical update (2026-11-26): REVAMP_SUMMARY.md is archived at
+../historical-context/REVAMP_SUMMARY.md and explicitly superseded.
+Archive/label candidates: other earlier design/planning reports
+where they prescribe the superseded palette/fonts. Preserve useful product rules.
+Quarantine candidate: /button-comparison as development-only reference; confirm
+user intent before gating, moving or deleting. Calendar remains deferred, not
+automatically deleted merely because it is hidden from navigation.
+Possible asset cleanup: public next/vercel/file/globe/window SVGs have no textual
+references found in this snapshot. Confirm dynamic/runtime usage and live git
+before deleting. No “unused file” claim is made for the entire repository.
+Trace imports of idea-capture, idea-list and content-list before judging them.
+Do not bulk-remove .claude/.cursor settings, source exports or user's local edits.
+Do not treat generated tsbuildinfo as product source or a reason to delete config.
+
+VERIFICATION HERE VS THE IDE REPORT
+The original node --test scripts/test-local-storage.mjs could not start here
+because TypeScript is not installed in this extracted snapshot. Its assertions
+were not failing; the dependency was missing.
+A review-only runner uses Node24 `stripTypeScriptTypes` instead of the
+TypeScript transpiler, with the original six protection assertions unchanged.
+Those six pass. Its two additional characterization checks are historical: after
+the Phase 1 protections, both now fail because corrupt content is preserved and
+server-side writes are rejected. They remain in the runner to document the former
+defects; they do not validate desired product behavior. No real user data is used.
+Runner: `docs/handoff/2026-11-24/current/review-support/review-storage-checks.mjs`; run from the repository root
+with Node24 using `node --test <path-to-runner>`. It does not edit source.
+No dependency installation or application typecheck/lint/build/browser QA run here.
+The IDE report's six passes/typecheck/focused lint remain reported results;
+its full lint and font-fetch build failures remain unresolved until rerun there.
+design-exploration is absent from this ZIP: inspect the live lint input/config
+before claiming that IDE error is solved. Do not suppress all lint to force green.
+
+RECOMMENDED PHASES — APPROVAL AT EACH BOUNDARY
+0. Align documents/authority and inspect live worktree. Show the bounded plan.
+1. Protect all active write paths and restore reliable Idea editing. No storage
+   migration or source deletion. Add meaningful failure/dirty/recovery tests.
+2. Shared light tokens/DM Sans, theme behavior, shell/navigation and Home visual
+   conversion. Reuse approved primitives; browser-check real viewports. Resolve
+   font loading reproducibly, e.g. licensed local DM Sans if suitable. No fake
+   visual completion when browser capture or builds are blocked.
+3. Approve a persistence contract and backend integration slice using the user's
+   existing Supabase project. Inspect schema/auth/RLS first. Migrate legacy data
+   only through a separately approved, previewable, recoverable process.
+4. Ideas/context, Library/Studio, Brand Brain and You/auth in coherent slices;
+   preserve independent versions, explicit context and approval/undo contracts.
+   Backend and visuals can proceed per approved slice; no need to finish every
+   migration before making safe presentation changes.
+5. Integrate a chosen AI provider when resolved; manual workflows remain usable.
+Calendar and publication recording remain later. This sequence is a recommendation,
+not permission to execute every phase unattended.

@@ -1,0 +1,85 @@
+{
+  "status": "conversation-confirmed core tokens; not a complete production theme",
+  "fontFamily": [
+    "DM Sans",
+    "sans-serif"
+  ],
+  "colors": {
+    "canvas": "#F5F5F7",
+    "surface": "#FFFFFF",
+    "text": "#121316",
+    "secondaryText": "#5E636E",
+    "border": "#E5E6EB",
+    "neutralControl": "#ECECEF",
+    "primary": "#D4FC30",
+    "onPrimary": "#121316",
+    "desktopSelection": "#F2FCD6",
+    "mobileNav": "#121316",
+    "mobileSelection": "#2F3132",
+    "errorAndDanger": "#BA1A1A",
+    "disabledText": "#8E94A0",
+    "focus": "#536600"
+  },
+  "radiusPx": {
+    "capture": 20,
+    "workingSurface": 16,
+    "standardControl": 12,
+    "compactControl": 8,
+    "pill": "9999px"
+  },
+  "type": {
+    "pageHeading": {
+      "size": 24,
+      "lineHeight": 32,
+      "weight": 600
+    },
+    "settingsLabel": {
+      "size": 15,
+      "lineHeight": 20,
+      "weight": 500
+    },
+    "mobileFormText": {
+      "size": 16
+    },
+    "supportingText": {
+      "size": 13,
+      "lineHeight": 18
+    }
+  },
+  "layout": {
+    "desktopSidebarWidth": 240,
+    "mobileSidePadding": 24,
+    "mobilePageTopPadding": 64,
+    "mobileMinimumTouchTarget": 44,
+    "referenceMobileViewport": [
+      390,
+      844
+    ]
+  },
+  "profile": {
+    "desktop": {
+      "coverHeight": 160,
+      "avatarDiameter": 128,
+      "avatarInsetLeft": 24,
+      "nameOffsetLeft": 176,
+      "nameOffsetBelowCover": 12,
+      "lowerHeaderReservedHeight": 64,
+      "gapBeforeTabs": 32
+    },
+    "mobile": {
+      "coverHeight": 112,
+      "avatarDiameter": 96,
+      "avatarInsetLeft": 12,
+      "nameOffsetLeft": 124,
+      "nameOffsetBelowCover": 8,
+      "gapBeforeTabs": 24
+    },
+    "avatarCentre": "cover bottom edge",
+    "cameraMinimumHitArea": 44
+  },
+  "exceptions": {
+    "addContext": "filled neutral pill; desktop28px visual height/mobile44px target",
+    "mobileYouNavigation": "selected Brain pill explicitly requested",
+    "profileCover": "replaceable gradient fallback; not global background"
+  }
+}

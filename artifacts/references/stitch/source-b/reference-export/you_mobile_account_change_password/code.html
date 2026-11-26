@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You — Mobile — Account — Change password</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            workspace: '#F5F5F7',
+            charcoal: '#121316',
+            secondary: '#5E636E',
+            borderSubtle: '#E5E6EB',
+            neutralBtn: '#ECECEF',
+            neutralBtnHover: '#E2E2E6',
+            disabledText: '#8E94A0',
+            limeAccent: '#D4FC30',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      margin: 0;
+      padding: 0;
+    }
+    .touch-target {
+      min-width: 44px;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-workspace text-charcoal min-h-screen flex flex-col items-center relative overflow-hidden">
+  <!-- Mobile screen container (390px fixed width target) -->
+  <div class="w-full max-w-[390px] min-h-[844px] bg-workspace relative flex flex-col pb-36 overflow-hidden">
+
+    <!-- INACTIVE BACKGROUND CONTENT (DIMMED & INERT) -->
+    <div class="opacity-40 pointer-events-none select-none filter blur-[0.3px]" aria-hidden="true">
+      <!-- Top Header Bar -->
+      <header class="pt-12 px-6 pb-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="touch-target -ml-2 text-charcoal">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </div>
+          <h1 class="text-[24px] leading-[32px] font-semibold tracking-tight text-charcoal">You</h1>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="px-6 flex flex-col">
+        <!-- Cover & Avatar Shared Section -->
+        <section class="mt-2 mb-6">
+          <div class="relative w-full h-[112px]">
+            <div class="w-full h-full rounded-[16px] overflow-hidden bg-gradient-to-r from-[#D7F5DE] via-[#E4F3E2] to-[#FCE0D4] relative border border-borderSubtle/60">
+              <div class="absolute top-3 right-3 touch-target h-8 px-3 rounded-full bg-white/80 text-[12px] font-medium text-charcoal shadow-sm">
+                Add cover
+              </div>
+            </div>
+            <div class="absolute top-full left-[12px] -translate-y-1/2 w-[96px] h-[96px] rounded-full border-4 border-white bg-neutralBtn flex items-center justify-center shadow-sm">
+              <span class="text-[34px] font-medium text-charcoal">Z</span>
+            </div>
+          </div>
+          <div class="min-h-[56px] pt-2 pl-[124px]">
+            <h2 class="text-[18px] leading-[24px] font-semibold text-charcoal">Zaphenath</h2>
+            <p class="text-[13px] leading-[18px] text-secondary mt-1">Your profile and account settings.</p>
+          </div>
+        </section>
+
+        <!-- Tabs -->
+        <div class="flex items-center border-b border-borderSubtle mb-6">
+          <div class="touch-target pb-3 text-[15px] font-medium text-secondary">Profile</div>
+          <div class="touch-target pb-3 ml-6 text-[15px] font-semibold text-charcoal relative">
+            Account
+            <span class="absolute bottom-0 left-0 right-0 h-[2px] bg-charcoal rounded-full"></span>
+          </div>
+        </div>
+
+        <!-- Account Settings Sections -->
+        <div class="space-y-6">
+          <section class="space-y-2">
+            <h3 class="text-[15px] font-medium text-charcoal">Email address</h3>
+            <p class="text-[13px] text-secondary">The email you use to sign in.</p>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[14px]">zaphenath@example.com</span>
+              <div class="touch-target h-[44px] px-4 rounded-[12px] bg-neutralBtn text-[14px] font-medium">Change email</div>
+            </div>
+          </section>
+          <hr class="border-t border-borderSubtle">
+          <section class="space-y-2">
+            <h3 class="text-[15px] font-medium text-charcoal">Password</h3>
+            <p class="text-[13px] text-secondary">Manage your sign-in password.</p>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[14px]">Password set</span>
+              <div class="touch-target h-[44px] px-4 rounded-[12px] bg-neutralBtn text-[14px] font-medium">Change password</div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Restrained Neutral Dimming Backdrop (Covers background & navigation) -->
+    <div class="absolute inset-0 bg-[#121316]/40 backdrop-blur-[1px] z-40 transition-opacity" aria-hidden="true"></div>
+
+    <!-- BOTTOM SHEET CONTAINER (Attached to viewport bottom) -->
+    <div class="absolute bottom-0 left-0 right-0 max-w-[390px] mx-auto bg-white rounded-t-[20px] shadow-2xl z-50 flex flex-col pt-3 pb-8 px-6 border-t border-borderSubtle" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+
+      <!-- Drag Handle -->
+      <div class="w-10 h-1 bg-borderSubtle rounded-full mx-auto mb-3" aria-hidden="true"></div>
+
+      <!-- Sheet Header: Title & Close Button -->
+      <div class="flex items-start justify-between gap-4 mb-1">
+        <div>
+          <h2 id="sheet-title" class="text-[20px] leading-[26px] font-semibold text-charcoal tracking-tight">Change password</h2>
+          <p class="text-[13px] leading-[18px] text-secondary mt-1">Use this password when signing in with your email.</p>
+        </div>
+        <button type="button" class="touch-target -mr-2 -mt-1 text-secondary hover:text-charcoal rounded-full hover:bg-neutralBtn transition-colors" aria-label="Close dialog">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Sheet Form -->
+      <form class="space-y-4 mt-4" onsubmit="event.preventDefault();">
+
+        <!-- Field 1: New password -->
+        <div class="space-y-1.5">
+          <label for="new-password" class="block text-[14px] leading-[20px] font-medium text-charcoal">New password</label>
+          <div class="relative">
+            <input 
+              id="new-password" 
+              type="password" 
+              placeholder="Enter a new password"
+              class="w-full h-[48px] px-3.5 pr-12 rounded-[12px] border border-borderSubtle bg-white text-[16px] text-charcoal placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[#536600] focus:border-transparent transition-all"
+            >
+            <button type="button" class="touch-target absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 text-secondary hover:text-charcoal rounded-md" aria-label="Show password">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Field 2: Confirm new password -->
+        <div class="space-y-1.5">
+          <label for="confirm-password" class="block text-[14px] leading-[20px] font-medium text-charcoal">Confirm new password</label>
+          <div class="relative">
+            <input 
+              id="confirm-password" 
+              type="password" 
+              placeholder="Enter it again"
+              class="w-full h-[48px] px-3.5 pr-12 rounded-[12px] border border-borderSubtle bg-white text-[16px] text-charcoal placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-[#536600] focus:border-transparent transition-all"
+            >
+            <button type="button" class="touch-target absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 text-secondary hover:text-charcoal rounded-md" aria-label="Show password">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="pt-3 flex items-center gap-3">
+          <button type="button" class="touch-target flex-1 h-[44px] rounded-[12px] bg-neutralBtn hover:bg-neutralBtnHover text-[14px] font-medium text-charcoal transition-colors">
+            Cancel
+          </button>
+          <!-- Disabled Save password state (disabled grey in empty state; enabled state is #D4FC30 with #121316) -->
+          <button type="button" disabled class="touch-target flex-1 h-[44px] rounded-[12px] bg-neutralBtn text-[14px] font-medium text-disabledText cursor-not-allowed transition-colors">
+            Save password
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</body>
+</html>

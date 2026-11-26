@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Morrow — Desktop Home (Cards)</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN with forms and container-queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            borderPrimary: '#E5E6EB',
+            textPrimary: '#121316',
+            textSecondary: '#5E636E',
+            textMuted: '#8E94A0',
+            accentLime: '#D4FC30',
+            selectedLime: '#F2FCD6',
+            controlQuiet: '#ECECEF',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Styles for core layout and baseline typography -->
+<style data-purpose="base-styling">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    textarea {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-textPrimary min-h-screen flex selection:bg-selectedLime selection:text-textPrimary">
+<!-- BEGIN: LeftNavigationRail -->
+<!-- Slim fixed left navigation rail matching Studio screen (64px wide, borders, vertical layout) -->
+<aside class="w-52 bg-canvas border-r border-[#E5E6EB] fixed inset-y-0 left-0 z-30 flex flex-col justify-between p-4" data-purpose="navigation-rail">
+<div class="flex flex-col gap-6 w-full">
+<!-- Top Action Row: + New idea neutral button & collapse button -->
+<div class="flex items-center justify-between gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-[#ECECEF] hover:bg-[#E2E2E5] text-[#121316] text-sm font-medium py-2 px-3 rounded-md transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>New idea</span>
+</button>
+<button aria-label="Collapse sidebar" class="p-2 text-[#5E636E] hover:text-[#121316] hover:bg-[#ECECEF] rounded-md transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Main Navigation Items with labels -->
+<nav aria-label="Main Navigation" class="flex flex-col gap-1 w-full">
+<!-- Home (active: pale lime #F2FCD6 pill and dark charcoal text #121316) -->
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2FCD6] text-[#121316] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Home</span>
+</a>
+<!-- Studio -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Studio</span>
+</a>
+<!-- Library -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Library</span>
+</a>
+<!-- Ideas -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Ideas</span>
+</a>
+<!-- Brand Brain -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M12 5v14"></path></svg>
+<span>Brand Brain</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Nav Controls: Calendar and User row 'You' -->
+<div class="flex flex-col gap-2 w-full pt-4 border-t border-[#E5E6EB]">
+<button class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors w-full text-left" type="button">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5m-6.75-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Calendar</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors w-full text-left" type="button">
+<div class="w-6 h-6 rounded-full bg-[#ECECEF] border border-[#E5E6EB] text-[#121316] text-xs font-semibold flex items-center justify-center">
+        Y
+      </div>
+<span>You</span>
+</button>
+</div>
+</aside>
+<!-- END: LeftNavigationRail -->
+<!-- BEGIN: MainContentCanvas -->
+<!-- Main content area offset by 64px rail, centered with max-width 720px -->
+<main class="flex-1 flex flex-col justify-center items-center px-6 min-h-screen pb-16 ml-52">
+<div class="w-full max-w-[720px] flex flex-col mx-auto">
+<!-- Header / Confident Greeting -->
+<header class="mb-8" data-purpose="greeting-header"><div class="text-[13px] text-[#5E636E] font-normal mb-2">Thursday · 19 Nov</div>
+<h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-[#121316] leading-tight">
+  Make something of <span class="italic font-semibold">today.</span>
+</h1></header>
+<!-- BEGIN: MainIdeaCapture -->
+<!-- Frictionless, central capture surface with acid-lime Save idea trigger -->
+<section aria-label="Quick Idea Capture" class="mb-8" data-purpose="idea-capture-box">
+<div class="bg-[#FFFFFF] border border-[#E5E6EB] rounded-xl p-5 shadow-none transition-all duration-150 focus-within:border-[#5E636E]">
+<textarea class="w-full text-lg text-[#121316] placeholder-[#5E636E] bg-transparent border-none p-0 focus:ring-0 focus:outline-none resize-none leading-relaxed min-h-[96px]" id="quick-thought-input" placeholder="What's on your mind?" rows="3"></textarea>
+<div class="flex items-center justify-between pt-3 mt-1 border-t border-[#E5E6EB]">
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#ECECEF] transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Add context</span>
+</button>
+<button class="bg-[#D4FC30] text-[#121316] font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer shadow-none" type="button">
+        Save idea
+      </button>
+</div>
+</div>
+</section>
+<!-- END: MainIdeaCapture -->
+<!-- BEGIN: ContinueSection -->
+<!-- Work-in-progress drafts and recent writing pieces -->
+<section aria-label="Quick Actions" class="grid grid-cols-3 gap-4" data-purpose="quick-action-cards"><!-- Card 1: Continue -->
+<div class="bg-[#FFFFFF] border border-[#E5E6EB] rounded-xl p-4 flex flex-col h-full cursor-pointer hover:border-[#8E94A0] transition-colors text-left group" role="button" tabindex="0">
+<div class="flex items-center gap-2 mb-2">
+<svg class="w-5 h-5 text-[#5E636E] group-hover:text-[#121316] transition-colors" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+</svg>
+<span class="text-[12px] font-medium text-[#5E636E]">Continue</span>
+</div>
+<div class="text-[14px] font-medium text-[#121316] mb-1 leading-snug">Speed vs clarity</div>
+<div class="text-[13px] text-[#5E636E] leading-relaxed line-clamp-2 mb-3 flex-1">Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start.</div>
+<div class="text-[12px] text-[#5E636E]">X · edited 2h ago</div>
+</div>
+<!-- Card 2: Revisit an idea -->
+<div class="bg-[#FFFFFF] border border-[#E5E6EB] rounded-xl p-4 flex flex-col h-full cursor-pointer hover:border-[#8E94A0] transition-colors text-left group" role="button" tabindex="0">
+<div class="flex items-center gap-2 mb-2">
+<svg class="w-5 h-5 text-[#5E636E] group-hover:text-[#121316] transition-colors" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+<path d="M9 18h6"></path>
+<path d="M10 22h4"></path>
+</svg>
+<span class="text-[12px] font-medium text-[#5E636E]">Revisit an idea</span>
+</div>
+<div class="text-[14px] font-medium text-[#121316] leading-snug line-clamp-2 mb-3 flex-1">Why tools designed for speed make thinking harder</div>
+<div class="text-[12px] text-[#5E636E]">3 days ago</div>
+</div>
+<!-- Card 3: Blank draft -->
+<div class="bg-[#FFFFFF] border border-[#E5E6EB] rounded-xl p-4 flex flex-col h-full cursor-pointer hover:border-[#8E94A0] transition-colors text-left group" role="button" tabindex="0">
+<div class="flex items-center gap-2 mb-2">
+<svg class="w-5 h-5 text-[#5E636E] group-hover:text-[#121316] transition-colors" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" viewbox="0 0 24 24">
+<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+<path d="M9 15h6"></path>
+<path d="M12 12v6"></path>
+</svg>
+<span class="text-[12px] font-medium text-[#5E636E]">Blank draft</span>
+</div>
+<div class="text-[13px] text-[#5E636E] leading-relaxed flex-1">Start writing with no idea attached</div>
+</div></section>
+<!-- END: ContinueSection -->
+<!-- BEGIN: IdeasToRevisitSection -->
+<!-- Low-friction thoughts ready for further synthesis -->
+<!-- END: IdeasToRevisitSection -->
+</div>
+</main>
+<!-- END: MainContentCanvas -->
+</body></html>

@@ -1,26 +1,2032 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:is(.dark *));
+
+/* The native Home rail owns its horizontal overflow; keep it out of the page scrollport. */
+html:has(.home-actions),
+body:has(.home-actions) {
+  overflow-x: clip;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-dm-sans), Arial, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  --font-heading: var(--font-dm-sans), Arial, sans-serif;
+  --font-display: var(--font-dm-sans), Arial, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: var(--radius-control);
+  --radius-md: var(--radius-control);
+  --radius-lg: var(--radius-row);
+  --radius-xl: var(--radius-panel);
+  --radius-2xl: var(--radius-panel);
+  --radius-3xl: var(--radius-dialog);
+  --radius-4xl: var(--radius-sheet);
+  --shadow-floating: var(--elevation-floating);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  color-scheme: light;
+  --background: #f5f5f7;
+  --foreground: #121316;
+  --card: #ffffff;
+  --card-foreground: #121316;
+  --popover: #ffffff;
+  --popover-foreground: #121316;
+  --primary: #d4fc30;
+  --primary-hover: #c7ed27;
+  --primary-foreground: #121316;
+  --secondary: #ececef;
+  --secondary-foreground: #121316;
+  --muted: #ececef;
+  --workspace-row-hover: color-mix(in oklab, var(--muted) 50%, transparent);
+  --muted-foreground: #5e636e;
+  --accent: #ececef;
+  --accent-foreground: #121316;
+  --destructive: #ba1a1a;
+  --border: #e5e6eb;
+  --border-hover: #dadde3;
+  --input: #e5e6eb;
+  --ring: #536600;
+  --chart-1: #426b35;
+  --chart-2: #555c53;
+  --chart-3: #777e73;
+  --chart-4: #b1b5ad;
+  --chart-5: #d8d9d0;
+  --radius: 10px;
+  --radius-control: 12px;
+  --radius-row: 8px;
+  --radius-panel: 16px;
+  --radius-dialog: 16px;
+  --radius-sheet: 20px;
+  --mobile-nav: #121316;
+  --mobile-selection: #2f3132;
+  --disabled-text: #8e94a0;
+  --brand: #d4fc30;
+  --brand-foreground: #121316;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #121316;
+  --sidebar-primary: #d4fc30;
+  --sidebar-primary-foreground: #121316;
+  --sidebar-accent: #f2fcd6;
+  --sidebar-accent-foreground: #121316;
+  --sidebar-border: #e5e6eb;
+  --sidebar-ring: #536600;
+  --elevation-floating: 0 12px 32px rgb(32 36 31 / 12%);
+  /* Home action card accents */
+  --home-continue-color: #6366f1;        /* indigo-500 */
+  --home-revisit-color: #d97706;         /* amber-600 (warm ochre) */
+  --home-blank-color: #0d9488;           /* teal-600 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 48px;
+  --space-9: 64px;
+  --space-10: 80px;
+  --motion-quick: 120ms;
+  --motion-standard: 180ms;
+  --motion-panel: 240ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    min-height: 100%;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100%;
+  }
+
+  input,
+  textarea {
+    caret-color: var(--foreground);
+  }
+
+  ::selection {
+    color: var(--accent-foreground);
+    background: var(--accent);
   }
 }
 
-body {
-  background: var(--background);
+/* Home capture composer: no focus ring on the card or textarea while typing.
+   Save and other controls keep their normal keyboard focus indicators.
+   Approved Home redesign: compact auto-growing field, footer separated by
+   spacing (not a rule), no added focus frame on the enclosing composer. */
+.home-capture:focus-within {
+  border-color: var(--border);
+  outline: none;
+  box-shadow: none;
+}
+.home-capture textarea,
+.home-capture textarea:focus-visible,
+.home-capture textarea[aria-invalid="true"] {
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
+.home-capture-textarea {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  field-sizing: fixed;
+}
+
+/* Phase 3 browsing surfaces. Scoped so Home and editor compositions keep their
+   approved geometry and focus behavior. */
+.collection-page {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.collection-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.collection-heading h1 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+}
+.collection-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.collection-search {
+  position: relative;
+  width: 100%;
+}
+.collection-search > svg {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 14px;
+  top: 13px;
+  color: var(--muted-foreground);
+  pointer-events: none;
+}
+.collection-search input {
+  padding-left: 40px;
+  min-height: 40px;
+  background: var(--card);
+}
+.collection-filter-segmented {
+  align-self: flex-start;
+}
+.morrow-segmented-root {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--secondary);
+}
+.morrow-segmented-track {
+  --fade-start: 0px;
+  --fade-end: 0px;
+  isolation: isolate;
+  display: flex;
+  min-width: 0;
+  gap: 2px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 3px;
+  border-radius: inherit;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--fade-start),
+    #000 calc(100% - var(--fade-end)),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--fade-start),
+    #000 calc(100% - var(--fade-end)),
+    transparent
+  );
+}
+.morrow-segmented-track::-webkit-scrollbar {
+  display: none;
+}
+.morrow-segmented-track[data-fade-start] {
+  --fade-start: 20px;
+}
+.morrow-segmented-track[data-fade-end] {
+  --fade-end: 20px;
+}
+.morrow-segmented-button {
+  position: relative;
+  flex: 0 0 auto;
+  min-height: 40px;
+  border: 0;
+  border-radius: calc(var(--radius-control) - 4px);
+  padding: 0 12px;
+  background: transparent;
+  color: var(--muted-foreground);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color var(--motion-quick) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-segmented-button:hover {
+    color: var(--foreground);
+  }
+}
+.morrow-segmented-button:active,
+.morrow-segmented-button[aria-pressed="true"] {
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+.morrow-segmented-button:focus-visible {
+  z-index: 2;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.morrow-segmented-selection {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border: 1px solid var(--border);
+  border-radius: inherit;
+  background: var(--card);
+  box-shadow: none;
+}
+.morrow-segmented-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.morrow-segmented-root[data-full-width] {
+  display: flex;
+  width: 100%;
+}
+.morrow-segmented-root[data-full-width] .morrow-segmented-track {
+  flex: 1;
+}
+.morrow-segmented-root[data-full-width] .morrow-segmented-button {
+  flex: 1 1 0;
+  min-width: max-content;
+}
+.collection-empty :is(a, button) {
+  border-color: transparent;
+  background: var(--secondary);
+}
+.collection-mobile-action {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+.collection-mobile-action svg {
+  width: 20px;
+  height: 20px;
+}
+.collection-capture {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--card);
+}
+.collection-capture textarea {
+  background: var(--background);
+}
+.collection-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 4px;
+  overflow-wrap: anywhere;
+}
+.collection-row-title {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.collection-preview {
+  margin-top: 4px;
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+.collection-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 64px 16px 48px;
+  border: 0;
+  text-align: center;
+}
+.collection-state p {
+  max-width: 480px;
+}
+.collection-empty::before {
+  content: "";
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin-bottom: 24px;
+  background: center / contain no-repeat;
+}
+.ideas-empty::before {
+  background-image: url("/illustrations/ideas-paper.svg");
+}
+.library-empty::before {
+  background-image: url("/illustrations/library-paper.svg");
+}
+.collection-state h2 {
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+}
+.collection-state p {
+  margin-top: 8px;
+  color: var(--muted-foreground);
+  font-size: 14px;
+  line-height: 22px;
+}
+.collection-skeleton {
+  width: 100%;
+  height: 64px;
+  margin-top: 24px;
+  border-radius: var(--radius-row);
+  background: var(--secondary);
+}
+.idea-detail-page {
+  width: 100%;
+  max-width: 700px;
+  margin-inline: auto;
+}
+.home-workspace {
+  container-type: inline-size;
+  container-name: home;
+  overflow-x: clip;
+}
+.home-actions {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  align-items: stretch;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  touch-action: auto;
+}
+.home-actions::-webkit-scrollbar { display: none; }
+.home-actions[data-pointer-active="true"],
+.home-actions[data-dragging="true"],
+.home-actions[data-momentum="true"],
+.home-actions[data-mouse-interaction="true"] { scroll-snap-type: none; }
+@media (pointer: fine) {
+  .home-actions { scroll-snap-type: none; }
+}
+.home-action-card {
+  display: flex;
+  min-width: 0;
+  flex: 0 0 min(82%, 280px);
+  min-height: 9rem;
+  height: auto;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background-color: var(--card);
+  padding: 16px;
+  color: inherit;
+  scroll-snap-align: start;
+}
+.home-action-card-header {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.home-action-card-title {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+.home-action-primary {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+  scroll-margin-inline: 8px;
+}
+.home-action-primary:focus-visible {
+  border-radius: 8px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.home-action-card-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+.home-action-preview {
+  display: -webkit-box;
+  flex: 0 0 auto;
+  min-width: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  white-space: normal;
+}
+.home-action-card-meta {
+  margin-top: 12px;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.home-action-card--empty { cursor: default; }
+
+/* Home action card accent colors for titles and icons */
+.home-action-card--continue:not(.home-action-card--empty) .home-action-card-title,
+.home-action-card--continue:not(.home-action-card--empty) svg { color: var(--home-continue-color); }
+
+.home-action-card--idea:not(.home-action-card--empty) .home-action-card-title,
+.home-action-card--idea:not(.home-action-card--empty) svg { color: var(--home-revisit-color); }
+
+.home-action-card--blank .home-action-card-title,
+.home-action-card--blank svg { color: var(--home-blank-color); }
+.home-action-card--actionable {
+  cursor: pointer;
+  transition:
+    border-color var(--motion-quick, 120ms) var(--ease-standard, ease);
+}
+.home-action-card--actionable .home-action-primary,
+.home-action-card--actionable .home-action-secondary-link { cursor: pointer; }
+@media (pointer: fine) {
+  @container home (max-width: 719px) {
+    .home-actions[data-overflowing="true"] { cursor: grab; }
+    .home-actions[data-overflowing="true"] .home-action-card--actionable { cursor: grab; }
+    .home-actions[data-overflowing="true"] .home-action-primary,
+    .home-actions[data-overflowing="true"] .home-action-secondary-link { cursor: grab; }
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-action-card--actionable:hover:not(:is(.home-actions[data-pointer-active="true"] *, .home-actions[data-dragging="true"] *, .home-actions[data-momentum="true"] *)) {
+    border-color: var(--border-hover);
+    background-color: var(--card);
+    transform: translateY(-1px);
+  }
+}
+.home-actions[data-pointer-active="true"] .home-action-card--actionable,
+.home-actions[data-dragging="true"] .home-action-card--actionable,
+.home-actions[data-momentum="true"] .home-action-card--actionable { transform: none; transition: none; }
+.home-actions[data-keyboard-reveal="true"] { scroll-snap-type: none; }
+.home-actions[data-dragging="true"],
+.home-actions[data-dragging="true"] * {
+  cursor: grabbing;
+  user-select: none;
+}
+.home-action-secondary-link {
+  display: inline-flex;
+  min-height: 44px;
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-decoration: none;
+}
+.home-action-secondary-link:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+@container home (min-width: 720px) {
+  .home-actions {
+    display: grid;
+    width: calc(100% - 32px);
+    margin-inline: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .home-action-card { flex: initial; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-action-card--actionable { transition: none; }
+  .home-action-card--actionable:hover { transform: none; }
+}
+.idea-detail-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.morrow-breadcrumb {
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+.morrow-breadcrumb ol {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  line-height: 18px;
+}
+.morrow-breadcrumb li {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+.morrow-breadcrumb li:first-child {
+  flex: none;
+}
+.morrow-breadcrumb li:last-child {
+  overflow: hidden;
+  color: var(--foreground);
+  font-weight: 500;
+  text-overflow: ellipsis;
+}
+.morrow-breadcrumb li:last-child > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .idea-detail-toolbar .morrow-breadcrumb li:last-child {
+    white-space: normal;
+  }
+  .idea-detail-toolbar .morrow-breadcrumb li:last-child > span {
+    display: block;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    white-space: normal;
+  }
+}
+.morrow-breadcrumb li > svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--muted-foreground);
+  stroke-width: 1.75;
+}
+.morrow-breadcrumb a {
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+.morrow-breadcrumb a:hover {
+  color: var(--foreground);
+}
+.morrow-breadcrumb a:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.idea-detail-toolbar-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-left: auto;
+}
+.idea-detail-footer-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+.morrow-copy-button {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  min-height: 38px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: 0 13px;
+  background: var(--surface);
+  color: var(--foreground);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-spring) var(--ease-spring);
+}
+.morrow-copy-button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.morrow-copy-button:active:not(:disabled) {
+  transform: scale(0.97);
+  transition-duration:
+    var(--duration-fast), var(--duration-fast), var(--duration-fast),
+    var(--duration-instant);
+  transition-timing-function: var(--ease-standard);
+}
+.morrow-copy-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.morrow-copy-button--plain {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted-foreground);
+}
+.morrow-copy-button__icon {
+  position: relative;
+  display: grid;
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.morrow-copy-button__icon-inner {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.morrow-copy-button__icon-inner[data-state="copied"] {
+  color: var(--success);
+}
+.morrow-copy-button__icon-inner[data-state="error"] {
+  color: var(--danger);
+}
+.morrow-copy-button__label {
+  display: grid;
+  width: max-content;
+  min-width: max-content;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  text-align: left;
+  white-space: nowrap;
+}
+.morrow-copy-button__measure,
+.morrow-copy-button__glyphs {
+  grid-area: 1 / 1;
+}
+.morrow-copy-button__measure {
+  visibility: hidden;
+}
+.morrow-copy-button__glyphs {
+  position: relative;
+  display: inline-flex;
+  justify-self: start;
+  white-space: pre;
+}
+.morrow-copy-button__glyph {
+  display: inline-block;
+}
+.morrow-copy-button--icon-only {
+  width: var(--control-height-sm);
+  padding: 0;
+}
+.morrow-copy-button__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-copy-button:hover:not(:disabled) {
+    border-color: var(--input);
+    background: var(--muted);
+  }
+  .morrow-copy-button--plain:hover:not(:disabled) {
+    border-color: transparent;
+    background: var(--muted);
+    color: var(--foreground);
+  }
+}
+@media (max-width: 767px) {
+  .idea-detail-copy-button {
+    min-height: 44px;
+    padding-inline: 13px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-copy-button {
+    transition: none;
+  }
+  .morrow-copy-button:active:not(:disabled) {
+    transform: none;
+  }
+}
+.idea-original {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--card);
+}
+.idea-text-field {
+  border-color: transparent;
+  background: var(--card);
+  padding: 0;
+  font-size: 17px;
+  line-height: 26px;
+  min-height: 104px;
+  field-sizing: content;
+}
+.idea-captured {
+  flex-wrap: wrap;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 18px;
+}
+.idea-develop-action {
+  width: 100%;
+}
+@media (max-width: 767px) {
+  .collection-page {
+    margin-top: -24px;
+  }
+  /* Keep first-use copy clear of the fixed mobile destination bar after Quick capture. */
+  .collection-state.collection-empty {
+    padding-top: 24px;
+  }
+  .collection-empty::before {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 16px;
+  }
+  .collection-filter-segmented {
+    align-self: stretch;
+  }
+  .morrow-segmented-button {
+    min-height: 44px;
+  }
+}
+@media (min-width: 768px) {
+  .collection-page {
+    padding-top: 80px;
+  }
+  .morrow-segmented-root[data-full-width] {
+    display: inline-flex;
+    width: auto;
+  }
+  .morrow-segmented-root[data-full-width] .morrow-segmented-track {
+    flex: 0 1 auto;
+  }
+  .morrow-segmented-root[data-full-width] .morrow-segmented-button {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  .collection-preview {
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+  .idea-original {
+    padding: 32px;
+  }
+  .idea-develop-action {
+    width: auto;
+  }
+}
+
+@media (pointer: coarse) {
+  .morrow-segmented-button {
+    min-height: 44px;
+  }
+  [data-slot="button"] {
+    min-height: 44px;
+  }
+
+  [data-slot="button"].size-8,
+  [data-slot="button"].size-9,
+  [data-slot="button"].size-10,
+  [data-slot="button"].size-11 {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+  }
+
+  [data-slot="theme-select"] {
+    min-height: 44px;
+  }
+
+  [data-slot="input"],
+  [data-slot="select"] {
+    min-height: 44px;
+  }
+}
+@media (max-width: 380px) {
+  .morrow-segmented-button {
+    padding-inline: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-segmented-button {
+    transition: none;
+  }
+}
+
+/* Desktop sidebar: 240px expanded / 72px collapsed; width from bootstrap avoids jump */
+.app-sidebar {
+  width: 240px;
+}
+html[data-sidebar-collapsed="true"] .app-sidebar,
+.app-sidebar[data-collapsed="true"] {
+  width: 72px;
+}
+.app-sidebar-ready {
+  transition: width 160ms var(--ease-standard, cubic-bezier(0.23, 1, 0.32, 1));
+}
+.sidebar-collapse-toggle[aria-expanded] {
+  background-color: transparent;
+  color: var(--muted-foreground);
+}
+.sidebar-collapse-toggle[aria-expanded]:hover {
+  background-color: var(--muted);
+  color: var(--foreground);
+}
+.sidebar-edge-rail {
+  position: absolute;
+  z-index: 35;
+  top: 0;
+  right: -3px;
+  bottom: 0;
+  width: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: ew-resize;
+  -webkit-tap-highlight-color: transparent;
+}
+.sidebar-edge-rail::after {
+  position: absolute;
+  inset: 0 2px;
+  background: var(--sidebar-accent);
+  content: "";
+  opacity: 0;
+  transition: opacity var(--motion-quick) var(--ease-standard);
+}
+.sidebar-edge-rail:hover::after {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-edge-rail::after {
+    transition: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar-ready {
+    transition: none;
+  }
+}
+.sidebar-tooltip {
+  position: absolute;
+  left: calc(100% + 10px);
+  z-index: 30;
+  display: none;
+  padding: 6px 10px;
+  border-radius: var(--radius-control);
+  background: var(--foreground);
+  color: var(--background);
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.app-sidebar[data-collapsed="true"] a:hover .sidebar-tooltip,
+.app-sidebar[data-collapsed="true"] a:focus-visible .sidebar-tooltip,
+.app-sidebar[data-collapsed="true"] .sidebar-new-idea:hover .sidebar-tooltip,
+.app-sidebar[data-collapsed="true"]
+  .sidebar-new-idea:focus-visible
+  .sidebar-tooltip,
+.app-sidebar .sidebar-collapse-toggle:hover .sidebar-tooltip,
+.app-sidebar .sidebar-collapse-toggle:focus-visible .sidebar-tooltip {
+  display: block;
+}
+
+.workspace-list-row {
+  background-color: transparent;
+}
+.workspace-list-row:hover:not(:focus-visible) {
+  background-color: var(--workspace-row-hover);
+}
+
+.morrow-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+.morrow-dialog-actions > button {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.morrow-capture-dialog {
+  width: min(calc(100vw - 48px), 520px);
+  border-radius: var(--radius-dialog);
+}
+.morrow-capture-sheet {
+  max-height: 92dvh;
+}
+.idea-capture-form {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: max(4px, env(safe-area-inset-bottom));
+}
+.idea-capture-field {
+  /* Keep the textarea's outward focus ring inside the scrolling dialog body. */
+  padding-inline: 4px;
+}
+.idea-capture-textarea {
+  min-height: 144px;
+  max-height: min(44dvh, 360px);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--card);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.idea-capture-textarea:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.morrow-toast-viewport {
+  z-index: 90;
+  --surface: var(--card);
+  --surface-raised: var(--card);
+  --surface-muted: var(--secondary);
+  --success: var(--chart-1);
+  --info: var(--ring);
+  --warning: var(--muted-foreground);
+  --danger: var(--destructive);
+  --shadow-raised: var(--elevation-floating);
+  --shadow-resting: var(--elevation-floating);
+  --fade-start: var(--card);
+  --fade-end: transparent;
+}
+.morrow-uia-alert-alert {
+  --surface: var(--card);
+  --surface-raised: var(--card);
+  --surface-muted: var(--secondary);
+  --text-secondary: var(--muted-foreground);
+  --text-muted: var(--muted-foreground);
+  --text-primary: var(--foreground);
+  --danger: var(--destructive);
+  --shadow-resting: var(--elevation-floating);
+  --success: var(--chart-1);
+  --warning: var(--muted-foreground);
+  --info: var(--ring);
+}
+.morrow-uia-dialog-content,
+.morrow-uia-bottom-sheet-sheet {
+  --surface-raised: var(--card);
+  --surface-muted: var(--secondary);
+  --text-secondary: var(--muted-foreground);
+  --text-muted: var(--muted-foreground);
+  --text-primary: var(--foreground);
+  --shadow-floating: var(--elevation-floating);
+  --radius-pill: 9999px;
+  --font-body: var(--font-dm-sans), Arial, sans-serif;
+  --text-lg: 18px;
+  --text-sm: 14px;
+  --leading-body: 1.5;
+  --duration-instant: var(--motion-quick);
+  --duration-fast: var(--motion-quick);
+  --duration-standard: var(--motion-standard);
+  --duration-exit: var(--motion-standard);
+  --duration-spring: var(--motion-panel);
+  --ease-enter: var(--ease-standard);
+  --ease-spring: var(--ease-standard);
+}
+.morrow-uia-toast-stack-viewport {
+  --duration-instant: var(--motion-quick);
+  --duration-fast: var(--motion-quick);
+  --duration-standard: var(--motion-standard);
+  --duration-exit: var(--motion-standard);
+  --duration-spring: var(--motion-panel);
+  --ease-enter: var(--ease-standard);
+  --ease-spring: var(--ease-standard);
+}
+@media (max-width: 767px) {
+  .morrow-toast-viewport {
+    right: 16px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    left: 16px;
+    width: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-capture-dialog,
+  .morrow-capture-sheet {
+    scroll-behavior: auto;
+  }
+}
+/* UIArc sources adapted to Morrow light-neutral/lime tokens; no stock foundation imported. */
+/* Scoped token aliases for the approved UIArc overlays and feedback components. */
+.morrow-uia-dialog-content,
+.morrow-uia-bottom-sheet-sheet,
+.morrow-uia-alert-alert,
+.morrow-uia-toast-stack-viewport {
+  --text-lg: 18px;
+  --text-sm: 14px;
+  --text-xs: 12px;
+  --leading-body: 1.5;
+}
+/* UIArc dialog source adapted under MIT; https://uiarc.dev/components/dialog */
+.morrow-uia-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: oklch(10% 0 0 / 0.46);
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(7px);
+}
+/* Centered with auto margins (like a native modal dialog) so transform stays free for the entrance spring.
+   Body scrolls under a fixed header; short confirms stay one padded block without a divider. */
+.morrow-uia-dialog-content {
+  position: fixed;
+  z-index: 51;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(calc(100vw - var(--space-8)), 440px);
+  height: fit-content;
+  max-height: calc(100vh - var(--space-8));
+  max-height: calc(100dvh - var(--space-8));
+  margin: auto;
+  overflow: hidden;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-dialog);
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--elevation-floating);
+}
+/* Motion animates both layers. Keyframes only run when DialogContent sits under a bare Radix root. */
+.morrow-uia-dialog-keyframes.morrow-uia-dialog-overlay[data-state="open"] {
+  animation: overlay-in var(--motion-standard) var(--ease-standard) both;
+}
+.morrow-uia-dialog-keyframes.morrow-uia-dialog-overlay[data-state="closed"] {
+  animation: overlay-out var(--motion-quick) var(--ease-standard) both;
+}
+.morrow-uia-dialog-keyframes.morrow-uia-dialog-content[data-state="open"] {
+  animation:
+    content-fade-in var(--motion-quick) var(--ease-standard) both,
+    content-rise-in var(--duration-spring) var(--ease-spring) both;
+}
+.morrow-uia-dialog-keyframes.morrow-uia-dialog-content[data-state="closed"] {
+  animation: content-out var(--motion-quick) var(--ease-standard) both;
+}
+.morrow-uia-dialog-content:focus {
+  outline: none;
+}
+/* While the layers leave, clicks pass through, so the trigger can reopen the dialog mid-exit. Radix sets pointer-events inline on the overlay. */
+.morrow-uia-dialog-overlay[data-state="closed"],
+.morrow-uia-dialog-content[data-state="closed"] {
+  pointer-events: none !important;
+}
+.morrow-uia-dialog-header {
+  position: relative;
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-5);
+  padding: 0;
+}
+/* Hairline only once body content scrolls under the header (same idea as the bottom sheet). */
+.morrow-uia-dialog-header::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--border);
+  content: "";
+  opacity: 0;
+  transition: opacity var(--motion-quick) var(--ease-standard);
+}
+.morrow-uia-dialog-content[data-scrolled] .morrow-uia-dialog-header::after {
+  opacity: 1;
+}
+/* Transfer outer padding to the header and body only after scrolling begins. */
+.morrow-uia-dialog-content[data-scrolled] {
+  padding: 0;
+}
+.morrow-uia-dialog-content[data-scrolled] .morrow-uia-dialog-header {
+  padding: var(--space-6) var(--space-6) 0;
+}
+.morrow-uia-dialog-title {
+  margin: 0;
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: var(--leading-body);
+}
+.morrow-uia-dialog-description {
+  margin: var(--space-2) 0 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.morrow-uia-dialog-title,
+.morrow-uia-dialog-description {
+  position: relative;
+  overflow-wrap: anywhere;
+}
+.morrow-uia-dialog-swap {
+  display: block;
+}
+/* Line height sits on the text itself, so a page-level heading reset cannot shrink the title and pull the close button off its line. */
+.morrow-uia-dialog-title .morrow-uia-dialog-swap {
+  line-height: var(--leading-body);
+}
+/* A compact icon button: quick press, spring release. The negative margin centres it on the title's first line. */
+.morrow-uia-dialog-close {
+  flex: 0 0 auto;
+  margin-block: calc((var(--text-lg) * var(--leading-body) - 2rem) / 2);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: color-mix(in oklab, var(--secondary) 50%, transparent);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition:
+    background-color var(--motion-quick) var(--ease-standard),
+    color var(--motion-quick) var(--ease-standard),
+    transform var(--duration-spring) var(--ease-spring);
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-uia-dialog-close:hover {
+    background: var(--secondary);
+    color: var(--foreground);
+  }
+}
+.morrow-uia-dialog-close:active {
+  transform: scale(0.96);
+  transition:
+    background-color var(--motion-quick) var(--ease-standard),
+    color var(--motion-quick) var(--ease-standard),
+    transform var(--duration-instant) var(--ease-standard);
+}
+.morrow-uia-dialog-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--space-4) 0 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.morrow-uia-dialog-content[data-scrolled] .morrow-uia-dialog-body {
+  padding: var(--space-4) var(--space-6) var(--space-6);
+}
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes overlay-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes content-rise-in {
+  from {
+    transform: translateY(8px) scale(0.96);
+  }
+}
+@keyframes content-out {
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+@keyframes content-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+/* The close button stays 32px (2rem, not a spacing token, so the compact density never shrinks it); on touch an invisible ring makes the target 40px. */
+@media (pointer: coarse) {
+  .morrow-uia-dialog-close {
+    position: relative;
+  }
+  .morrow-uia-dialog-close::after {
+    position: absolute;
+    inset: -4px;
+    content: "";
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-uia-dialog-keyframes.morrow-uia-dialog-overlay[data-state="open"],
+  .morrow-uia-dialog-keyframes.morrow-uia-dialog-content[data-state="open"] {
+    animation: overlay-in var(--duration-instant) var(--ease-standard) both;
+  }
+  .morrow-uia-dialog-keyframes.morrow-uia-dialog-overlay[data-state="closed"] {
+    animation: overlay-out var(--duration-instant) var(--ease-standard) both;
+  }
+  .morrow-uia-dialog-keyframes.morrow-uia-dialog-content[data-state="closed"] {
+    animation: content-fade-out var(--duration-instant) var(--ease-standard)
+      both;
+  }
+  .morrow-uia-dialog-header::after,
+  .morrow-uia-dialog-close,
+  .morrow-uia-dialog-close:active {
+    transition: none;
+  }
+  .morrow-uia-dialog-close:active {
+    transform: none;
+  }
+}
+
+/* UIArc bottom-sheet source adapted under MIT; https://uiarc.dev/components/bottom-sheet */
+/* The dim follows the sheet's position in JS; only its color lives here. */
+.morrow-uia-bottom-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: oklch(16% 0 0 / 0.34);
+}
+.dark .morrow-uia-bottom-sheet-overlay {
+  background: oklch(0% 0 0 / 0.52);
+}
+/* While it leaves, nothing underneath is blocked and the sheet cannot be grabbed again.
+   Radix sets pointer-events: auto inline on the overlay, so only !important lets a click reach the trigger and reverse the exit. */
+.morrow-uia-bottom-sheet-overlay[data-state="closed"],
+.morrow-uia-bottom-sheet-sheet[data-state="closed"] {
+  pointer-events: none !important;
+}
+
+/* The sheet is as tall as its largest detent plus a hidden extension below the fold; detents are translateY offsets from there. */
+.morrow-uia-bottom-sheet-sheet {
+  position: fixed;
+  z-index: 51;
+  right: 0;
+  bottom: calc(var(--sheet-extension) * -1);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 36rem);
+  height: calc(var(--sheet-max) * 100vh + var(--sheet-extension));
+  height: calc(var(--sheet-max) * 100dvh + var(--sheet-extension));
+  margin-inline: auto;
+  overflow: hidden;
+  padding-bottom: calc(
+    var(--sheet-extension) + env(safe-area-inset-bottom, 0px)
+  );
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--elevation-floating);
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  letter-spacing: normal;
+  outline: none;
+  will-change: transform;
+}
+
+/* The whole header is the handle, so a drag can start anywhere above the content. */
+.morrow-uia-bottom-sheet-header {
+  position: relative;
+  flex: none;
+  padding: var(--space-2) var(--space-5) var(--space-4);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.morrow-uia-bottom-sheet-sheet[data-dragging] .morrow-uia-bottom-sheet-header {
+  cursor: grabbing;
+}
+/* A hairline appears only once the content scrolls under the header. */
+.morrow-uia-bottom-sheet-header::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--border);
+  content: "";
+  opacity: 0;
+  transition: opacity var(--motion-quick) var(--ease-standard);
+}
+.morrow-uia-bottom-sheet-sheet[data-scrolled]
+  .morrow-uia-bottom-sheet-header::after {
+  opacity: 1;
+}
+
+.morrow-uia-bottom-sheet-grabber {
+  display: flex;
+  width: 3.5rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-1);
+  padding: 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  cursor: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.morrow-uia-bottom-sheet-grabberBar {
+  width: 2.25rem;
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--input);
+  transition: background-color var(--motion-quick) var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-uia-bottom-sheet-grabber:hover .morrow-uia-bottom-sheet-grabberBar {
+    background: var(--muted-foreground);
+  }
+}
+.morrow-uia-bottom-sheet-sheet[data-dragging]
+  .morrow-uia-bottom-sheet-grabberBar {
+  background: var(--muted-foreground);
+}
+
+.morrow-uia-bottom-sheet-headRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.morrow-uia-bottom-sheet-headText {
+  min-width: 0;
+}
+.morrow-uia-bottom-sheet-title {
+  margin: 0;
+  font-family: var(--font-dm-sans), Arial, sans-serif;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  letter-spacing: normal;
+  line-height: var(--leading-body);
+}
+.morrow-uia-bottom-sheet-description {
+  margin: 2px 0 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.morrow-uia-bottom-sheet-close {
+  display: grid;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  margin-top: -2px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  background: var(--secondary);
+  color: var(--muted-foreground);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--motion-quick) var(--ease-standard),
+    color var(--motion-quick) var(--ease-standard),
+    transform var(--motion-quick) var(--ease-standard);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .morrow-uia-bottom-sheet-close:active {
+    transform: scale(0.96);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-uia-bottom-sheet-close:hover {
+    color: var(--foreground);
+    border-color: var(--input);
+  }
+}
+.morrow-uia-bottom-sheet-close:active {
+  color: var(--foreground);
+}
+
+/* The content scrolls only at the tallest detent; below it, a drag or scroll opens the sheet first. */
+.morrow-uia-bottom-sheet-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--space-1) var(--space-5) var(--space-6);
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  touch-action: pan-y;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.morrow-uia-bottom-sheet-sheet:not([data-expanded])
+  .morrow-uia-bottom-sheet-body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+.morrow-uia-bottom-sheet-srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .morrow-uia-bottom-sheet-header {
+    padding-inline: var(--space-4);
+  }
+  .morrow-uia-bottom-sheet-body {
+    padding-inline: var(--space-4);
+  }
+}
+
+/* Keep capture actions anchored to the mobile sheet footer and give each action
+   its own predictable touch target on narrow screens. */
+@media (max-width: 40rem) {
+  .morrow-capture-sheet .morrow-uia-bottom-sheet-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .morrow-capture-sheet .idea-capture-form {
+    flex: 1 0 auto;
+  }
+
+  .morrow-capture-sheet .idea-capture-actions {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    margin-top: auto;
+    padding-top: var(--space-4);
+  }
+
+  .morrow-capture-sheet .idea-capture-actions > p {
+    margin: 0;
+  }
+
+  .morrow-capture-sheet .idea-capture-actions > div {
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    gap: var(--space-3);
+  }
+
+  .morrow-capture-sheet .idea-capture-actions > div > button {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+}
+
+/* The close button is a quiet icon button beside the title, centred on its first line, with an invisible ring for a 40px touch target.
+   The comfortable density keeps the earlier bordered chip. */
+:root:not([data-arc-density="comfortable"]) .morrow-uia-bottom-sheet-close {
+  position: relative;
+  margin-top: calc((var(--text-lg) * 1.4 - 2rem) / 2);
+  margin-right: -6px;
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted-foreground);
+}
+:root:not([data-arc-density="comfortable"])
+  .morrow-uia-bottom-sheet-close:active {
+  background: var(--secondary);
+  color: var(--foreground);
+}
+:root:not([data-arc-density="comfortable"])
+  .morrow-uia-bottom-sheet-close::after {
+  position: absolute;
+  inset: -4px;
+  content: "";
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morrow-uia-bottom-sheet-header::after,
+  .morrow-uia-bottom-sheet-grabberBar,
+  .morrow-uia-bottom-sheet-close {
+    transition: none;
+  }
+}
+
+/* UIArc alert source adapted under MIT; https://uiarc.dev/components/alert */
+.morrow-uia-alert-presence {
+  min-width: 0;
+}
+.morrow-uia-alert-alert {
+  display: flex;
+  align-items: start;
+  gap: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: var(--space-4);
+  background: var(--surface);
+  box-shadow: var(--shadow-resting);
+}
+.morrow-uia-alert-icon,
+.morrow-uia-alert-glyph {
+  position: relative;
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+}
+.morrow-uia-alert-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+}
+.morrow-uia-alert-icon svg {
+  display: block;
+}
+.morrow-uia-alert-copy {
+  flex: 1;
+  min-width: 0;
+}
+.morrow-uia-alert-content {
+  position: relative;
+}
+.morrow-uia-alert-title {
+  position: relative;
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+.morrow-uia-alert-line {
+  display: block;
+}
+.morrow-uia-alert-description {
+  position: relative;
+  margin: var(--space-1) 0 0;
+  color: var(--muted-foreground);
+  font-size: var(--text-xs);
+}
+.morrow-uia-alert-info .morrow-uia-alert-icon {
+  color: var(--info, var(--accent));
+}
+.morrow-uia-alert-success .morrow-uia-alert-icon {
+  color: var(--success);
+}
+.morrow-uia-alert-warning .morrow-uia-alert-icon {
+  color: var(--warning);
+}
+.morrow-uia-alert-danger .morrow-uia-alert-icon {
+  color: var(--danger);
+}
+.morrow-uia-alert-dismiss {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  margin: -5px -6px -5px 0;
+  border: 0;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition:
+    transform var(--duration-spring) var(--ease-spring),
+    background-color var(--motion-quick) var(--ease-standard),
+    color var(--motion-quick) var(--ease-standard);
+}
+.morrow-uia-alert-dismiss:active {
+  transform: scale(0.96);
+  transition-duration: var(--duration-instant);
+  transition-timing-function: var(--ease-standard);
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-uia-alert-dismiss:hover {
+    background: var(--secondary);
+    color: var(--foreground);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-uia-alert-dismiss {
+    transition: none;
+  }
+  .morrow-uia-alert-dismiss:active {
+    transform: none;
+  }
+}
+
+/* AnimatePresence pops the outgoing .morrow-uia-alert-description out of flow at its measured offset; its margin would then move it as it leaves. */
+.morrow-uia-alert-description[data-motion-pop-id] {
+  margin: 0;
+}
+
+/* UIArc toast-stack source adapted under MIT; https://uiarc.dev/components/toast-stack */
+/* The region only holds the list; it never blocks clicks outside the toasts themselves. */
+.morrow-uia-toast-stack-viewport {
+  position: fixed;
+  z-index: 60;
+  bottom: var(--space-6);
+  width: min(22.5rem, calc(100% - var(--space-8)));
+  pointer-events: none;
+}
+.morrow-uia-toast-stack-bottom-right {
+  right: var(--space-6);
+}
+.morrow-uia-toast-stack-bottom-left {
+  left: var(--space-6);
+}
+.morrow-uia-toast-stack-bottom-center {
+  right: 0;
+  left: 0;
+  margin-inline: auto;
+}
+.morrow-uia-toast-stack-contained {
+  position: absolute;
+  z-index: 2;
+  bottom: var(--space-4);
+}
+.morrow-uia-toast-stack-contained.morrow-uia-toast-stack-bottom-right {
+  right: var(--space-4);
+}
+.morrow-uia-toast-stack-contained.morrow-uia-toast-stack-bottom-left {
+  left: var(--space-4);
+}
+@media (max-width: 30rem) {
+  .morrow-uia-toast-stack-viewport:not(.morrow-uia-toast-stack-contained) {
+    right: 0;
+    bottom: var(--space-4);
+    left: 0;
+    margin-inline: auto;
+  }
+}
+
+/* Toasts hang from the bottom of the list. Its height covers the gaps between open toasts, so hover survives the space between them. */
+.morrow-uia-toast-stack-list {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  pointer-events: auto;
+}
+/* Tucked toasts scale from their top edge, so exactly the peek shows above the toast in front. */
+.morrow-uia-toast-stack-item {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform-origin: 50% 0;
+}
+.morrow-uia-toast-stack-card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--card);
+  color: var(--foreground);
+  box-shadow: var(--shadow-raised);
+  container-type: inline-size;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color var(--motion-standard) var(--ease-standard),
+    border-color var(--motion-standard) var(--ease-standard);
+}
+.morrow-uia-toast-stack-item[data-front="true"] .morrow-uia-toast-stack-card,
+.morrow-uia-toast-stack-item[data-expanded="true"]
+  .morrow-uia-toast-stack-card {
+  box-shadow: var(--elevation-floating);
+}
+/* Tucked toasts sit a step back in tone as well as scale. */
+.morrow-uia-toast-stack-item[data-front="false"][data-expanded="false"]
+  .morrow-uia-toast-stack-card {
+  background: var(--secondary);
+}
+.morrow-uia-toast-stack-card[data-dragging] {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.morrow-uia-toast-stack-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+}
+.morrow-uia-toast-stack-icon {
+  position: relative;
+  display: grid;
+  width: 18px;
+  height: 20px;
+  flex: none;
+  place-items: center;
+  color: var(--muted-foreground);
+  transition: color var(--motion-quick) var(--ease-standard);
+}
+.morrow-uia-toast-stack-icon[data-type="success"] {
+  color: var(--success);
+}
+.morrow-uia-toast-stack-icon[data-type="info"] {
+  color: var(--info, var(--accent));
+}
+.morrow-uia-toast-stack-icon[data-type="warning"] {
+  color: var(--warning);
+}
+.morrow-uia-toast-stack-icon[data-type="error"] {
+  color: var(--danger);
+}
+.morrow-uia-toast-stack-glyph {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+.morrow-uia-toast-stack-glyph svg {
+  display: block;
+}
+/* The spinner turns only while something is loading; the icon swap is its stop. */
+.morrow-uia-toast-stack-spinner {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1.75px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 9999px;
+  animation: spin 0.8s linear infinite;
+}
+
+.morrow-uia-toast-stack-copy {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  font-size: var(--text-sm);
+  letter-spacing: normal;
+  line-height: 20px;
+}
+.morrow-uia-toast-stack-title {
+  position: relative;
+  display: block;
+  font-weight: 500;
+}
+.morrow-uia-toast-stack-line {
+  display: block;
+}
+.morrow-uia-toast-stack-description {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted-foreground);
+}
+
+/* Clips only while its width folds, so the focus ring stays whole at rest. */
+.morrow-uia-toast-stack-actionSlot {
+  display: flex;
+  flex: none;
+  justify-content: flex-end;
+  margin-top: -4px;
+}
+.morrow-uia-toast-stack-actionSlot[data-moving="true"] {
+  overflow: hidden;
+}
+.morrow-uia-toast-stack-action,
+.morrow-uia-toast-stack-close {
+  flex: none;
+  border: 1px solid transparent;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    scale var(--duration-spring) var(--ease-spring),
+    background-color var(--motion-quick) var(--ease-standard),
+    border-color var(--motion-quick) var(--ease-standard),
+    color var(--motion-quick) var(--ease-standard);
+}
+.morrow-uia-toast-stack-action {
+  height: 28px;
+  padding: 0 var(--space-3);
+  border-color: var(--border);
+  border-radius: 9999px;
+  background: var(--surface);
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.morrow-uia-toast-stack-close {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  margin: -4px -2px 0 0;
+  place-items: center;
+  border-radius: 9999px;
+  background: transparent;
+  color: var(--muted-foreground);
+}
+@media (hover: hover) and (pointer: fine) {
+  .morrow-uia-toast-stack-action:hover {
+    border-color: var(--input);
+    background: var(--secondary);
+  }
+  .morrow-uia-toast-stack-close:hover {
+    background: var(--secondary);
+    color: var(--foreground);
+  }
+}
+/* Quick press, spring release. */
+.morrow-uia-toast-stack-action:active,
+.morrow-uia-toast-stack-close:active {
+  scale: 0.96;
+  transition-duration: var(--duration-instant);
+  transition-timing-function: var(--ease-standard);
+}
+/* A narrow toast keeps its copy wide: the action drops under the copy instead of squeezing it. */
+@container (max-width: 21rem) {
+  .morrow-uia-toast-stack-content {
+    flex-wrap: wrap;
+    row-gap: var(--space-2);
+  }
+  .morrow-uia-toast-stack-actionSlot {
+    order: 1;
+    flex-basis: 100%;
+    justify-content: flex-start;
+    margin-top: 0;
+    padding-left: calc(18px + var(--space-3));
+  }
+}
+.morrow-uia-toast-stack-srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .morrow-uia-toast-stack-card,
+  .morrow-uia-toast-stack-icon,
+  .morrow-uia-toast-stack-action,
+  .morrow-uia-toast-stack-close {
+    transition: none;
+  }
+  .morrow-uia-toast-stack-action:active,
+  .morrow-uia-toast-stack-close:active {
+    scale: none;
+  }
+  .morrow-uia-toast-stack-spinner {
+    animation: none;
+  }
+}
+
+/* Final component-specific overrides follow the imported UIArc source rules. */
+.morrow-uia-dialog-overlay,
+.morrow-uia-bottom-sheet-overlay {
+  --duration-instant: var(--motion-quick);
+  --duration-spring: var(--motion-panel);
+  --ease-spring: var(--ease-standard);
+}
+.morrow-uia-dialog-content.morrow-capture-dialog {
+  width: min(calc(100vw - 48px), 520px);
+  border-radius: var(--radius-dialog);
+}
+.morrow-uia-bottom-sheet-sheet.morrow-capture-sheet {
+  max-height: calc(92dvh + var(--sheet-extension));
+}
+@media (max-height: 600px) {
+  .morrow-uia-bottom-sheet-sheet.morrow-capture-sheet {
+    max-height: calc(70dvh + var(--sheet-extension));
+  }
+}
+.morrow-uia-toast-stack-viewport.morrow-toast-viewport {
+  z-index: 49;
+}
+@media (min-width: 768px) {
+  .morrow-uia-toast-stack-viewport.morrow-toast-viewport {
+    right: 32px;
+    bottom: 32px;
+    left: auto;
+    width: min(360px, calc(100% - 48px));
+    margin-inline: 0;
+  }
+}
+@media (max-width: 767px) {
+  .morrow-uia-toast-stack-viewport.morrow-toast-viewport {
+    right: 16px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    left: 16px;
+    width: auto;
+    margin-inline: 0;
+  }
 }

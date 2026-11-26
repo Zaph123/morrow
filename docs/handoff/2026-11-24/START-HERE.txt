@@ -1,0 +1,77 @@
+MORROW — CODEX HANDOFF · REVISION 5
+24 November 2026 · Africa/Lagos
+
+STATUS
+This is the current curated handoff, including revision 3 UIArc guidance and a
+review of the uploaded repository snapshot. This review did not change application
+source or inspect the live IDE, Git state, browser or Supabase configuration.
+The user has created a Supabase project; app integration remains unverified.
+Codex works in approved bounded phases, not with full autonomous control.
+Maintained copies live under docs/handoff/2026-11-24/ (current/ for active
+contracts; historical-context/ for packet provenance). Stitch sources live under
+artifacts/references/stitch/.
+
+WHAT WAS REVIEWED
+The user's whole Stitch ZIP: 94 HTML screen exports, 105 PNGs and two DESIGN.md
+files. All 94 screen sources were statically inventoried; all 94 paired PNGs
+were inspected in labelled contact sheets, with key defects opened separately.
+The 11 PNG-only inspiration folders were catalogued, not promoted to screens.
+No live interaction or accessibility conformance audit was performed.
+
+READ THESE CURRENT FILES FIRST
+1. current/CODEX-COLLABORATION.txt — the user's limited-autonomy working preference.
+2. current/REPOSITORY-REVIEW.txt — snapshot findings (with Phase 1 correction note).
+3. current/PERSISTENCE-AND-MIGRATION.txt — proposed cloud/local boundary and safe import.
+4. Root DESIGN.md — approved light neutral/lime/DM Sans visual system.
+5. current/ENVIRONMENT-SETUP.txt + root .env.sample — Supabase configuration contract.
+6. current/NEXT-CODEX-PROMPT.txt — next bounded-phase prompt.
+
+THEN READ THE BASE PACKET IN THIS ORDER
+1. current/FIRST-BUILD-SCOPE.txt — user-confirmed designed-core slice and deferrals.
+2. `.agents/rules/stitch-to-morrow.md` (+ root DESIGN.md) — authoritative
+   Stitch-to-Morrow conversion rules. Packet STITCH-TO-NEXTJS-RULES.txt is
+   historical provenance only (see historical-context/).
+3. DESIGN-DECISIONS.txt + current/design-tokens.json — current visual decisions.
+4. current/FLOWS-AND-DATA.txt + current/AUTH-AND-ACCOUNT-FLOWS.txt — behaviour contracts.
+5. current/NEXTJS-COMPONENT-MAP.txt — responsibilities to map onto the existing repo.
+6. current/KNOWN-EXPORT-ISSUES.txt + artifacts/references/stitch/SCREEN-CATALOGUE.csv
+   and SCREEN-INDEX.html — maintained screen references. Packet-era SCREEN-MAP.csv
+   is preserved under historical-context/ only.
+7. current/COVERAGE-AND-GAPS.txt — remaining operational and visual limits.
+8. current/CODEX-START-PROMPT.txt — starting instructions when implementation is authorized.
+
+PRECEDENCE
+Direct user instructions and repository instructions govern actual coding.
+For design intent, latest user decisions outrank generated theme tokens,
+HTML comments, screenshot anomalies, filenames such as canonical/native, and
+the two bundled DESIGN.md files. This packet records the conversation decisions
+and separates assistant-proposed implementation guidance from settled choices.
+
+REFERENCE SELECTION
+implementation-reference = selected as a useful current source with explicit
+normalizations; it does not mean every detail is approved or production-ready.
+historical = older exploration; do not use as default.
+supporting-overview = comparison/flow board, not a product route.
+content-only = reuse content/anatomy, not viewport geometry.
+
+Do not import generated HTML wholesale. Implement shared components in the
+actual project's framework after inspecting its current files and storage.
+Keep existing user data safe when reconciling any historical storage models.
+
+CONFIRMED SCOPE AND STACK
+The user chose the designed core first; Calendar and manual publication recording
+follow later. Supabase email/password + Google are confirmed. Next.js is explicitly
+confirmed. shadcn remains the base; UIArc is approved alongside it. The snapshot
+confirms Next16 App Router, React19, Tailwind4, Base UI/shadcn, Motion and
+installed Arc source/registry. Recheck the live IDE before edits. Installed
+dependencies do not establish runtime compatibility or backend health.
+The auth flow document is assistant-drafted, with no new dedicated visual approval.
+AI provider selection/configuration remains open; do not simulate integration.
+
+FILES
+artifacts/references/stitch/ preserves the uploaded Stitch archives and extracted
+sources without modifying the originals. historical-context/ contains older
+supplied requirements/context for provenance; its design status and architectural
+claims must not override current decisions. The source ZIP SHA-256 is recorded in
+current/PROVENANCE.json. Packet review summary and per-screen inventory hashes
+are in current/REVIEW-SUMMARY.txt and current/screen-manifest.json.

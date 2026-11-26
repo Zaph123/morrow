@@ -1,0 +1,80 @@
+MORROW — ENVIRONMENT SETUP
+Revision 5 · 24 November 2026
+
+STATUS AND FILE PLACEMENT
+The handoff now includes .env.sample for the Next.js project root. This is a
+proposed configuration contract, not working Supabase integration. The reviewed
+snapshot has no process.env consumers or Supabase SDK dependencies; the live IDE
+may differ. Inspect it before adding packages or choosing client implementations.
+No real values were read, collected or added, and no .env.local was overwritten.
+
+Copy .env.sample into the actual repository root. Create .env.local from it only
+when .env.local does not already exist. Otherwise merge missing names manually
+and preserve existing values. Next.js does not automatically load .env.sample.
+Commit the template, keep .env.local private, and restart the dev server after
+changing values. Set deployment values in the host's environment configuration;
+NEXT_PUBLIC_ values are included in the browser build, so changes require rebuilding.
+
+REQUIRED FOR THE SUPABASE SLICE
+NEXT_PUBLIC_SUPABASE_URL: the existing project's URL from the Dashboard.
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: its publishable API key, intended for public
+clients. Do not substitute a secret or service_role key. Signed-in user sessions
+and owner-scoped RLS policies control access to account records.
+Use matching names in browser/server client factories. Prefer the current
+publishable-key setup; if the live app deliberately uses legacy anon naming,
+reconcile its consumers rather than adding two contradictory configuration paths.
+
+PROPOSED APP SETTING
+SITE_URL: server-side canonical application origin, initially http://localhost:3000.
+This is a Morrow convention to implement, not a Supabase/Next.js built-in.
+Set the real origin/port per environment; do not invent a production domain.
+For preview environments, deliberately allow their origins and validate redirect
+destinations. Do not trust arbitrary Host/Forwarded headers or return URLs.
+
+OPTIONAL SERVER PRIVILEGES
+SUPABASE_SECRET_KEY is commented out: normal user-scoped data access and auth do
+not require it, even in server code. Introduce it only for a reviewed privileged
+operation, isolated in server-only code with explicit authorization. Keep secret
+and legacy service_role keys out of browser modules, public variables and logs.
+Database connection strings/passwords and CLI tokens belong to specific approved
+tooling workflows; they are not prerequisites for the normal SDK integration.
+AI variables remain unset until provider/model selection; UIArc AI tooling is
+unrelated. Avoid speculative provider names or a generic pretend API key.
+
+GITIGNORE CHANGE — THE SNAPSHOT CURRENTLY IGNORES THE TEMPLATE TOO
+Keep all private environment files ignored, but allow the root sample by placing
+the exception after the existing rule:
+
+  .env*
+  !/.env.sample
+
+Do not replace the rest of .gitignore or unignore .env.local. Verify the sample
+can be staged and .env.local stays ignored. Ignoring a file does not untrack an
+already committed credential file; inspect live tracking without printing values.
+
+GOOGLE, EMAIL AND REDIRECT CONFIGURATION IS SEPARATE
+For hosted Supabase-managed Google redirect sign-in, configure the Google OAuth
+client ID/secret in Supabase's provider settings. Google Cloud needs the Supabase
+provider callback URI shown by the Dashboard. That URI is different from Morrow's
+app callback route. No Morrow GOOGLE_CLIENT_SECRET is needed for this flow.
+The Supabase Auth Site URL/redirect allowlist must match actual app origins and
+implemented OAuth/email/recovery callback routes. SITE_URL does not configure the
+Dashboard automatically. Check email confirmation, password policy, templates and
+delivery separately; custom SMTP, if used, is provider configuration rather than
+an assumed Next.js requirement. Do not change live services from this handoff alone.
+
+IMPLEMENTATION ACCEPTANCE
+- Validate missing/blank values and reject sample placeholders when initializing
+  real clients. Report configuration problems without exposing values.
+- Keep manual workflows and recovery available when Supabase/AI is unconfigured;
+  do not label device-only saving as cloud persistence or fake authentication.
+- Check sessions, callback redirects, ownership/RLS and actual save/reopen behavior.
+  Filling the environment file alone does not establish a working backend.
+- Add any future env variable to the sample and this contract when its real
+  consumer is introduced. Review optional variables before making them mandatory.
+
+PRIMARY SOURCES CHECKED 24 NOVEMBER 2026
+https://supabase.com/docs/guides/auth/server-side/creating-a-client
+https://supabase.com/docs/guides/getting-started/api-keys
+https://supabase.com/docs/guides/auth/social-sign-in/auth-google
+https://nextjs.org/docs/app/guides/environment-variables

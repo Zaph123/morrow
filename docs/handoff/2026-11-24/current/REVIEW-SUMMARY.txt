@@ -1,0 +1,28 @@
+MORROW — EXPORT REVIEW SUMMARY
+24 November 2026
+
+Reviewed 94 HTML sources and 94 paired screenshots; catalogued 11 additional
+PNG-only inspiration files and two generated design documents.
+
+Draft classification:
+{
+  "supporting-overview": 2,
+  "implementation-reference": 74,
+  "historical": 17,
+  "content-only": 1
+}
+
+Eight preview problems recorded, including one obsolete 1x1 screenshot.
+Two mobile-named screens have wide1600x1280 exports. Actual viewport metadata
+is not included, so portrait dimensions alone are not device-type verification.
+
+Core workflows have substantial reference coverage. The user has now selected
+the designed core first and deferred Calendar/manual publication recording.
+Next.js is confirmed; Morrow-specific translation rules and a written auth/
+account contract are included. Operational setup and exact auth visuals still
+need validation in the real repository/app; this is not a full-PRD completion claim.
+
+The uploaded repository snapshot was reviewed in revision4; no live IDE/backend
+was inspected and no application source was changed. All201 original
+export files are preserved unchanged. The user's Churchera rules are included
+only as an example and do not govern Morrow-specific tokens or domain structure.

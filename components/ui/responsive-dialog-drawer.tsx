@@ -33,6 +33,8 @@ export type ResponsiveDialogDrawerProps = {
   description?: string
   dialogClassName?: string
   sheetClassName?: string
+  /** When true, Escape and outside press do not dismiss this surface (e.g. nested confirm open). */
+  dismissLocked?: boolean
   onPointerDownOutside?: (event: OutsideEvent) => void
   children: ReactNode
 }
@@ -45,6 +47,7 @@ export function ResponsiveDialogDrawer({
   description,
   dialogClassName,
   sheetClassName,
+  dismissLocked = false,
   onPointerDownOutside,
   children,
 }: ResponsiveDialogDrawerProps) {
@@ -52,15 +55,24 @@ export function ResponsiveDialogDrawer({
   const isShortViewport = useMediaQuery(SHORT_VIEWPORT_QUERY, false)
 
   const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) onRequestClose()
+    if (!nextOpen && !dismissLocked) onRequestClose()
   }
 
   const handleEscapeKeyDown = useCallback(
     (event: EscapeEvent) => {
       event.preventDefault()
+      if (dismissLocked) return
       onRequestClose()
     },
-    [onRequestClose],
+    [dismissLocked, onRequestClose],
+  )
+
+  const handlePointerDownOutside = useCallback(
+    (event: OutsideEvent) => {
+      if (dismissLocked) event.preventDefault()
+      onPointerDownOutside?.(event)
+    },
+    [dismissLocked, onPointerDownOutside],
   )
 
   if (isDesktop) {
@@ -70,7 +82,7 @@ export function ResponsiveDialogDrawer({
           title={title}
           description={description}
           className={dialogClassName}
-          onPointerDownOutside={onPointerDownOutside}
+          onPointerDownOutside={handlePointerDownOutside}
           onEscapeKeyDown={handleEscapeKeyDown}
         >
           {children}
@@ -83,8 +95,11 @@ export function ResponsiveDialogDrawer({
     <BottomSheet
       open={open}
       onOpenChange={handleOpenChange}
-      onDismissRequest={onRequestClose}
-      onPointerDownOutside={onPointerDownOutside}
+      onDismissRequest={() => {
+        if (dismissLocked) return false
+        return onRequestClose()
+      }}
+      onPointerDownOutside={handlePointerDownOutside}
       title={title}
       description={description}
       detents={[0.52, 0.92]}

@@ -1,0 +1,45 @@
+MORROW — NEXT.JS COMPONENT RESPONSIBILITIES
+24 November 2026 · structure guidance, not a scaffold to paste
+
+First locate equivalent routes and components in the real repository.
+Do not create this folder tree over existing Pages/App Router structures.
+If App Router is present, a suitable responsibility split is:
+
+Root layout
+  Global styles, existing providers, DM Sans loading; one document/body.
+Auth layout
+  Minimal shared auth presentation; forms as interactive islands.
+Workspace layout
+  Shared desktop sidebar, mobile navigation and correct primary landmark.
+  Active editor can suppress mobile global nav according to its route/state.
+Auth callback handler
+  Server-side provider/recovery code exchange and safe session redirects.
+Feature pages
+  Home; Ideas/list/detail; Studio/entrance/editor; Library; Brand Brain; You.
+  Reuse existing routes; do not build Calendar/publication placeholders.
+
+Shared presentation
+  Button variants; FormField; InlineError; SaveStatus; SectionTabs;
+  DesktopSidebar; MobileNavigation; BrainIcon; ProfileHeader;
+  CollectionState; ListRow; Dialog/BottomSheet wrappers.
+Feature compositions
+  IdeaCapture; IdeaDetail; ContextTypeMenu; Note/LinkEditor;
+  StudioEditor; DiscussPane; ContextPopover; Proposal; Accept/Undo;
+  BrandBrainForm; WritingExampleEditor; LearningSuggestion/ApprovedPreference;
+  ProfileForm; AccountRows; Password/EmailEditors; AuthForms.
+Application/data layer
+  Existing service/mutation/schema patterns; Supabase session/ownership;
+  revision-aware persistence and recovery; AI adapter and selected context.
+
+A component owns behaviour/presentation responsibility, not a screen filename.
+Saved, pending and failure exports become states of the same component.
+Mobile/desktop exports become responsive compositions, not cloned applications.
+Use typed domain models and display maps; avoid generated DOM templates as data.
+Keep behaviour-preserving presentation changes separate from real new functional
+work in the plan, commits and validation report.
+
+COMPONENT LIBRARY UPDATE — 24 NOVEMBER
+shadcn/ui remains the baseline; UIArc is approved alongside it. Use the dedicated
+UIARC-INTEGRATION.txt selection/theme/motion policy. Installed Arc source/registry and React19 are confirmed in the uploaded
+snapshot; live IDE state and runtime compatibility remain unverified. This does not expand first-build features
+or choose the application's AI provider.

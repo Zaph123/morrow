@@ -1,0 +1,144 @@
+MORROW — CURRENT DESIGN DECISIONS
+24 November 2026 · draft reconciliation of direct conversation decisions
+
+FOUNDATION
+DM Sans throughout; balanced neutral workspace; white desktop sidebar separated
+by a hairline; white working surfaces; charcoal text; selective acid lime.
+No final logo has been approved. Do not invent logos, workspace switchers,
+top toolbars, notification systems, badges, roles or paid-account features.
+
+COLOURS
+Canvas #F5F5F7; surfaces/sidebar #FFFFFF; text #121316; secondary #5E636E;
+border #E5E6EB; neutral controls #ECECEF; primary lime #D4FC30 with charcoal text;
+desktop selected navigation #F2FCD6; mobile nav #121316; inner selected #2F3132;
+error/danger #BA1A1A; disabled #8E94A0; focus olive #536600.
+Olive is for focus rings, not primary button fills. Disabled grey is not a
+general body/placeholder colour. Avoid generated green/blue-tinted themes.
+
+ACTION HIERARCHY — LATEST USER CORRECTION
+Enabled primary submission actions use lime. Do not retain charcoal primary
+buttons from older dialogs or save screens. Neutral controls open supporting
+flows or cancel them. Disabled controls are grey. The global New idea trigger
+is neutral. Add example is secondary on the Voice page, but primary inside its
+editor. Sign out is red text + logout icon on a transparent/quiet surface.
+
+SHAPES AND TYPE
+Capture 20px; working surfaces/popovers 16px; standard controls 12px; compact
+controls 8px. Full circles for avatars/send. Floating nav is a capsule.
+Explicit exception: Add context is a filled neutral pill, not outlined.
+Settings page heading 24/32 semibold; section labels 15/20 medium (not 18px);
+mobile input/textarea text 16px; helpers typically 13/18. Use approved screen
+references for creative hero typography; do not apply hero sizes to settings.
+Mobile side padding 24px, typical page top padding 64px, >=44px touch targets.
+These do not force Home's centred desktop composition into a list-page layout.
+
+SURFACES
+Browsing lists are flat with spacing/dividers. Fields have no drop shadows.
+A pending learning suggestion is one bounded white working surface with 16px
+corners; its evidence and decision buttons belong inside that surface.
+Use temporary elevation for menus/dialogs/sheets; avoid cards inside cards.
+
+SHARED SIDEBAR
+240px wide. White. Neutral New idea at top; Home, Studio, Library, Ideas, Brand
+Brain; Calendar and You at bottom; divider then red Sign out below You.
+Use component_desktop_sidebar_you_active's sidebar region; the empty canvas
+to its right is not part of the component. Apply this updated footer across
+desktop screens and remove the old duplicate Sign out in Account's body.
+Changing the current route changes only the selected destination treatment.
+
+MOBILE NAV
+Home / Studio / Library / Ideas / Brand Brain. Shared SVG assets; icons only
+except selected destination's icon + label. Brain uses the preserved exact asset at
+`artifacts/phase-2/references/brain.svg` (also rendered by the shared BrainIcon).
+The user explicitly requested a selected Brain pill on the mobile You screens.
+Carry this visual exception; do not silently add a sixth destination or change
+its appearance back to unselected. Avoid falsely exposing aria-current=page
+for the Brain route when the real route is You. This is a known IA exception.
+Global nav is visible on Studio entrance but hidden in active Write/Discuss.
+Sheets/dialogs cover navigation and make background controls inactive.
+
+PROFILE HEADER — LATEST DECISION, NOT SHALLOW OVERLAP
+You owns personal profile/account settings. Brand Brain owns writing context.
+Cover is a replaceable image slot with mint/peach gradient fallback; avatar is
+a personal image slot with initials fallback, not a paper illustration.
+Gravatar was mentioned as a possibility, not approved as an integration.
+
+Desktop: cover 160px high; avatar 128px, white rim 4px, left inset 24px.
+Mobile: cover 112px; avatar 96px, white rim 4px, left inset 12px.
+Avatar vertical centre MUST coincide with cover bottom: 50% above, 50% below.
+Anchor avatar to a cover-only relative wrapper. The rounded gradient is an
+inner clipped surface; the avatar's positioning wrapper must not clip it.
+Do not anchor top:100% to a wrapper that also contains name/footer content.
+
+Desktop name block left=176px from cover edge; top=12px below cover bottom.
+Name 20/28 semibold; common helper 13/20 with 4px gap; reserve 64px lower-header
+height, then 32px before tabs. Mobile left=124px, top=8px below cover; name18/24,
+helper13/18 with4px gap; reserve natural height for wrap and lower half of avatar,
+then24px before tabs. Common helper: Your profile and account settings.
+Camera affordances may look compact but must have >=44px hit areas.
+Profile and Account must use the SAME desktop header and content width.
+Account status values are right-aligned beside buttons: value220px, gap24px,
+button160px x40px on desktop; adapt without clipping on smaller screens.
+
+BRAND BRAIN
+Four tabs: Identity, Voice, Content strategy, Learning & feedback.
+On mobile the tab strip scrolls horizontally; active label fully visible after
+fonts/layout settle. No tiny text to force all labels into one viewport.
+Learning uses To review and Approved preferences, with counts; hide empty
+Patterns & examples. One short review-policy sentence; no repeated helper wall.
+Pending suggestion's main statement is prominent; evidence starts collapsed
+under Why this suggestion?; Approve lime and Dismiss neutral. Approved items
+are flat entries with separate Edit/Remove row. No page Save in Learning.
+
+ILLUSTRATIONS
+Approved family: fine controlled outlines, white paper, muted mint/peach patches,
+gentle depth inside artwork. Use intentionally for Studio secondary entry routes
+and first-use Ideas/Library empty states. Do not illustrate populated list rows.
+CSS/SVG stand-ins are acceptable references. This ZIP is not a final standalone
+illustration asset kit. Refine/export assets during implementation without
+changing the approved family. Profile photos are separate from this system.
+
+MOTION
+Purposeful state transitions; respect reduced motion. Arc/Motion may now support adopted UIArc components. Specific application
+animations, shader effects and decorative motion still require design justification.
+The cover fallback does not imply a GPU shader or animated background.
+
+FIRST-BUILD SCOPE OVERRIDE — 24 NOVEMBER
+The complete sidebar reference contains Calendar. The user has now deferred
+Calendar and manual publication recording; hide Calendar in the live first-build
+navigation rather than implementing a dead route. Preserve the future reference
+asset. Use the same remaining sidebar anatomy, You selection and red Sign out.
+
+UIARC ADOPTION — 24 NOVEMBER
+User choice: add UIArc components alongside shadcn/ui. The approved Morrow theme,
+geometry, icons and behaviour stay authoritative. Arc CSS modules and selected
+Motion-based interactions are allowed through one shared component/theme layer.
+Read UIARC-INTEGRATION.txt; do not import Arc's stock fonts, radii or whole-page
+layouts as a new design direction. No dark-mode redesign or application AI
+provider is selected by this component-library decision.
+
+HOME REDESIGN — 26 NOVEMBER 2026
+Deliberate Home updates supersede older Stitch Home export details where they
+conflict. Preserve light neutral canvas, white surfaces, DM Sans, lime primary
+actions, existing line icons and the heading “Make something of today.”
+
+Composer: compact initial field (~two visible lines; textarea min ~56px, max
+~160px). Grow/shrink with text using the installed Motion system (~120–160ms,
+no bounce); at max height the field scrolls and Save stays reachable. Separate
+the footer with spacing only — no horizontal rule. No added focus frame, ring
+or shadow on the textarea or enclosing composer; Save and other controls keep
+normal keyboard focus. Preserve shortcuts, validation, save and failure recovery.
+
+Action cards: Continue, Revisit an idea and Blank draft share one compact
+composition with equal heights in each row (three equal columns on wide Home;
+readable single column on narrow mobile). Keep the Continue label even when
+empty — do not rename it to “Recent writing”. One recent record per relevant
+card; preview text clamps to two lines. Move “View all ideas” (and Continue’s
+“See all”) outside the card group as secondary links so they cannot stretch one
+card. Empty Continue / Revisit stay non-actionable (no hover/press affordance).
+
+Card feedback: resting white + subtle border; hover muted surface + slightly
+stronger border; optional ≤1px lift on fine-pointer hover; press scale ~0.985
+via Motion; visible keyboard focus; respect reduced motion. No persistent
+selected state, heavy shadows, bounce, decorative tilt or looping animation.
+Do not add 3D artwork or new illustrations in this pass.

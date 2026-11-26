@@ -1,0 +1,179 @@
+# Morrow — product and design handoff
+
+Context snapshot: 17 November 2026. This document gives Claude and other collaborators the product context, decisions, evidence limits, and current next step. Read it together with DESIGN.md.
+
+## 1. What Morrow is
+
+Morrow is a personal-first, AI-assisted content workspace. It helps a creator turn ideas, observations, experiences, and research into authentic, platform-specific content while preserving the creator's own voice.
+
+Brand promise: **Make something of today.** The name evokes tomorrow, possibility, progress, and continuity; the product helps the creator act on something today so tomorrow has work to build on.
+
+The product brings together an idea bank, a conversational Studio and editor, a content library, publication planning, and a personalised Brand Brain. These describe the intended product, not a claim that every feature is implemented.
+
+The initial user is one creator, with interests including development, building products, design, learning in public, personal observations, and related subjects. These interests are examples, not fixed categories. Team collaboration, billing, elaborate onboarding, and enterprise administration are outside the initial scope.
+
+Goals are prioritised as consistency, quality, time savings, and then audience growth. Growth is a desired outcome, not a guarantee. The first version is intended for actual personal use rather than speculative SaaS feature accumulation.
+
+## 2. Product principles and intended behaviour
+
+- **Possibility:** an unfinished thought is enough to begin. Capture should be quick and independent of AI.
+- **Continuity:** ideas, drafts, platform versions, and publication records should stay connected. Returning to work matters as much as creating it.
+- **Ownership:** the creator controls their words, experiences, opinions, preferences, and publication decisions.
+
+AI amplifies thinking and voice. It must not invent personal experiences, convert exploratory opinions into confirmed beliefs, or silently make permanent preference changes.
+
+Original ideas remain accessible after development. Conversation messages and saved writing are separate. Suggestions enter the draft only through creator action. Platform versions remain independently editable and connected to their source.
+
+Brand Brain has Identity, Voice, Content Strategy, and Learning & Feedback areas. The creator can inspect and edit them; proposed long-term changes require approval. One edit must not automatically become a permanent preference.
+
+Core workflow: **Capture → Explore → Create → Refine → Approve → Plan → Publish → Learn.** It is a conceptual journey, not a mandatory sequence for every item. An idea may remain a note.
+
+Initial platform priority: X, then LinkedIn, then WhatsApp Status. The MVP uses manual publishing. Internal planning is distinct from platform-side scheduling or publication.
+
+Content statuses are flexible: Idea, Draft, Ready for Review, Approved, Scheduled, Published, and Archived. The creator can change a status without completing all preceding stages.
+
+## 3. Constraints and planned capabilities
+
+The brief sets no planned spending on AI API subscriptions during initial development and personal testing. A usable free-tier provider still needs feasibility review: eligibility, terms, limits, data handling, and expected workload. Do not assume free access is guaranteed.
+
+Use a replaceable AI integration. Core capture, editing, saving, organisation, and manual publishing must remain usable during AI outages. Database operations do not require AI. Automatic provider failover and local inference are deferred.
+
+The intended product includes reliable automatic saving with visible states, followed by recovery/version history, portable export, reminders, feedback-driven personalisation, and lightweight performance tracking. Their requirements do not establish that they are already implemented.
+
+Autonomous agents, automatic social publishing, subscriptions, custom model training, advanced predictive analytics, and an extensive integration ecosystem are deferred.
+
+## 4. Implementation evidence — historical, verify before coding
+
+The real project is in the user's local environment. Codex can inspect it from the user's IDE. This chat did not have direct access to that repository. Product architecture and API planning exist, but planning must not be mistaken for implemented endpoints.
+
+A local Codex review supplied in this session, associated with browser captures dated 10 November 2026, reported:
+
+- A Next.js/React/TypeScript frontend with Tailwind v4 and pnpm.
+- A usable local idea-capture → idea-detail → Studio → saved-draft path.
+- A manual Studio editor; no implemented AI generation in that path.
+- A main content list, plus a separate alternative editor using incompatible storage.
+- Calendar, Brand Brain, and much of Settings as placeholders.
+- Browser-local persistence rather than an application database.
+- No implemented application authentication, database, AI provider integration, publishing integration, or application API handlers found in that review.
+- Supabase and a replaceable AI provider as proposed architecture, not verified live integrations.
+
+Reported reliability gaps included two unconnected storage models (`morrow:ideas`/`morrow:content` and `morrow.workspace.v1`), misleading save feedback, missing active-editor autosave and unsaved-navigation protection, storage read failures resembling empty data, and weak save-error feedback.
+
+Reported UX gaps included large source/title/platform administration before writing, repeated Save actions, a full sidebar compressing the tablet editor, placeholders receiving equal navigation prominence, and copy promising capabilities not yet available.
+
+These are attributed historical findings. Inspect the current repository and rendered app before claiming any remain present or have been fixed. Preserve existing work and data when reconciling storage.
+
+## 5. Why we are revisiting the design
+
+The user disliked the existing visual design and colour usage. The aim is a distinctive, coherent, refined product, with deliberate hierarchy and interaction rather than a generic AI dashboard.
+
+Uploaded references were studied for relationships between typography, colour, imagery, spacing, surface hierarchy, and content. The app-focused references consistently demonstrated quiet navigation, selective expression, subtle surface separation, a clear primary task, and density appropriate to the activity.
+
+Marketing references inform craft, not a requirement to add cinematic heroes, photography, AIDA sections, oversized headings, or scroll-pinned animation to a writing workspace.
+
+The first exploratory Studio images felt too much like blog/article editors. The user specifically preferred the working content on the left and discussion with AI on the right, but questioned mandatory-looking article headings and long-form assumptions.
+
+An isolated interactive prototype was built during a skills experiment. The user then redirected the work back to design foundations. Its source and browser checks belong to that experiment, not to the actual Morrow repository or the subsequently agreed visual system. Do not adopt it as production code or treat its test results as proof about Morrow.
+
+## 6. Agreed design decisions
+
+| Decision | Agreement | Rationale discussed |
+| --- | --- | --- |
+| Primary typography | **DM Sans** across working text and interface roles | Approachable character with practical readability for controls and writing |
+| Colour foundation | **Balanced neutrals** | White working surfaces, near-neutral grey surroundings, charcoal text |
+| Signature accent | **Acid lime**, inspired by the Acme/Ace Studio reference | Selective creative energy and an inviting cue to begin, while the workspace stays composed |
+| Default surface hierarchy | **Layered** | Separate active work from its surroundings with white surfaces and fine boundaries |
+| Supporting content | **Flat lists and rows** | Use spacing and dividers for browsing and secondary content |
+| Elevation | **Temporary overlays** | Use shadows to distinguish menus, popovers, and dialogs |
+| Desktop Studio relationship | **Working draft left; optional AI discussion right** | Keep writing central while enabling a continuing conversation |
+| Logo | **Deferred** | Use a plain typeset product name while the visual language is explored |
+| Review process | **Show visual propositions alongside concise reasoning** | The user needs visible comparisons and explanations before accepting major design choices |
+
+The user's acceptance of a colour family or surface treatment does not approve every exact value or layout detail in a generated image.
+
+## 7. Working colour references — not canonical tokens
+
+These values supported the comparisons and Stitch brief. Treat them as starting samples, not a complete approved production palette:
+
+| Role in studies | Working value |
+| --- | --- |
+| Signature acid lime | `#D3EE19` |
+| Canvas | `#F5F5F4` |
+| White working surface | `#FFFFFF` |
+| Navigation surroundings | `#EEEFEF` |
+| Supporting context surface | `#F8F8F7` |
+| Charcoal text | `#292B2D` |
+| Secondary text | `#64676B` |
+| Fine boundary | `#DEDFDD` |
+| Pale lime selection sample | `#F0F5C8` |
+
+The lime is an interpretation of the visual reference, not an exact sampled Acme brand value. Use dark text on its bright fill. A darker supporting focus colour needs validation against adjacent surfaces; light lime alone on white is not enough.
+
+DESIGN.md deliberately encodes only the confirmed font family in machine-readable frontmatter. Colour roles are documented in prose; unfinalized shade tokens, spacing scales, radii, component contracts, and dark-mode mappings are not exported.
+
+## 8. Current exploration: Home and Studio
+
+We are testing how the agreed foundations work together through layout and density. Reference images and a Google Stitch brief have been prepared; final screen compositions have not been approved.
+
+### Home proposal
+
+- Direct quick capture without required title/platform administration.
+- A prominent route to continue unfinished drafts, using excerpts and modest metadata.
+- A quieter supporting area for ideas to revisit.
+- A concise introduction using the product promise, rather than an analytics dashboard.
+
+### Studio proposal
+
+- A dominant left writing area with a compact internal draft name and platform context.
+- A right discussion pane for exploration, revisions, and alternatives.
+- A compact source disclosure; preserve the original idea.
+- Explicit acceptance of a suggested opening; distinguish proposed text from the current draft.
+- Visible save status and a restrained copy action.
+- A short social post with no separate article headline unless the content itself requires one.
+
+The generated reference images still need refinement: avoid duplicated source links, reduce nested boxes around assistant messages, and test actual type size, density, and writing width. Their fonts, pixel dimensions, and rendered hex values are not measurement evidence for a production system.
+
+Google Stitch is the intended visual exploration tool. No direct Stitch connection was available here. The latest Home/Studio images were generated in this conversation; they are not results returned by Stitch. The user can attach them and paste the prepared brief into Stitch.
+
+## 9. Open decisions
+
+- Final Home and Studio composition, hierarchy, and density.
+- Exact type sizes, weights, line heights, measure, and responsive typography.
+- Final palette shades, semantic status colours, focus tokens, and all interaction states.
+- Spacing scale, grid, sidebar dimensions, gutters, and breakpoints.
+- Shape/radius scale, border treatments, and elevation values.
+- Mobile/tablet navigation and the way writing/discussion adapt to narrow screens.
+- Dark-mode adaptation; previous implementation themes are not the new approved theme.
+- Component contracts and consistent action priority.
+- Motion principles in specific flows and their tested timing/easing values.
+- Logo, illustration/imagery policy, and complete brand identity.
+
+None of these becomes approved merely because it appears in a mockup or in experimental code. When the user authorises implementation, use justified working defaults and distinguish them from agreed design decisions.
+
+## 10. Guidance for Claude and other agents
+
+1. Read this handoff and DESIGN.md before proposing changes.
+2. When repository access is available, read its current instructions, brief, PRD, architecture, and existing design guidance. Reconcile documented intent with current code; do not assume this historical audit is current.
+3. Treat direct user decisions as governing design evidence. Keep proposals and experimental artifacts separate from canonical rules.
+4. Preserve DM Sans, balanced neutrals, the acid-lime direction, and layered surfaces unless the user chooses to revise them.
+5. Continue the current design task from Home/Studio composition. A context handoff alone is not an instruction to rebuild the app.
+6. Show visual examples alongside substantial design propositions, explain the rationale, and make clear what is being decided.
+7. Keep the actual product workflow central: capture → develop → save → leave → return. Judge save trust, source preservation, writing comfort, and retrieval alongside appearance.
+8. Apply design skills to the product context. Mandatory marketing funnels, randomized fonts, and scroll effects from gpt-taste are not Morrow workspace requirements. Emil design-engineering guidance can inform interaction polish; no motion library or timing scale has been approved.
+9. Follow the user's latest instruction; a later implementation request can advance the stage. Do not create extra confirmation loops for routine reversible work already authorised.
+10. Update DESIGN.md as decisions become explicit and validated. Keep this context document current when scope, evidence, or implementation status changes.
+
+## 11. Governing materials and evidence limits
+
+- User-supplied Morrow Product Brief v1.1, October 2026.
+- User-supplied Morrow PRD v1.1, October 2026, draft for feasibility review.
+- Local Codex project review supplied by the user, with November 2026 browser evidence.
+- User-supplied follow-up gpt-taste critique of the existing implementation.
+- Existing-app screenshots, inspiration images, font specimens, colour comparisons, and generated visual studies reviewed in this conversation.
+- Explicit user choices: DM Sans, balanced foundation, acid-lime accent, layered surfaces, and left draft/right discussion.
+
+No current product repository audit or live-site reconstruction was performed to create this handoff. The governing sources for the new design direction are the supplied product documents and user-approved decisions. The assistant-created local prototype is excluded as normative evidence.
+
+## 12. Immediate next step
+
+Review the proposed Home and Studio compositions in Google Stitch, using the agreed foundations. Evaluate primary action clarity, capture friction, continuation, writing/discussion balance, source access, restrained accent use, and consistency. Refine the screen direction before treating generated details as component specifications.

@@ -113,6 +113,7 @@ Calendar and publication recording follow later. Existing publication history mu
 | Technical Architecture | [`docs/morrow_Technical_Architecture_&_Implementation Blueprint.md`](docs/morrow_Technical_Architecture_&_Implementation%20Blueprint.md) |
 | UX/UI Design Specification | [`docs/morrow-UXUI_Design_Specification.md`](docs/morrow-UXUI_Design_Specification.md) |
 | Project / agent instructions | [`AGENTS.md`](AGENTS.md) |
+| Repository inclusion and hygiene | [`docs/REPOSITORY-HYGIENE.md`](docs/REPOSITORY-HYGIENE.md) |
 
 Authoritative sources: Brief (vision & positioning), PRD (requirements), Architecture (system design), UX/UI (interface & design direction).
 

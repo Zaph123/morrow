@@ -1,0 +1,70 @@
+MORROW — EXPORT AND NORMALIZATION REGISTER
+24 November 2026
+
+INSPECTION LIMITS
+Static HTML review plus PNG inspection only. Source/preview discrepancies below
+are directly observed. Their cause (stale preview, export timing, CSS/font loading
+or source bug) is not established without rendering/testing. No device metadata
+API response is included. Do not infer precise logical viewport from image pixels.
+
+UNRELIABLE PREVIEWS
+ideas_mobile_list: blank main content although HTML contains full list.
+you_desktop_account_revised: blank main area although HTML contains Account.
+you_desktop_profile: cover/avatar/name absent from PNG, present in HTML.
+you_mobile_profile_native: header and much nav absent from PNG, present in HTML.
+brand_brain_mobile_learning_feedback: missing tabs and To review label in PNG.
+brand_brain_mobile_learning_review_suggestion: missing tabs/section labels in PNG.
+brand_brain_mobile_learning_preference_approved: missing labels and large black
+  lower area; do not reproduce blank/black space as intended hierarchy.
+morrow_desktop_studio_refined: 1x1 historical PNG, unusable.
+
+WRONG MOBILE EXPORT GEOMETRY
+you_mobile_account and you_mobile_account_change_password are 1600x1280
+landscape exports containing centred mobile columns. Prefer you_mobile_account_native
+for Account content; use only password form/sheet anatomy from the wide export.
+Build real responsive routes, viewport-level fixed backdrop and bottom sheet.
+Do not ship a screenshot crop, max-width mobile column in desktop page, or
+position:fixed constrained by a transformed ancestor as the mobile experience.
+
+COMPONENT FRAME
+component_desktop_sidebar_you_active is a wide export. Extract its actual 240px
+sidebar component. Exclude the empty area to the right from product UI.
+
+SOURCE BUG: AVATAR CONTAINING BLOCK
+In you_mobile_profile_native and you_mobile_account_native, the relative wrapper
+can include both cover and lower name block while avatar is top:100%.
+This makes the avatar centre align with the entire wrapper bottom, not cover
+bottom. Use a cover-only relative wrapper; place name row outside it. Written
+128px desktop /96px mobile, 50/50 overlap geometry takes precedence.
+
+GLOBAL NORMALIZATIONS
+- Apply current red Sign out sidebar footer across desktop screens; older Account
+  has a neutral Sign out in body. Mobile Account keeps red Sign out in its body.
+- Use same Profile/Account desktop wrapper; independent max-widths remain in HTML.
+- Replace old charcoal primary Add link/dialog buttons with lime; preserve neutral
+  supporting triggers. Normalize Add context to filled neutral pill.
+- Replace Material Symbols psychology/neurology and hand-drawn Brain variants with
+  the single asset. Claims like Official Brain in comments do not prove equality.
+- Remove zoom disabling (found in 18 HTMLs). Use >=44px mobile hit areas and16px
+  form text, visible focus, correct labels/semantics and keyboard-safe overlays.
+- Avoid permanent input shadows and generated olive/blue/pseudo-material tokens.
+- Correct setting labels to15/20 medium; final Learning hierarchy is two sections,
+  not old three-row overview. The desktop empty Learning export remains older.
+- Some fixtures pair Speed vs clarity with a different source-idea title. Fixture
+  relationships must be consistent; never copy these mismatches as data logic.
+
+PROTOTYPE CODE
+Home mobile v4/v5 contain timer-driven demo saving, not durable persistence.
+Many HTMLs are static templates using preventDefault, href=# or only UI scripts.
+The scanner found innerHTML assignments in26 files; this is a review lead, not
+proof that every use is unsafe. Reimplement user data safely; do not adopt demo
+scripts, CDN Tailwind config or hidden panels as production architecture.
+No backend integration has been established by this ZIP.
+
+TWO BUNDLED DESIGN DOCUMENTS
+morrow_1/DESIGN.md and morrow_2/DESIGN.md differ in typography and extra generated
+palette values. They contain outdated omission statements alongside generated
+spacing/radius sections. Neither reconciles the latest user decisions, component
+contracts, profile header, Learning hierarchy and Sign out location completely.
+Use DESIGN-DECISIONS.txt and confirmed tokens, then reconcile the actual repo's
+DESIGN.md when implementation is authorized. Preserve originals as provenance.

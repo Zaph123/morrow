@@ -1,0 +1,29 @@
+{
+  "resting": {
+    "fieldBorder": "0px none rgb(18, 19, 22)",
+    "fieldOutline": "rgb(18, 19, 22) none 3px",
+    "fieldShadow": "none",
+    "cardBorder": "1px solid rgb(229, 230, 235)",
+    "cardOutline": "oklab(0.477274 -0.0601095 0.0981714 / 0.5) none 3px",
+    "cardShadow": "none",
+    "visible": false
+  },
+  "pointer": {
+    "fieldBorder": "0px none rgb(18, 19, 22)",
+    "fieldOutline": "rgb(18, 19, 22) none 3px",
+    "fieldShadow": "none",
+    "cardBorder": "1px solid rgb(229, 230, 235)",
+    "cardOutline": "rgb(18, 19, 22) none 3px",
+    "cardShadow": "none",
+    "visible": true
+  },
+  "keyboard": {
+    "fieldBorder": "0px none rgb(18, 19, 22)",
+    "fieldOutline": "rgb(18, 19, 22) none 3px",
+    "fieldShadow": "none",
+    "cardBorder": "1px solid rgb(229, 230, 235)",
+    "cardOutline": "rgb(18, 19, 22) none 3px",
+    "cardShadow": "none",
+    "visible": true
+  }
+}

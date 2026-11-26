@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!/.env.sample
 
 # vercel
 .vercel
@@ -39,3 +40,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Reproducible local caches and comparison workspace
+/.pnpm-store/
+/.trail/cache/
+/.tmp-handoff-compare/
+
+# Generated critiques: durable findings live in docs/design-reviews/
+/.impeccable/
+
+# Personal permissions, machine-bound hook commands and local service identity
+/.claude/settings.local.json
+/.cursor/hooks.json
+/.freebuff/project-id
+
+# Routine browser reports, traces and recordings; selected evidence is allowlisted
+# in artifacts/.gitignore. Original Stitch sources and baselines stay eligible.
+/test-results/
+/playwright-report/
+/blob-report/
+
+# Original Stitch ZIP payloads are externally backed up; provenance stays in Git.
+/artifacts/references/stitch/archives/reference-screens-a.zip
+/artifacts/references/stitch/archives/reference-screens-b.zip

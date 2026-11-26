@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Brand Brain — Mobile — Voice — Example added</title>
+<!-- Google Fonts: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            charcoal: '#121316',
+            secondary: '#5E636E',
+            hairline: '#E5E6EB',
+            neutralPill: '#ECECEF',
+            disabledText: '#8E94A0',
+            activePill: '#2F3132',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Typography & Global Layout Styles -->
+<style data-purpose="typography">
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+<!-- Scrollbar concealment for horizontal tabs -->
+<style data-purpose="tab-scroll">
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F7] text-[#121316] min-h-[844px] max-w-[390px] mx-auto relative antialiased selection:bg-neutral-200">
+<!-- BEGIN: MainContent -->
+<main class="px-6 pt-16 pb-36" data-purpose="mobile-voice-view">
+<!-- BEGIN: HeaderSection -->
+<header class="mb-6" data-purpose="page-header">
+<h1 class="text-2xl font-semibold tracking-tight text-[#121316]">Brand Brain</h1>
+<p class="text-[15px] text-[#5E636E] mt-1">Shape how Morrow supports your writing.</p>
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: NavigationTabs -->
+<!-- Horizontally scrollable strip without scrollbars, touch-friendly min-h-44px targets -->
+<nav aria-label="Brand Brain Sections" class="border-b border-[#E5E6EB] mb-6 overflow-x-auto no-scrollbar -mx-6 px-6" data-purpose="tabs-navigation">
+<div class="flex items-center gap-6 whitespace-nowrap min-w-max">
+<!-- Identity Tab -->
+<button class="py-3 px-1 text-[15px] font-normal text-[#5E636E] hover:text-[#121316] transition-colors focus:outline-none min-h-[44px] flex items-center" type="button">
+          Identity
+        </button>
+<!-- Voice Tab (Active) -->
+<button aria-current="page" class="relative py-3 px-1 text-[15px] font-medium text-[#121316] focus:outline-none min-h-[44px] flex items-center" type="button">
+          Voice
+          <!-- 2px charcoal indicator underline -->
+<span class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#121316] rounded-full"></span>
+</button>
+<!-- Content Strategy Tab -->
+<button class="py-3 px-1 text-[15px] font-normal text-[#5E636E] hover:text-[#121316] transition-colors focus:outline-none min-h-[44px] flex items-center" type="button">
+          Content strategy
+        </button>
+<!-- Learning & Feedback Tab -->
+<button class="py-3 px-1 text-[15px] font-normal text-[#5E636E] hover:text-[#121316] transition-colors focus:outline-none min-h-[44px] flex items-center" type="button">
+          Learning &amp; feedback
+        </button>
+</div>
+</nav>
+<!-- END: NavigationTabs -->
+<!-- BEGIN: FormSections -->
+<form action="#" data-purpose="voice-configuration-form" method="POST" onsubmit="event.preventDefault();">
+<!-- Section 1: Tone & style -->
+<section data-purpose="tone-and-style-section">
+<label class="block font-medium text-[#121316] text-[15px]" for="tone-style-input">
+          Tone &amp; style
+        </label>
+<p class="text-[13px] text-[#5E636E] mt-0.5 mb-2.5">
+          How should your writing sound?
+        </p>
+<textarea class="h-28 w-full p-3.5 bg-white border border-[#E5E6EB] rounded-xl text-[15px] text-[#121316] placeholder-[#5E636E] focus:outline-none focus:ring-1 focus:ring-[#536600] resize-none placeholder:text-[16px]" id="tone-style-input" name="tone_style" placeholder="Describe your preferred tone and writing style." style="font-size: 16px;"></textarea>
+</section>
+<!-- Hairline Divider -->
+<hr class="border-t border-[#E5E6EB] my-6"/>
+<!-- Section 2: Formatting & language -->
+<section data-purpose="formatting-and-language-section">
+<label class="block font-medium text-[#121316] text-[15px]" for="formatting-language-input">
+          Formatting &amp; language
+        </label>
+<p class="text-[13px] text-[#5E636E] mt-0.5 mb-2.5">
+          The details that make writing feel like yours.
+        </p>
+<textarea class="h-28 w-full p-3.5 bg-white border border-[#E5E6EB] rounded-xl text-[15px] text-[#121316] placeholder-[#5E636E] focus:outline-none focus:ring-1 focus:ring-[#536600] resize-none placeholder:text-[16px]" id="formatting-language-input" name="formatting_language" placeholder="Add language, spelling and formatting preferences." style="font-size: 16px;"></textarea>
+</section>
+<!-- Hairline Divider -->
+<hr class="border-t border-[#E5E6EB] my-6"/>
+<!-- Section 3: Writing examples -->
+<section data-purpose="writing-examples-section"><label class="block font-medium text-[#121316] text-[15px]">
+          Writing examples
+        </label>
+<p class="text-[13px] text-[#5E636E] mt-0.5 mb-3">
+          Writing you want Morrow to use as a reference.
+        </p>
+<div class="border-b border-[#E5E6EB] pb-3 mb-3" data-purpose="example-entry">
+<div class="flex items-center justify-between">
+<h3 class="font-semibold text-sm text-[#121316]">Speed vs clarity</h3>
+<div class="flex items-center -mr-2">
+<button class="min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-xs text-[#5E636E] hover:text-[#121316] transition-colors" type="button">Edit</button>
+<button class="min-h-[44px] min-w-[44px] inline-flex items-center justify-center text-xs text-[#5E636E] hover:text-[#121316] transition-colors" type="button">Remove</button>
+</div>
+</div>
+<p class="line-clamp-2 text-sm text-[#5E636E] mt-1">
+    Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start.
+  </p>
+</div>
+<button class="px-4 py-2.5 bg-[#ECECEF] text-[#121316] rounded-xl font-medium text-sm inline-flex items-center justify-center gap-1.5 hover:bg-[#E2E2E6] active:scale-[0.98] transition-all min-h-[44px] mt-3" type="button">
+<svg class="w-4 h-4 text-[#121316]" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          + Add example
+        </button></section>
+<!-- Form Footer & Save Action -->
+<footer class="mt-8" data-purpose="form-actions"><p class="text-xs text-[#5E636E] mb-1.5">
+          Suggested preference changes need your approval.
+        </p>
+<div class="text-xs font-medium text-[#5E636E] flex items-center gap-1.5 mb-3">
+<span class="w-1.5 h-1.5 rounded-full bg-[#5E636E]"></span>
+          Unsaved changes
+        </div>
+<button class="w-full min-h-[44px] h-12 rounded-xl font-medium text-sm bg-[#D4FC30] text-[#121316] active:scale-[0.98] flex items-center justify-center transition-transform shadow-sm" type="submit">
+          Save voice
+        </button></footer>
+</form>
+<!-- END: FormSections -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: FloatingNavigationCapsule -->
+<!-- Floating bottom navigation bar matching the Library screen reference -->
+<aside class="fixed bottom-6 inset-x-0 mx-auto w-max z-50 pointer-events-auto" data-purpose="floating-bottom-nav">
+<nav aria-label="Bottom Navigation" class="pointer-events-auto bg-[#121316] text-white rounded-full px-2 h-14 shadow-2xl flex items-center gap-1"><a aria-label="Home" class="w-11 h-11 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full min-h-[44px] min-w-[44px]" href="#home"><svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.75" viewbox="0 0 24 24"><path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a aria-label="Studio" class="w-11 h-11 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full min-h-[44px] min-w-[44px]" href="#studio"><svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.75" viewbox="0 0 24 24"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a aria-label="Library" class="w-11 h-11 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full min-h-[44px] min-w-[44px]" href="#library"><svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.75" viewbox="0 0 24 24"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a aria-label="Ideas" class="w-11 h-11 flex items-center justify-center text-white/60 hover:text-white transition-colors rounded-full min-h-[44px] min-w-[44px]" href="#ideas"><svg class="w-5 h-5 stroke-current" fill="none" stroke-width="1.75" viewbox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.439v-1.5a1.5 1.5 0 0 0-1.5-1.5h-1.5a1.5 1.5 0 0 0-1.5 1.5v1.5m6-7.5a6 6 0 1 0-9 0c0 1.25.5 2.25 1.5 3h6c1-.75 1.5-1.75 1.5-3Z" stroke-linecap="round" stroke-linejoin="round"></path></svg></a><a aria-current="page" aria-label="Brand Brain" class="bg-[#2F3132] px-3.5 py-2 min-h-[44px] rounded-full text-white flex items-center gap-2 text-sm font-medium" href="#brand-brain"><svg class="w-5 h-5 flex-shrink-0" fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg><span class="tracking-tight text-[13.5px]">Brand Brain</span></a></nav>
+</aside>
+<!-- END: FloatingNavigationCapsule -->
+</body></html>

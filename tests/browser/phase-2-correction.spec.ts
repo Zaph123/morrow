@@ -1,0 +1,80 @@
+﻿import { test, expect } from "@playwright/test"
+import fs from "node:fs/promises"
+
+test("Home capture focus belongs to the enclosing card and sidebar follows route", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 1024 })
+  const errors: string[] = []
+  page.on("pageerror", e => errors.push(e.message))
+  page.on("console", m => { if (m.type() === "error") errors.push(m.text()) })
+  await page.goto("/")
+  const capture = page.getByRole("textbox", { name: "Capture an idea" })
+  const read = () => capture.evaluate(el => {
+    const field = getComputedStyle(el), parent = getComputedStyle(el.closest("section")!)
+    return { fieldBorder: field.border, fieldOutline: field.outline, fieldShadow: field.boxShadow, cardBorder: parent.border, cardOutline: parent.outline, cardShadow: parent.boxShadow, visible: el.matches(":focus-visible") }
+  })
+  const resting = await read()
+  await page.screenshot({ path: "artifacts/phase-2/correction-home-rest.png" })
+  await capture.click()
+  const pointer = await read()
+  await page.screenshot({ path: "artifacts/phase-2/correction-home-pointer.png" })
+  await page.keyboard.press("Tab")
+  await page.keyboard.press("Shift+Tab")
+  await expect(capture).toBeFocused()
+  const keyboard = await read()
+  await page.screenshot({ path: "artifacts/phase-2/correction-home-keyboard.png" })
+  // Approved Home redesign: focusing the composer must not add a frame around
+  // the textarea or enclosing card. Save and other controls keep their own focus.
+  for (const state of [resting, pointer, keyboard]) {
+    expect(state.fieldBorder).toMatch(/^0px/)
+    expect(state.fieldShadow).toBe("none")
+    expect(state.fieldOutline).toContain("none")
+    expect(state.cardOutline).toContain("none")
+    expect(state.cardShadow).toBe("none")
+  }
+  expect(pointer.cardBorder).toBe(resting.cardBorder)
+  expect(keyboard.cardBorder).toBe(resting.cardBorder)
+  expect(keyboard.visible).toBe(true)
+  await fs.writeFile("artifacts/phase-2/correction-focus-styles.json", JSON.stringify({resting,pointer,keyboard},null,2))
+  const sidebar = page.getByRole("complementary", { name: "Primary" })
+  const button = sidebar.getByRole("button", { name: "New idea" })
+  await expect(button).toBeVisible()
+  expect(await button.evaluate(el => Math.round(el.getBoundingClientRect().width))).toBeGreaterThanOrEqual(44)
+  await expect(sidebar.getByRole("link", {name:"Home",exact:true})).toHaveAttribute("aria-current","page")
+  await expect(sidebar.getByText("Make something of today.")).toHaveCount(0)
+  await expect(sidebar.getByText("Calendar")).toHaveCount(0)
+  await expect(sidebar.getByText("Sign out")).toHaveCount(0)
+  await page.getByRole("link", {name:"You",exact:true}).filter({visible:true}).click()
+  await expect(sidebar.getByRole("link",{name:"You",exact:true})).toHaveAttribute("aria-current","page")
+  await expect(sidebar.locator('[aria-current="page"]')).toHaveCount(1)
+  await page.screenshot({ path:"artifacts/phase-2/correction-sidebar-you.png" })
+  await page.goto("/ideas")
+  await page.getByRole("button", { name: "New idea", exact: true }).first().click()
+  const field = page.getByRole("dialog").getByRole("textbox", { name: "Capture an idea" })
+  await expect(field).toBeVisible()
+  await field.focus()
+  await expect.poll(() => field.evaluate(el => getComputedStyle(el).outlineStyle === "solid" || getComputedStyle(el).boxShadow !== "none")).toBe(true)
+  expect(errors).toEqual([])
+})
+
+test("mobile capture at reference viewport preserves keyboard focus and saving", async ({ page }) => {
+  await page.setViewportSize({width:390,height:884})
+  await page.goto("/")
+  const field = page.getByRole("textbox", {name:"Capture an idea"})
+  await page.screenshot({path:"artifacts/phase-2/correction-mobile-rest.png"})
+  await page.getByRole("link",{name:"You",exact:true}).focus()
+  await page.keyboard.press("Tab")
+  await expect(field).toBeFocused()
+  await expect.poll(() => field.evaluate(el => {
+    const card = getComputedStyle(el.closest("section")!)
+    const text = getComputedStyle(el)
+    return text.boxShadow === "none" && card.outlineStyle === "none" && card.boxShadow === "none"
+  })).toBe(true)
+  await page.screenshot({path:"artifacts/phase-2/correction-mobile-keyboard.png"})
+  await field.fill("Synthetic correction save")
+  await page.keyboard.press("Control+Enter")
+  await expect(field).toHaveValue("")
+  await expect(page.getByText("Saved on this device.",{exact:false})).toBeVisible()
+  const saved = await page.evaluate(()=>JSON.parse(localStorage.getItem("morrow:ideas") || "[]"))
+  expect(saved).toHaveLength(1)
+  expect(saved[0].text).toBe("Synthetic correction save")
+})

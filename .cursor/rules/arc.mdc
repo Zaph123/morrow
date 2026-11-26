@@ -1,0 +1,44 @@
+---
+description: Arc UI rules for React components, pages, and CSS modules
+globs: ["**/*.tsx", "**/*.module.css"]
+alwaysApply: false
+---
+
+# Arc UI
+
+## Morrow precedence
+
+The project instructions, root `DESIGN.md`, and `docs/handoff/2026-11-24/current/UIARC-INTEGRATION.txt` override conflicting stock guidance below. For Stitch-derived UI, read `.agents/rules/stitch-to-morrow.md` before implementing or reviewing. shadcn/Base UI remains the baseline; reuse fitting approved components. Introduce Arc only after the repository's component review. Use Morrow's light neutral/lime tokens, DM Sans, specified weights, radii, and route-appropriate widths. Do not import stock foundation CSS globally until its selectors and overlapping variables have an inspected Morrow theme bridge. Preserve existing visible keyboard focus; foundation import is not a prerequisite for focus styling. Centralized Arc adaptation is permitted where a wrapper/theme cannot reach the necessary style. Retain dependency, accessibility, state, and reduced-motion checks. This amendment does not authorize visual conversion or new components outside an approved phase.
+
+When building or polishing UI, follow the Arc skill at `.claude/skills/arc/` (start with `SKILL.md`). Prefer Arc components and blocks over hand-rolled UI.
+
+**Discover:** Use the Arc MCP (`arc` / `https://uiarc.dev/api/mcp`) with `search_components` and `get_component`. If auth fails, ask the user to reconnect. Without MCP, use `https://uiarc.dev/llms.txt` and `https://uiarc.dev/components/<id>/markdown`.
+
+**Install:** `npx shadcn@latest add @uiarc/<id>` (needs `@uiarc` registry in `components.json`). Import `@/components/arc/foundation.css` once in the root layout after install. Do not rebuild Arc items from scratch or reconstruct Pro source.
+
+## Always
+
+1. Use an existing Arc component or block before writing UI. Read "When not to use" before choosing an item.
+2. Use only documented props. Compose and wrap Arc components; never fork or restyle their internals.
+3. One page container per app. Blocks fill their column with no second gutter or max width.
+4. One `h1`, one primary button per surface (`button` defaults to `variant="primary"`; set `secondary` or `ghost` on the rest), one memorable detail per view.
+5. Semantic tokens only: `--background`, `--surface`, `--surface-muted`, `--foreground`, `--text-secondary`, `--text-muted`, `--border`, `--accent`, `--success`, `--warning`, `--danger`, `--radius-*`, `--text-*`, `--space-*`.
+6. Accent marks active, selected, progress, and emphasized data. Status colors only for real status, with a label.
+7. Type: Geist for headings 30px and up, Inter for the rest, weights 400 and 500 only, sizes from the scale, `tabular-nums` for changing numbers.
+8. Nested corners are concentric: inner radius = outer radius - padding.
+9. Motion from `@/components/arc/lib/motion-tokens`: `spring.smooth` for panels and state, `spring.snappy` for presses, `spring.morph` for shared highlights. Animate transform and opacity only; always include a reduced-motion branch.
+10. First render is server-safe (no `window`, `localStorage`, `Date.now()`, or `Math.random()` output). Animated elements keep stable keys.
+11. Every data region has loading (`skeleton`), empty (`empty-state`), error (inline `alert`), and in-place success states.
+12. Check 390, 768, 1024, and 1440px: no sideways scroll, wide tables scroll inside their card, touch targets at least 44px.
+
+## Never
+
+- Eyebrow labels or overlines above headings; all caps or uppercase transforms.
+- Em dashes in copy. Use a period, comma, colon, or parentheses.
+- Hand-made focus rings or any ring on pointer focus. Keyboard focus uses Arc's `:focus-visible` from `foundation.css`.
+- Raw hex, Tailwind color classes, weights above 500, or arbitrary font sizes on Arc surfaces.
+- Decorative gradients, glows, colored shadows in components; icons in rounded tiles; nested decorative cards.
+- A toast as the only confirmation of a foreground action.
+- Motion that loops without meaning or replays on every scroll.
+
+Before finishing UI work, run `.claude/skills/arc/checklist.md` and fix until it passes.

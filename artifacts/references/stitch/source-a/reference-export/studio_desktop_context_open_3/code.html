@@ -1,0 +1,159 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Morrow — Studio — Desktop — Context open</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            divider: '#E5E6EB',
+            primary: '#121316',
+            secondary: '#5E636E',
+            'acid-lime': '#D4FC30',
+            'pale-lime': '#F2FCD6',
+            'focus-ring': '#536600',
+            'dashed-border': '#8E94A0',
+          },
+          boxShadow: {
+            'floating': '0 4px 16px -2px rgba(18, 19, 22, 0.08), 0 2px 6px -1px rgba(18, 19, 22, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-typography">
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection {
+      background-color: #F2FCD6;
+      color: #121316;
+    }
+  </style>
+<style data-purpose="interactive-states">
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid #536600;
+      outline-offset: 2px;
+    }
+    .text-highlight-active {
+      background-color: #F2FCD6;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      padding: 2px 4px;
+      margin: -2px -4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="h-full flex overflow-hidden select-none">
+<!-- BEGIN: LeftNavigationRail -->
+<aside aria-label="Main Navigation" class="w-52 h-full bg-white border-r border-[#E5E6EB] flex flex-col justify-between p-3.5 shrink-0 z-30 select-none"><div class="flex flex-col gap-5"><div class="flex items-center justify-between gap-2 px-1 pt-1"><button class="flex-1 flex items-center justify-center gap-2 h-9 px-3 rounded-lg bg-[#EBECEF] hover:bg-[#E5E6EB] text-[#121316] font-medium text-xs transition-colors" type="button"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>New idea</span></button><button class="h-9 w-9 rounded-lg flex items-center justify-center text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" title="Collapse sidebar" type="button"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Collapse sidebar</span></button></div><nav class="flex flex-col gap-0.5" role="menu"><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" href="#home" role="menuitem"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Home</span></a><a aria-current="page" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium bg-[#F2FCD6] text-[#121316] transition-colors" href="#studio" role="menuitem"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Studio</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" href="#library" role="menuitem"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Library</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" href="#ideas" role="menuitem"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.381a3.015 3.015 0 0 1-3 0M12 2.25c-3.728 0-6.75 3.022-6.75 6.75 0 2.378 1.233 4.469 3.104 5.674.336.216.546.592.546.99v.586h6.2v-.586c0-.398.21-.774.546-.99 1.871-1.205 3.104-3.296 3.104-5.674 0-3.728-3.022-6.75-6.75-6.75Z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Ideas</span></a><a class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" href="#brand-brain" role="menuitem"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Brand Brain</span></a></nav></div><div class="flex flex-col gap-1 pt-3 border-t border-[#E5E6EB]"><button class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" title="Calendar" type="button"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6.75 3v2.25M17.25 3v2.253M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Calendar</span></button><button class="flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-[#121316] hover:bg-[#F5F5F7] transition-colors" title="Account settings" type="button"><span class="w-7 h-7 rounded-full bg-[#E5E6EB] text-xs font-medium flex items-center justify-center shrink-0">L</span><span class="text-xs font-medium text-[#121316] truncate">You</span></button></div></aside>
+<!-- END: LeftNavigationRail -->
+<!-- BEGIN: CentralWritingWorkspace -->
+<main aria-label="Writing Workspace" class="flex-1 h-full bg-[#F5F5F7] flex flex-col overflow-y-auto px-10 py-6">
+<div class="max-w-[700px] w-full mx-auto flex flex-col items-center flex-1">
+<!-- Top Workspace Header: Breadcrumbs, Status, Copy action -->
+<header class="w-full flex items-center justify-between mb-6 pb-2" data-purpose="workspace-top-bar">
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 text-xs font-medium text-[#5E636E]">
+<span class="hover:text-[#121316] cursor-pointer">Ideas</span>
+<span class="text-[#8E94A0]">/</span>
+<span class="text-[#121316] font-semibold">Speed vs clarity</span>
+</div>
+<!-- Right Header Status & Action -->
+<div class="flex items-center gap-4">
+<!-- Save status indicator -->
+<div aria-live="polite" class="flex items-center gap-1.5 text-xs text-[#5E636E]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#5E636E]"></span>
+<span>Saved</span>
+</div>
+<!-- Secondary Copy Button -->
+<button class="h-7 px-2.5 rounded-md border border-[#E5E6EB] bg-white text-xs font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors flex items-center gap-1.5" type="button">
+<svg aria-hidden="true" class="w-3.5 h-3.5 text-[#5E636E]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Copy</span>
+</button>
+</div>
+</header>
+<!-- Platform Segmented Control -->
+<div aria-label="Target Platform" class="mb-5 inline-flex items-center p-0.5 rounded-lg border border-[#E5E6EB] bg-[#EBECEF]" role="tablist">
+<!-- Active Tab: X -->
+<button aria-selected="true" class="px-3.5 py-1 text-xs font-semibold text-[#121316] bg-white rounded-md shadow-xs transition-all flex items-center gap-1.5" role="tab" type="button">
+<span>X</span>
+</button>
+<!-- Inactive Tab: LinkedIn -->
+<button aria-selected="false" class="px-3.5 py-1 text-xs font-medium text-[#5E636E] hover:text-[#121316] rounded-md transition-colors" role="tab" type="button">
+<span>LinkedIn</span>
+</button>
+<!-- Add Platform Option -->
+<button class="w-6 h-6 flex items-center justify-center text-[#5E636E] hover:text-[#121316] rounded-md transition-colors ml-0.5" title="Add platform version" type="button">
+<svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="sr-only">Add platform</span>
+</button>
+</div>
+<!-- Draft Sheet Surface -->
+<section class="w-full bg-white rounded-xl border border-[#E5E6EB] p-10 flex flex-col relative" data-purpose="draft-sheet"><div class="mb-7"><span class="inline-flex items-center gap-1.5 bg-[#F5F5F7] border border-[#E5E6EB] text-[#5E636E] text-xs font-medium px-3 py-1 rounded-full"><svg aria-hidden="true" class="w-3 h-3 text-[#5E636E]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.381a3.015 3.015 0 0 1-3 0M12 2.25c-3.728 0-6.75 3.022-6.75 6.75 0 2.378 1.233 4.469 3.104 5.674.336.216.546.592.546.99v.586h6.2v-.586c0-.398.21-.774.546-.99 1.871-1.205 3.104-3.296 3.104-5.674 0-3.728-3.022-6.75-6.75-6.75Z" stroke-linecap="round" stroke-linejoin="round"></path></svg>From idea · Nobody warns you about the last 10%</span></div><div class="relative text-[17px] leading-[1.65] text-[#121316] select-text"><span>Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start. </span><span class="text-highlight-active relative inline-block">Speed is easy to measure. Clarity usually isn't.</span></div><footer class="mt-8 pt-6 flex items-center justify-between border-t border-[#F5F5F7] text-xs text-[#5E636E]"><div>Edited 2 min ago</div><div class="font-mono text-[11px] tracking-tight">168 / 280</div></footer></section>
+</div>
+</main>
+<!-- END: CentralWritingWorkspace -->
+<!-- BEGIN: RightDiscussPanel -->
+<aside aria-label="Discuss Panel" class="w-[360px] h-full bg-white border-l border-[#E5E6EB] flex flex-col shrink-0 z-30">
+<!-- Header -->
+<header class="p-4 border-b border-[#E5E6EB] flex items-center justify-between"><h2 class="text-sm font-semibold text-[#121316]">Discuss</h2></header>
+<!-- Scrollable Conversation & Suggestions Area -->
+<div class="flex-1 overflow-y-auto p-5 space-y-5" data-purpose="chat-history-container">
+<!-- User Query Bubble -->
+<div class="flex flex-col items-end">
+<div class="bg-[#F5F5F7] text-[#121316] text-sm rounded-xl px-3.5 py-2.5 max-w-[90%] leading-relaxed">
+          Can we make the opening punchier? It feels a bit slow to get to the point.
+        </div>
+</div>
+<!-- Assistant Plain Text Response -->
+<div class="text-sm text-[#121316] leading-relaxed">Here's an opening that leads with the contrast:</div>
+<!-- Proposed Revision: CRITICAL Distinct Dashed Border Block -->
+<section class="border border-dashed border-[#8E94A0] rounded-xl p-4 bg-[#FAFAFB]" data-purpose="proposed-revision-box"><div class="text-[11px] font-medium tracking-wider text-[#5E636E] uppercase mb-2 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-[#8E94A0]"></span><span>Proposed opening · not in your draft</span></div><p class="text-xs text-[#121316] leading-relaxed mb-3.5">"Speed is easy to measure. Clarity usually isn't. Most tools are built to help you finish faster."</p><div class="flex items-center gap-3"><button class="px-3 py-1.5 rounded-lg border border-[#121316] bg-white text-xs font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors" type="button">Use as opening</button><button class="text-xs font-medium text-[#5E636E] hover:text-[#121316] transition-colors" type="button">Another take</button></div></section>
+<!-- Suggested Actions (Flat list with dividers) -->
+<div class="pt-2">
+<div class="text-[11px] font-semibold tracking-wider text-[#5E636E] uppercase mb-2">Suggestions</div>
+<div class="divide-y divide-[#E5E6EB] text-xs">
+<button class="w-full py-2.5 flex items-center justify-between text-[#121316] hover:text-black transition-colors group text-left" type="button">
+<span>Tighten to fit one post</span>
+<svg aria-hidden="true" class="w-3.5 h-3.5 text-[#8E94A0] group-hover:text-[#121316] group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="m8.25 4.5 7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<button class="w-full py-2.5 flex items-center justify-between text-[#121316] hover:text-black transition-colors group text-left" type="button">
+<span>Draft a LinkedIn version</span>
+<svg aria-hidden="true" class="w-3.5 h-3.5 text-[#8E94A0] group-hover:text-[#121316] group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<path d="m8.25 4.5 7.5 7.5-7.5 7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+<!-- Anchored Composer Tray at Bottom -->
+<div class="border-t border-[#E5E6EB] p-4 bg-[#F5F5F7]" data-purpose="composer-tray"><div class="bg-white rounded-xl border border-[#E5E6EB] p-3 flex flex-col"><input class="w-full text-sm text-[#121316] placeholder-[#5E636E] border-0 p-0 focus:ring-0 focus:outline-none bg-transparent" placeholder="Ask about this draft" type="text"><div class="flex items-center justify-between mt-2"><button class="text-[12px] font-medium text-[#121316] bg-white border border-[#E5E6EB] rounded-full px-2.5 py-1 inline-flex items-center gap-1.5 hover:bg-[#F5F5F7] transition-colors h-7" type="button"><span>Context · 2</span><svg aria-hidden="true" class="w-3 h-3 text-[#121316]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m19.5 8.25-7.5 7.5-7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button class="w-7 h-7 rounded-full bg-[#121316] text-white flex items-center justify-center hover:opacity-90 transition-opacity" title="Send request" type="button"><svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Send</span></button></div></div></div>
+</aside>
+<!-- END: RightDiscussPanel -->
+
+
+</body></html>

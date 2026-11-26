@@ -1,0 +1,150 @@
+MORROW — AUTHENTICATION AND ACCOUNT FLOW CONTRACT
+24 November 2026 · assistant-drafted implementation specification
+
+STATUS
+Email/password + Google through Supabase are user-approved provider choices.
+The following route/state contract is a proposed implementation specification,
+not newly approved visual mockups or proof of configured providers. Use existing
+Next.js routes/components where present; route names below describe screens,
+not a requirement to create parallel directories. Respect actual Supabase Auth
+configuration, confirmation, reauthentication and password policy.
+
+COMMON AUTH PRESENTATION
+Simple auth layout using DM Sans, neutral canvas and one clear form surface;
+no marketing hero, metrics, fake testimonial, profile cover, sidebar or floating
+workspace navigation before authentication. Use Morrow's existing field/button
+components:16px mobile input text, visible labels,44px minimum mobile hit areas,
+lime primary, neutral secondary, inline error and live pending feedback.
+The exact auth composition has no exported reference; implement within the
+shared system and present desktop/mobile captures for review when authorized.
+
+1. SIGN IN
+Title: Sign in to Morrow.
+Email; Password with Show/Hide; primary Sign in; Forgot password link;
+neutral Continue with Google; link Create account.
+Do not prefill fixture identity or password. Validate required fields and email
+shape. Keep email on error; do not persist password to device storage/logs.
+While submitting, show Signing in... and prevent duplicate submissions.
+Only confirmed authentication enters the app, using a safe same-origin return
+destination or Home. No success timer. Generic credential error, actionable
+connection/provider errors and actual rate-limit responses remain on the form.
+Use appropriate autocomplete email/current-password, accessible errors and focus.
+
+2. CREATE ACCOUNT
+Title: Create your Morrow account.
+Email; Password; Confirm password; primary Create account; neutral Continue with
+Google; link Sign in. No mandatory biography, username, platforms or Brand Brain
+onboarding. A creator can reach the usable empty workspace without those fields.
+Match password fields, apply the configured provider policy and explain only
+actual requirements. Do not invent an8-character rule or fake strength score.
+If Supabase requires email confirmation, show Check your email with the submitted
+address, resend control and return-to-sign-in action. Only show that state after
+the request is accepted; do not claim delivery was verified.
+If confirmation is not required and a valid session is issued, enter Home.
+Do not disclose account existence beyond provider-safe responses.
+
+3. EMAIL CONFIRMATION
+Handle the actual provider callback server-side using the repo's session pattern.
+Success establishes a session if issued; otherwise send the creator to Sign in
+with a clear confirmed message. Invalid/expired/reused link gets an actionable
+state with Sign in and appropriate resend path; no workspace data is created
+merely because a URL contains an email address.
+
+4. FORGOT / RESET PASSWORD
+Forgot screen: Email, primary Send reset link, Back to sign in.
+After accepted request: If an account uses this email, you will receive a reset
+link. Use provider-safe messaging; a failed request remains an error, not success.
+Recovery callback must establish/validate the actual recovery context before
+showing New password and Confirm new password. Submit Reset password only when
+the form satisfies the configured rules. After confirmed update, follow actual
+session status to the protected destination or Sign in with clear feedback.
+Expired or invalid recovery link offers Request a new link. Do not implement a
+password update based only on a recovery=true query or unverified client flag.
+
+5. GOOGLE SIGN-IN AND CALLBACK
+Continue with Google initiates Supabase's OAuth flow, using allowlisted configured
+callback/redirect URLs and the current framework-supported exchange/session flow.
+Cancellation returns to Sign in without a false success error. Provider or
+callback failures offer retry and email/password entry. A successful new account
+may initialize its owned profile idempotently; the workspace must not duplicate
+on callback retry. Keep profile optional. Never import a job role or biography.
+
+6. PROTECTED WORKSPACE / SESSION EXPIRY
+Validate actual session and data ownership; do not trust localStorage logged-in
+flags. During session resolution show a suitable pending state without briefly
+presenting a false empty account. An expired session prompts reauthentication and
+preserves safely retained unsaved work. Keep recovery associated with the correct
+user; never expose one user's drafts to another account on the same device.
+Unsaved content must not be discarded on auth redirects or sign-out failures.
+
+7. CHANGE EMAIL
+Desktop: centred dialog; mobile: bottom sheet, based on shared Account forms.
+Show current email as read-only context and labelled New email field.
+Primary Request email change; Cancel secondary. Validate email, submit once.
+Follow actual provider reauthentication/verification requirements. If pending
+confirmation is returned, show Check your email without replacing the current
+account email prematurely. Confirmed state is read from auth, not optimistic UI.
+Support invalid, expired, rate-limited and failed requests with retained input.
+Do not create another identity/workspace during an email change.
+
+8. CHANGE / SET PASSWORD
+Reuse the exported mobile sheet anatomy and equivalent desktop dialog.
+New password; Confirm new password; Show/Hide; primary Save password, disabled
+while empty/invalid; Cancel. No invented policy or password length disclosure.
+If the account has no password capability, label the action Set password rather
+than falsely saying Password set. Determine capability from the actual auth model
+and supported provider behaviour, not a UI fixture or guessed password presence.
+Honor provider reauthentication requirements and add that state when demanded;
+do not blindly insert a current-password field that the chosen API does not use.
+Show success and close only after confirmed update; failures retain safe inputs
+in memory, never durable password storage. Cancellation/dismiss must not silently
+discard a typed form. Clear password fields after successful completion.
+
+9. LINK GOOGLE FROM ACCOUNT
+This is authenticated account linking, distinct from public Google sign-in.
+Connect Google must use supported linking flow for the existing auth user.
+After callback, reload actual identities and verify the user ID is unchanged.
+Only then show Connected. Handle cancellation, denied linking, already-linked
+identity and provider restrictions without making another workspace or merging
+unrelated users by matching email text. Linking configuration is operational
+setup; do not bypass it with client-side metadata or simulated success.
+Do not add Disconnect Google without ensuring another supported sign-in method
+would remain and explicitly specifying that additional flow.
+
+10. SIGN OUT
+Red text/icon in desktop sidebar; red action in mobile Account.
+If unsaved work exists, provide explicit Save and sign out / Discard and sign out /
+Cancel choices. A failed Save blocks the save-and-sign-out path. For an expired
+session, recovery may require reauthentication; do not claim an impossible save.
+Call the actual supported sign-out operation. On confirmed success clear only
+the correct user's session-specific caches and route to Sign in. Keep persistent
+server data. If sign-out fails, report it and do not falsely show a signed-out UI.
+Multi-tab session changes must not reveal another user's cached data.
+
+11. PROFILE MUTATIONS
+Profile fields and social links persist as a pending form; Save profile confirms
+the latest revision. Link additions/removals participate in dirty state. Profile
+names/URLs are not public-profile-page creation. Avatar/cover mutations must use
+owner-scoped storage, validation and explicit failure handling; no fake success.
+Gravatar, crop policy and upload limits remain implementation details to resolve
+from the actual architecture; do not enable an external identity lookup merely
+because it was mentioned as a possible image source.
+Never silently convert personal-profile fields into approved Brand Brain memory.
+
+12. OPERATIONAL CHECKS BEFORE CLAIMING AUTH WORKS
+Verify configured providers, allowed origins/callback URLs, email delivery and
+templates, confirmation/reauth/password policy, server/browser SDK compatibility,
+session refresh and owner-scoped database/storage policies in the actual setup.
+Do not invent deployment URLs or embed privileged keys in client components.
+No live service configuration is authorized by this documentation-only revision.
+
+ACCEPTANCE SCENARIOS
+- Email signup follows actual confirmation policy; sign-in returns to real data.
+- Invalid credentials, provider denial and expired links remain recoverable.
+- Reset cannot update a password without validated provider recovery context.
+- Google sign-in and Google linking use different appropriate flows; linking
+  preserves the existing user/workspace and callback retries are idempotent.
+- Password/email forms show truthfully pending, success and failure states.
+- Signing out protects unsaved work and clears only the correct session caches.
+- Sign-in/recovery work at mobile390x844 and desktop with proper focus/keyboard
+  behaviour; no timer-driven success, fixture auth values or hydration errors.

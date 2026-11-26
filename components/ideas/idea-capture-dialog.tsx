@@ -1,9 +1,9 @@
 "use client"
 
-import { useCallback, useEffect, useRef, type ComponentProps } from "react"
-import { AlertDialog } from "@base-ui/react/alert-dialog"
+import { useEffect, useRef } from "react"
 
 import { Alert } from "@/components/arc/alert/alert"
+import { Dialog, DialogContent } from "@/components/arc/dialog/dialog"
 import { useIdeaCapture } from "@/components/ideas/idea-capture-context"
 import { Button } from "@/components/ui/button"
 import { ResponsiveDialogDrawer } from "@/components/ui/responsive-dialog-drawer"
@@ -24,11 +24,6 @@ export function IdeaCaptureDialog() {
   } = useIdeaCapture()
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const wasDiscardOpen = useRef(false)
-  const protectDiscardDialog = useCallback((event: Parameters<NonNullable<ComponentProps<typeof ResponsiveDialogDrawer>["onPointerDownOutside"]>>[0]) => {
-    if (event.target instanceof Element && event.target.closest("[data-capture-discard]")) {
-      event.preventDefault()
-    }
-  }, [])
 
   useEffect(() => {
     const returnedFromDiscard = wasDiscardOpen.current && !discardOpen && open
@@ -47,18 +42,19 @@ export function IdeaCaptureDialog() {
         description="Capture a thought. It stays on this device until you save it."
         dialogClassName="morrow-capture-dialog"
         sheetClassName="morrow-capture-sheet"
-        onPointerDownOutside={protectDiscardDialog}
+        dismissLocked={discardOpen}
       >
         <div
           className="idea-capture-form"
           onKeyDownCapture={(event) => {
             if (event.key !== "Escape") return
+            if (discardOpen) return
             event.preventDefault()
             event.stopPropagation()
             requestClose()
           }}
         >
-          <label className="block">
+          <label className="idea-capture-field block">
             <span className="sr-only">Capture an idea</span>
             <Textarea
               ref={textareaRef}
@@ -117,32 +113,26 @@ export function IdeaCaptureDialog() {
         </div>
       </ResponsiveDialogDrawer>
 
-      <AlertDialog.Root
+      <Dialog
         open={discardOpen}
         onOpenChange={(nextOpen) => {
           if (!nextOpen) cancelDiscard()
         }}
       >
-        <AlertDialog.Portal>
-          <AlertDialog.Backdrop className="idea-capture-discard-backdrop" data-capture-discard style={{ pointerEvents: "auto" }} />
-          <AlertDialog.Popup className="idea-capture-discard-popup" data-capture-discard style={{ pointerEvents: "auto" }}>
-            <AlertDialog.Title className="font-heading text-lg font-medium tracking-tight">
-              Discard idea?
-            </AlertDialog.Title>
-            <AlertDialog.Description className="mt-2 text-sm text-muted-foreground">
-              Your unsaved text will be cleared. This cannot be undone.
-            </AlertDialog.Description>
-          <div className="morrow-dialog-actions mt-5">
-              <Button type="button" variant="ghost" onClick={cancelDiscard}>
-                Keep editing
-              </Button>
-              <Button type="button" variant="destructive" onClick={confirmDiscard}>
-                Discard
-              </Button>
-            </div>
-          </AlertDialog.Popup>
-        </AlertDialog.Portal>
-      </AlertDialog.Root>
+        <DialogContent
+          title="Discard idea?"
+          description="Your unsaved text will be cleared. This cannot be undone."
+        >
+          <div className="morrow-dialog-actions">
+            <Button type="button" variant="ghost" onClick={cancelDiscard}>
+              Keep editing
+            </Button>
+            <Button type="button" variant="destructive" onClick={confirmDiscard}>
+              Discard
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

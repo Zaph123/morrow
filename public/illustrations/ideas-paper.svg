@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="112" viewBox="0 0 128 112" fill="none">
+  <!-- Original paper artwork from ideas_desktop_empty/code.html in the supplied Stitch archive. Decorative, not a navigation icon. -->
+  <rect width="128" height="112" rx="28" fill="#D8F2E5"/>
+  <g transform="translate(30 25)">
+    <path d="M23 11C23 8.79086 24.7909 7 27 7H53.5C55.7091 7 57.5 8.79086 57.5 11V45C57.5 47.2091 55.7091 49 53.5 49H45" fill="#FFFFFF" stroke="#8E94A0" stroke-linejoin="round" stroke-width="1.5"/>
+    <rect fill="#FFFFFF" height="39.5" rx="4.25" stroke="#2D3139" stroke-width="1.5" width="36.5" x="11.75" y="14.75"/>
+    <path d="M38 44.5H48L38 54.5V44.5Z" fill="#E5E6EB" stroke="#2D3139" stroke-linejoin="round" stroke-width="1.5"/>
+    <path d="M18 24H39M18 31H39" stroke="#2D3139" stroke-linecap="round" stroke-width="2.5"/>
+  </g>
+</svg>

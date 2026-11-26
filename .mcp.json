@@ -1,0 +1,30 @@
+{
+  "mcpServers": {
+    "figma-mcp-go": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@vkhanhqui/figma-mcp-go@latest"
+      ],
+      "env": {}
+    },
+    "figma-mcp-rust": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@alvinindra/figma-mcp-rust@latest"
+      ],
+      "env": {}
+    },
+    "motion": {
+      "type": "http",
+      "url": "https://mcp.motion.dev"
+    },
+    "motion-plus": {
+      "type": "http",
+      "url": "https://mcp.motion.dev/plus"
+    }
+  }
+}

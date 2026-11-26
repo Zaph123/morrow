@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Studio — Desktop — Start — Refined</title>
+<!-- Tailwind CSS v3 with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&amp;display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="typography">
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  </style>
+<style data-purpose="custom-utilities">
+    /* Subtle custom colors calibrated directly to reference */
+    .bg-canvas { background-color: #F5F5F7; }
+    .text-primary { color: #121316; }
+    .text-secondary { color: #5E636E; }
+    .border-subtle { border-color: #E5E6EB; }
+    .bg-lime-selected { background-color: #F2FCD6; }
+    .bg-acid-lime { background-color: #D4FC30; }
+  </style>
+</head>
+<body class="min-h-screen flex bg-canvas text-primary selection:bg-[#D4FC30] selection:text-black">
+<!-- BEGIN: LeftSidebar -->
+<aside class="w-[240px] flex-shrink-0 min-h-screen border-r border-subtle flex flex-col justify-between p-5 select-none bg-white" data-purpose="sidebar">
+<!-- Top Segment: Actions & Navigation -->
+<div class="flex flex-col gap-6">
+<!-- Action Row: New Idea & Collapse Button -->
+<div class="flex items-center justify-between">
+<button class="h-9 px-3.5 bg-[#EAEAEF] hover:bg-[#E2E2E7] transition-colors rounded-xl flex items-center gap-2 text-primary font-medium text-[14px]" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus w-4 h-4 text-primary stroke-[2.2]"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+<span>New idea</span>
+</button>
+<button aria-label="Collapse sidebar" class="p-1.5 text-secondary hover:text-primary transition-colors rounded-lg" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-left" class="lucide lucide-chevrons-left w-4 h-4 stroke-[1.8]"><path d="m11 17-5-5 5-5"></path><path d="m18 17-5-5 5-5"></path></svg>
+</button>
+</div>
+<!-- Navigation Links -->
+<nav aria-label="Sidebar Navigation" class="flex flex-col gap-1 text-[14px]">
+<!-- Home Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:text-primary hover:bg-[#EAEAEF]/60 rounded-xl font-medium transition-colors" href="#home">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home w-[18px] h-[18px] stroke-[1.75]"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+<span>Home</span>
+</a>
+<!-- Studio Link (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-lime-selected text-primary rounded-xl font-semibold transition-colors" href="#studio">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pen-line" class="lucide lucide-pen-line w-[18px] h-[18px] text-primary stroke-[2]"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg>
+<span>Studio</span>
+</a>
+<!-- Library Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:text-primary hover:bg-[#EAEAEF]/60 rounded-xl font-medium transition-colors" href="#library">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="book-open" class="lucide lucide-book-open w-[18px] h-[18px] stroke-[1.75]"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg>
+<span>Library</span>
+</a>
+<!-- Ideas Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:text-primary hover:bg-[#EAEAEF]/60 rounded-xl font-medium transition-colors" href="#ideas">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="lightbulb" class="lucide lucide-lightbulb w-[18px] h-[18px] stroke-[1.75]"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+<span>Ideas</span>
+</a>
+<!-- Brand Brain Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:text-primary hover:bg-[#EAEAEF]/60 rounded-xl font-medium transition-colors" href="#brand-brain">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="brain" class="lucide lucide-brain w-[18px] h-[18px] stroke-[1.75]"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg>
+<span>Brand Brain</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Segment: Calendar & Profile -->
+<div class="flex flex-col gap-1 text-[14px]">
+<!-- Calendar Link -->
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:text-primary hover:bg-[#EAEAEF]/60 rounded-xl font-medium transition-colors" href="#calendar">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar w-[18px] h-[18px] stroke-[1.75]"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+<span>Calendar</span>
+</a>
+<!-- Profile Section -->
+<div class="flex items-center gap-3 px-3 py-2 text-primary rounded-xl font-medium cursor-pointer hover:bg-[#EAEAEF]/60 transition-colors">
+<div class="w-6 h-6 rounded-full bg-[#E5E6EB] text-[#5E636E] text-xs font-semibold flex items-center justify-center">
+          Y
+        </div>
+<span>You</span>
+</div>
+</div>
+</aside>
+<!-- END: LeftSidebar -->
+<!-- BEGIN: MainContentArea -->
+<main class="flex-1 flex flex-col min-h-screen px-14 py-24 overflow-y-auto" data-purpose="main-canvas">
+<div class="max-w-[1040px] w-full">
+<!-- Section Title: Studio -->
+<header class="mb-14">
+<h1 class="text-[26px] font-bold text-primary tracking-tight">Studio</h1>
+</header>
+<!-- Two-Column Workspace Layout -->
+<div class="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-16">
+<!-- Left Column: Primary Writing Prompts -->
+<section aria-labelledby="main-draft-heading" class="max-w-[540px] w-full flex-1">
+<!-- Main Headline -->
+<h2 class="text-[40px] font-bold tracking-tight text-primary leading-[1.15]" id="main-draft-heading">
+            Make room for your next draft.
+          </h2>
+<!-- Subtitle / Helper text -->
+<p class="mt-4 text-[16px] text-secondary leading-normal">
+            Start with a blank page, an idea you saved, or a question.
+          </p>
+<!-- Primary Call to Action Button -->
+<div class="mt-7">
+<button class="h-12 px-6 bg-acid-lime hover:opacity-95 active:scale-[0.99] transition-all rounded-xl font-medium text-[15px] text-primary inline-flex items-center gap-2 shadow-none cursor-pointer" type="button">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="pen-line" class="lucide lucide-pen-line w-[18px] h-[18px] stroke-[2]"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg>
+<span>Start writing</span>
+</button>
+</div>
+<!-- Secondary Actions Row -->
+<div class="mt-12 flex items-center gap-9 flex-wrap">
+<!-- Secondary Action 1: From an idea -->
+<button class="flex items-center gap-3 text-left group cursor-pointer bg-transparent border-0 p-0 focus:outline-none" type="button">
+<!-- Mint Patch Illustration -->
+<div class="w-14 h-12 rounded-xl bg-[#D2EFE2] flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-[1.02]"><svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible"><path d="M2 4C2 2.89543 2.89543 2 4 2H24C25.1046 2 26 2.89543 26 4V22L20 28H4C2.89543 28 2 27.1046 2 26V4Z" fill="#FFFFFF" stroke="#C8CBD0" stroke-width="1.25" stroke-linejoin="round"></path><path d="M20 22H26L20 28V22Z" fill="#E5E7EB" stroke="#C8CBD0" stroke-width="1.25" stroke-linejoin="round"></path><line x1="6.5" y1="10.5" x2="16.5" y2="10.5" stroke="#121316" stroke-width="2" stroke-linecap="round"></line><line x1="6.5" y1="15.5" x2="13.5" y2="15.5" stroke="#121316" stroke-width="2" stroke-linecap="round"></line></svg></div>
+<span class="text-[15px] font-medium text-primary group-hover:opacity-80 transition-opacity">From an idea</span>
+</button>
+<!-- Secondary Action 2: Discuss a thought -->
+<button class="flex items-center gap-3 text-left group cursor-pointer bg-transparent border-0 p-0 focus:outline-none" type="button">
+<!-- Peach Patch Illustration -->
+<div class="w-14 h-12 rounded-xl bg-[#FDDDCF] flex items-center justify-center flex-shrink-0 transition-transform group-hover:scale-[1.02]"><svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="overflow-visible"><rect x="2" y="2" width="19" height="14" rx="3.5" fill="#FFFFFF" stroke="#C8CBD0" stroke-width="1.25"></rect><line x1="5.5" y1="7.5" x2="11.5" y2="7.5" stroke="#121316" stroke-width="1.75" stroke-linecap="round"></line><rect x="11" y="11" width="19" height="14" rx="3.5" fill="#FFFFFF" stroke="#C8CBD0" stroke-width="1.25" filter="drop-shadow(0 1px 2px rgba(0,0,0,0.05))"></rect><line x1="15" y1="17.5" x2="23" y2="17.5" stroke="#121316" stroke-width="1.75" stroke-linecap="round"></line></svg></div>
+<span class="text-[15px] font-medium text-primary group-hover:opacity-80 transition-opacity">Discuss a thought</span>
+</button>
+</div>
+</section>
+<!-- Right Column: Resume Card -->
+<aside aria-labelledby="resume-label" class="w-full lg:w-[380px] flex-shrink-0">
+<div class="text-[12px] font-semibold tracking-wider text-secondary uppercase mb-3.5" id="resume-label">
+            RESUME
+          </div>
+<!-- Resume Interactive Card -->
+<div class="bg-white border border-subtle rounded-2xl p-6 hover:border-[#D6D7DC] transition-all cursor-pointer group" data-purpose="resume-card">
+<div class="flex items-center justify-between gap-4">
+<div class="flex-1">
+<!-- Card Title -->
+<h3 class="text-[17px] font-semibold text-primary mb-2 group-hover:text-black">
+                  Speed vs clarity
+                </h3>
+<!-- Card Excerpt -->
+<p class="text-[14px] leading-relaxed text-secondary mb-4 line-clamp-3">
+                  Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start.
+                </p>
+<!-- Metadata details -->
+<div class="text-[12px] text-secondary font-normal">
+                  X · LinkedIn · Draft · edited 2h ago
+                </div>
+</div>
+<!-- Trailing chevron icon -->
+<div class="flex-shrink-0 text-secondary group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right w-4 h-4 stroke-[2]"><path d="m9 18 6-6-6-6"></path></svg>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- END: MainContentArea -->
+<!-- Icon Initialization Script -->
+<script data-purpose="icon-loader">
+    lucide.createIcons();
+  </script>
+
+
+</body></html>

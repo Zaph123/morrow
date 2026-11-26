@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Morrow — Home</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN with forms and container-queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            borderPrimary: '#E5E6EB',
+            textPrimary: '#121316',
+            textSecondary: '#5E636E',
+            textMuted: '#8E94A0',
+            accentLime: '#D4FC30',
+            selectedLime: '#F2FCD6',
+            controlQuiet: '#ECECEF',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Styles for core layout and baseline typography -->
+<style data-purpose="base-styling">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    textarea {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-textPrimary min-h-screen flex selection:bg-selectedLime selection:text-textPrimary">
+<!-- BEGIN: LeftNavigationRail -->
+<!-- Slim fixed left navigation rail matching Studio screen (64px wide, borders, vertical layout) -->
+<aside class="w-16 bg-canvas border-r border-borderPrimary fixed inset-y-0 left-0 z-30 flex flex-col items-center justify-between py-5" data-purpose="navigation-rail">
+<!-- Top Nav Action Items -->
+<div class="flex flex-col items-center gap-6 w-full">
+<!-- Create Button: Quiet neutral treatment for Home context to prioritize main workspace capture -->
+<button aria-label="Create new draft" class="w-10 h-10 rounded-xl bg-controlQuiet border border-borderPrimary flex items-center justify-center text-textPrimary hover:bg-borderPrimary transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Navigation Links -->
+<nav aria-label="Main Navigation" class="flex flex-col items-center gap-3 w-full">
+<!-- Home (Active State: Pale lime #F2FCD6 background with dark charcoal icon #121316) -->
+<a aria-current="page" aria-label="Home" class="w-10 h-10 rounded-xl bg-selectedLime text-textPrimary flex items-center justify-center transition-colors" href="#">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Studio / Pen -->
+<a aria-label="Studio" class="w-10 h-10 rounded-xl text-textSecondary hover:text-textPrimary hover:bg-[#EAEBED] flex items-center justify-center transition-colors" href="#">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Library / Book -->
+<a aria-label="Library" class="w-10 h-10 rounded-xl text-textSecondary hover:text-textPrimary hover:bg-[#EAEBED] flex items-center justify-center transition-colors" href="#">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+<!-- Ideas / Spark Bulb -->
+<a aria-label="Ideas" class="w-10 h-10 rounded-xl text-textSecondary hover:text-textPrimary hover:bg-[#EAEBED] flex items-center justify-center transition-colors" href="#">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</a>
+</nav>
+</div>
+<!-- Bottom Nav Controls -->
+<div class="flex flex-col items-center gap-4 w-full">
+<!-- Calendar Icon (Muted) -->
+<button aria-label="Calendar view" class="w-10 h-10 rounded-xl text-textSecondary hover:text-textPrimary hover:bg-[#EAEBED] flex items-center justify-center transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5m-6.75-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- User Avatar Circle -->
+<button aria-label="User Profile" class="w-8 h-8 rounded-full bg-controlQuiet border border-borderPrimary text-textPrimary text-xs font-medium flex items-center justify-center hover:border-textSecondary transition-colors" type="button">
+        L
+      </button>
+</div>
+</aside>
+<!-- END: LeftNavigationRail -->
+<!-- BEGIN: MainContentCanvas -->
+<!-- Main content area offset by 64px rail, centered with max-width 720px -->
+<main class="flex-1 ml-16 flex justify-center px-6 pt-16 pb-24">
+<div class="w-full max-w-[720px] flex flex-col">
+<!-- Header / Confident Greeting -->
+<header class="mb-8" data-purpose="greeting-header">
+<h1 class="text-3xl md:text-4xl font-medium tracking-tight text-textPrimary leading-tight">
+          Make something of <span class="italic font-medium">today.</span>
+</h1>
+</header>
+<!-- BEGIN: MainIdeaCapture -->
+<!-- Frictionless, central capture surface with acid-lime Save idea trigger -->
+<section aria-label="Quick Idea Capture" class="mb-12" data-purpose="idea-capture-box">
+<div class="bg-surface border border-borderPrimary rounded-2xl p-5 shadow-none transition-all duration-150 focus-within:border-textSecondary">
+<!-- Text Input Area -->
+<textarea class="w-full text-lg text-textPrimary placeholder:text-textMuted bg-transparent border-none p-0 focus:ring-0 focus:outline-none resize-none leading-relaxed min-h-[96px]" id="quick-thought-input" placeholder="What's on your mind?" rows="3"></textarea>
+<!-- Bottom Action Bar Inside Capture Box -->
+<div class="flex items-center justify-between pt-3 mt-1 border-t border-transparent">
+<!-- Supporting Actions / Add media or links -->
+<button aria-label="Attach context or voice note" class="w-8 h-8 rounded-lg bg-controlQuiet text-textSecondary hover:text-textPrimary flex items-center justify-center transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Primary Accent Button: Strictly reserved acid-lime #D4FC30 -->
+<button class="bg-accentLime text-textPrimary font-medium text-sm px-5 py-2.5 rounded-xl hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer shadow-none" type="button">
+              Save idea
+            </button>
+</div>
+</div>
+</section>
+<!-- END: MainIdeaCapture -->
+<!-- BEGIN: ContinueSection -->
+<!-- Work-in-progress drafts and recent writing pieces -->
+<section aria-labelledby="continue-heading" class="mb-12" data-purpose="in-progress-drafts">
+<h2 class="text-xs uppercase tracking-wider font-semibold text-textSecondary mb-3" id="continue-heading">
+          Continue
+        </h2>
+<!-- Draft Cards Stack -->
+<div class="space-y-3">
+<!-- Primary Highlighted Draft Card -->
+<article class="bg-surface border border-borderPrimary rounded-xl p-5 hover:border-textMuted transition-colors cursor-pointer block focus:outline-none focus:border-textPrimary" role="button" tabindex="0">
+<div class="flex items-baseline justify-between mb-1.5">
+<h3 class="text-base font-medium text-textPrimary tracking-tight">The last 10%</h3>
+</div>
+<p class="text-sm text-textSecondary leading-relaxed line-clamp-2">
+              I lost my job last month, and the strangest thing is how much of my old work was the last 10%. Nobody praises it. It's the empty state, the error message, the second look at a spinner.
+            </p>
+<div class="text-xs text-textMuted mt-3 flex items-center gap-1.5">
+<span>X</span>
+<span>·</span>
+<span>edited 2h ago</span>
+</div>
+</article>
+<!-- Flat Secondary Continuation Container -->
+<div class="bg-surface border border-borderPrimary rounded-xl divide-y divide-borderPrimary overflow-hidden">
+<!-- Row 2 -->
+<article class="p-4 hover:bg-[#FAFAFB] transition-colors cursor-pointer block focus:outline-none focus:bg-[#FAFAFB]" role="button" tabindex="0">
+<h3 class="text-sm font-medium text-textPrimary mb-1">Taste without permission</h3>
+<p class="text-xs text-textSecondary line-clamp-1 leading-normal">
+                Most people wait until someone gives them a title to have strong convictions about quality...
+              </p>
+<div class="text-[11px] text-textMuted mt-2 flex items-center gap-1.5">
+<span>LinkedIn</span>
+<span>·</span>
+<span>edited yesterday</span>
+</div>
+</article>
+<!-- Row 3 -->
+<article class="p-4 hover:bg-[#FAFAFB] transition-colors cursor-pointer block focus:outline-none focus:bg-[#FAFAFB]" role="button" tabindex="0">
+<h3 class="text-sm font-medium text-textPrimary mb-1">The silent audience</h3>
+<p class="text-xs text-textSecondary line-clamp-1 leading-normal">
+                The people who read everything you write rarely leave a comment. They just remember when...
+              </p>
+<div class="text-[11px] text-textMuted mt-2 flex items-center gap-1.5">
+<span>Draft</span>
+<span>·</span>
+<span>edited 3 days ago</span>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- END: ContinueSection -->
+<!-- BEGIN: IdeasToRevisitSection -->
+<!-- Low-friction thoughts ready for further synthesis -->
+<section aria-labelledby="revisit-heading" data-purpose="unprocessed-ideas">
+<h2 class="text-xs uppercase tracking-wider font-semibold text-textSecondary mb-3" id="revisit-heading">
+          Ideas to revisit
+        </h2>
+<!-- Flat List Separated by Subtle Borders -->
+<div class="bg-surface border border-borderPrimary rounded-xl divide-y divide-borderPrimary overflow-hidden">
+<!-- Item 1 -->
+<div class="px-4 py-3.5 flex items-center justify-between gap-4 hover:bg-[#FAFAFB] transition-colors cursor-pointer focus:outline-none focus:bg-[#FAFAFB]" role="button" tabindex="0">
+<p class="text-sm text-textPrimary leading-normal line-clamp-1">
+              Why tools designed for speed make thinking harder
+            </p>
+<span class="text-xs text-textMuted whitespace-nowrap">3 days ago</span>
+</div>
+<!-- Item 2 -->
+<div class="px-4 py-3.5 flex items-center justify-between gap-4 hover:bg-[#FAFAFB] transition-colors cursor-pointer focus:outline-none focus:bg-[#FAFAFB]" role="button" tabindex="0">
+<p class="text-sm text-textPrimary leading-normal line-clamp-1">
+              The difference between an authentic angle and manufactured vulnerability
+            </p>
+<span class="text-xs text-textMuted whitespace-nowrap">5 days ago</span>
+</div>
+<!-- Item 3 -->
+<div class="px-4 py-3.5 flex items-center justify-between gap-4 hover:bg-[#FAFAFB] transition-colors cursor-pointer focus:outline-none focus:bg-[#FAFAFB]" role="button" tabindex="0">
+<p class="text-sm text-textPrimary leading-normal line-clamp-1">
+              Notes from the talk on invisible craft: why friction sometimes protects meaning
+            </p>
+<span class="text-xs text-textMuted whitespace-nowrap">1 week ago</span>
+</div>
+</div>
+</section>
+<!-- END: IdeasToRevisitSection -->
+</div>
+</main>
+<!-- END: MainContentCanvas -->
+</body></html>

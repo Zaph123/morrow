@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, initial-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Studio — Mobile — Start</title>
+<!-- Google Fonts: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            charcoal: '#121316',
+            subtle: '#5E636E',
+            limeAccent: '#D4FC30',
+            cardBorder: '#E5E6EB',
+            mintBadge: '#D2EDE0',
+            peachBadge: '#FCE1D4',
+            pillActive: '#2C2D31',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-styling">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    /* Hide scrollbars while allowing natural scrolling */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-canvas min-h-screen text-charcoal flex justify-center">
+<!-- BEGIN: MobileViewportContainer -->
+<!-- Constrained strictly to 390px mobile viewport without browser/OS chrome wrapper -->
+<main class="w-[390px] min-h-screen bg-canvas px-6 pt-12 pb-32 flex flex-col relative" data-purpose="mobile-screen">
+<!-- BEGIN: HeaderSection -->
+<header class="pt-2 mb-6" data-purpose="screen-header">
+<h2 class="text-[17px] font-semibold text-charcoal tracking-tight">Studio</h2>
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: HeroIntroduction -->
+<section class="mb-10" data-purpose="hero-start-draft">
+<h1 class="text-[32px] leading-[1.15] font-bold text-charcoal tracking-[-0.03em] mb-3">
+        Make room for your next draft.
+      </h1>
+<p class="text-[15px] leading-relaxed text-subtle mb-6 max-w-[320px]">
+        Start with a blank page, an idea you saved, or a question.
+      </p>
+<!-- Primary Action: Start writing -->
+<button class="inline-flex items-center gap-2.5 bg-limeAccent text-charcoal font-medium text-[15px] h-[48px] px-5 rounded-xl active:scale-[0.98] transition-transform select-none" data-purpose="primary-action-start-writing" type="button">
+<!-- Lucide: pen-line -->
+<svg class="w-[18px] h-[18px] stroke-[2.2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span>Start writing</span>
+</button>
+</section>
+<!-- END: HeroIntroduction -->
+<!-- BEGIN: SecondaryOptions -->
+<section class="flex flex-col gap-3.5 mb-10" data-purpose="secondary-entry-points">
+<!-- Option 1: From an idea -->
+<button class="flex items-center gap-3.5 min-h-[48px] text-left group w-full active:opacity-75 transition-opacity" data-purpose="entry-from-an-idea" type="button">
+<!-- Mint patch with stylized folded note icon -->
+<div class="w-12 h-12 rounded-xl bg-mintBadge flex items-center justify-center shrink-0">
+<div class="w-6 h-7 bg-white rounded-[3px] border border-[#C8CBD0] relative shadow-none flex flex-col justify-center px-1 gap-1 overflow-hidden">
+<!-- Folded dog-ear corner at bottom-right -->
+<div class="absolute bottom-0 right-0 w-2 h-2 bg-mintBadge border-t border-l border-[#C8CBD0] pointer-events-none"></div>
+<!-- Lines on note -->
+<div class="w-3.5 h-[2px] bg-charcoal rounded-full"></div>
+<div class="w-2.5 h-[2px] bg-charcoal rounded-full"></div>
+</div>
+</div>
+<span class="text-[16px] font-medium text-charcoal">From an idea</span>
+</button>
+<!-- Option 2: Discuss a thought -->
+<button class="flex items-center gap-3.5 min-h-[48px] text-left group w-full active:opacity-75 transition-opacity" data-purpose="entry-discuss-a-thought" type="button">
+<!-- Peach patch with overlapping discussion cards icon -->
+<div class="w-12 h-12 rounded-xl bg-peachBadge flex items-center justify-center shrink-0 relative">
+<!-- Top left bubble -->
+<div class="w-6 h-4 bg-white rounded-[3px] border border-[#C8CBD0] absolute top-[13px] left-[11px] z-10 flex flex-col justify-center px-1 gap-0.5">
+<div class="w-3 h-[1.5px] bg-charcoal rounded-full"></div>
+<div class="w-1.5 h-[1.5px] bg-charcoal rounded-full"></div>
+</div>
+<!-- Bottom right bubble -->
+<div class="w-6 h-4 bg-white rounded-[3px] border border-[#C8CBD0] absolute top-[21px] left-[17px] z-20 flex flex-col justify-center px-1">
+<div class="w-2.5 h-[1.5px] bg-charcoal rounded-full"></div>
+</div>
+</div>
+<span class="text-[16px] font-medium text-charcoal">Discuss a thought</span>
+</button>
+</section>
+<!-- END: SecondaryOptions -->
+<!-- BEGIN: ResumeSection -->
+<section class="mt-2" data-purpose="resume-draft-container">
+<h3 class="text-xs font-semibold tracking-wider text-subtle uppercase mb-3 select-none">
+        RESUME
+      </h3>
+<!-- Resume Item Card -->
+<article class="bg-white rounded-2xl border border-cardBorder p-5 flex flex-col cursor-pointer active:scale-[0.99] transition-transform" data-purpose="resume-draft-card">
+<div class="flex items-center justify-between">
+<h4 class="text-[16px] font-bold text-charcoal leading-snug">
+            Speed vs clarity
+          </h4>
+<!-- Chevron Right -->
+<svg class="w-4 h-4 text-subtle shrink-0 stroke-[2.2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="m9 18 6-6-6-6"></path>
+</svg>
+</div>
+<p class="text-[14px] text-subtle mt-1.5 leading-normal">
+          Most tools are built to help you finish faster.
+        </p>
+<footer class="mt-4 text-[12px] text-subtle">
+          X · LinkedIn · edited 2h ago
+        </footer>
+</article>
+</section>
+<!-- END: ResumeSection -->
+<!-- BEGIN: FloatingNavigationBar -->
+<!-- Fixed floating bottom pill bar styled to match specifications -->
+<nav aria-label="Bottom Navigation" class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[342px] h-[58px] bg-charcoal rounded-full px-2 flex items-center justify-between text-white shadow-lg z-50 select-none" data-purpose="floating-dock-nav">
+<!-- Nav Item 1: Home -->
+<button aria-label="Home" class="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<!-- Lucide: Home -->
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+</button>
+<!-- Nav Item 2: Studio (Active Capsule) -->
+<button aria-label="Studio (Active)" class="h-10 px-4 bg-pillActive rounded-full flex items-center gap-2 text-white font-medium text-[13px] transition-colors" type="button">
+<!-- Lucide: Pen-line / Edit -->
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span>Studio</span>
+</button>
+<!-- Nav Item 3: Library -->
+<button aria-label="Library" class="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<!-- Lucide: Book Open -->
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+</svg>
+</button>
+<!-- Nav Item 4: Ideas -->
+<button aria-label="Ideas" class="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<!-- Lucide: Lightbulb -->
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+<path d="M9 18h6"></path>
+<path d="M10 22h4"></path>
+</svg>
+</button>
+<!-- Nav Item 5: Brand Brain -->
+<button aria-label="Brand Brain" class="w-10 h-10 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<!-- Lucide: Brain outline -->
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path>
+<path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path>
+<path d="M12 5v13"></path>
+</svg>
+</button>
+</nav>
+<!-- END: FloatingNavigationBar -->
+</main>
+<!-- END: MobileViewportContainer -->
+</body></html>

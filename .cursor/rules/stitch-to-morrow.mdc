@@ -1,0 +1,15 @@
+---
+description: Stitch-to-Morrow UI conversion — read authoritative rules before Stitch-derived UI
+alwaysApply: false
+---
+
+# Stitch → Morrow
+
+Before implementing or reviewing Stitch-derived UI, read:
+
+1. `.agents/rules/stitch-to-morrow.md` (authoritative conversion rules)
+2. Root `DESIGN.md` (approved light neutral / lime / DM Sans system)
+
+Also follow root `AGENTS.md` approval boundaries and `docs/handoff/2026-11-24/current/CODEX-COLLABORATION.txt`. Do not duplicate or fork the conversion rules here; update the authoritative file only.
+
+Historical packet rules: `docs/handoff/2026-11-24/historical-context/STITCH-TO-NEXTJS-RULES.txt`.

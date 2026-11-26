@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Library — Mobile — Couldn't load</title>
+<!-- Google Fonts: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            charcoal: '#121316',
+            secondary: '#5E636E',
+            borderFine: '#E5E6EB',
+            bgCanvas: '#F5F5F7',
+            pillActive: '#2F3132',
+            trackNeutral: '#ECECEF',
+            chevronGray: '#8E94A0'
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-resets">
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+    }
+    /* Mobile frame container sizing */
+    .mobile-screen-wrapper {
+      width: 390px;
+      min-height: 844px;
+      background-color: #F5F5F7;
+      position: relative;
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F7]">
+<!-- Mobile screen container (390px x 844px target) -->
+<div class="mobile-screen-wrapper flex flex-col justify-between">
+<!-- BEGIN: MainContent -->
+<main class="w-full px-6 pt-16 pb-36 flex flex-col">
+<!-- BEGIN: HeaderSection -->
+<header class="flex items-center justify-between w-full" data-purpose="screen-header">
+<h1 class="text-[24px] leading-[32px] font-semibold text-[#121316] tracking-tight">Library</h1>
+<!-- "New idea" Button -->
+<button aria-label="New idea" class="w-11 h-11 rounded-[12px] bg-[#ECECEF] text-[#121316] flex items-center justify-center transition-colors active:bg-[#E2E2E6]" type="button">
+<!-- Plus Icon -->
+<svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+</button>
+</header>
+<!-- END: HeaderSection -->
+<!-- BEGIN: SearchField -->
+<div class="mt-6 w-full" data-purpose="search-container">
+<div class="relative flex items-center h-10 w-full rounded-[12px] bg-white border border-[#E5E6EB] px-3 focus-within:border-[#121316] transition-colors">
+<!-- Search Icon -->
+<span class="text-[#5E636E] mr-2.5 flex items-center justify-center flex-shrink-0">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<circle cx="11" cy="11" r="8"></circle>
+<line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+</svg>
+</span>
+<input class="w-full bg-transparent border-0 p-0 text-[14px] text-[#121316] placeholder-[#5E636E] focus:ring-0 focus:outline-none" placeholder="Search writing" type="search"/>
+</div>
+</div>
+<!-- END: SearchField -->
+<!-- BEGIN: SegmentedControl -->
+<div class="mt-4 w-full" data-purpose="tab-filter">
+<nav aria-label="Library filter" class="flex w-full bg-[#ECECEF] rounded-[8px] p-1 gap-1">
+<!-- Active Tab: All -->
+<button class="flex-1 py-1.5 text-center text-[13px] font-medium text-[#121316] bg-white rounded-[8px] transition-colors" type="button">
+            All
+          </button>
+<!-- Inactive Tab: Drafts -->
+<button class="flex-1 py-1.5 text-center text-[13px] font-medium text-[#5E636E] transition-colors hover:text-[#121316]" type="button">
+            Drafts
+          </button>
+<!-- Inactive Tab: Published -->
+<button class="flex-1 py-1.5 text-center text-[13px] font-medium text-[#5E636E] transition-colors hover:text-[#121316]" type="button">
+            Published
+          </button>
+</nav>
+</div>
+<!-- END: SegmentedControl -->
+<!-- BEGIN: WritingList -->
+<div class="mt-12 flex flex-col items-center text-center px-4" data-purpose="error-state"><div class="text-[#BA1A1A] flex items-center justify-center"><svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg></div><h2 class="mt-2 text-[16px] leading-snug font-medium text-[#BA1A1A]">Couldn't load your writing.</h2><p class="mt-2 text-[14px] leading-relaxed text-[#5E636E] max-w-[280px]">Try again to load your drafts and published writing.</p><div class="mt-4"><button class="h-10 min-h-[44px] px-6 rounded-[12px] bg-[#ECECEF] text-[#121316] text-[14px] font-medium flex items-center justify-center transition-colors active:bg-[#E2E2E6]" type="button">Retry</button></div></div>
+<!-- END: WritingList -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: FloatingBottomNavigation -->
+<div class="fixed bottom-6 left-0 right-0 max-w-[390px] mx-auto flex justify-center z-50 pointer-events-none px-4">
+<nav aria-label="Bottom Navigation" class="h-14 bg-[#121316] rounded-full px-3 flex items-center justify-between gap-1 pointer-events-auto">
+<!-- 1. Home -->
+<button aria-label="Home" class="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6h-4v6H4a1 1 0 0 1-1-1V9.5z"></path>
+</svg>
+</button>
+<!-- 2. Studio -->
+<button aria-label="Studio" class="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+</button>
+<!-- 3. Library (Active Capsule) -->
+<button aria-label="Library" class="h-11 px-4 bg-[#2F3132] text-white rounded-full flex items-center gap-2 transition-colors flex-shrink-0" type="button">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+</svg>
+<span class="text-[13px] font-medium leading-none">Library</span>
+</button>
+<!-- 4. Ideas -->
+<button aria-label="Ideas" class="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<path d="M9 18h6"></path>
+<path d="M10 22h4"></path>
+<path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path>
+</svg>
+</button>
+<!-- 5. Brand Brain -->
+<button aria-label="Brand Brain" class="w-11 h-11 flex items-center justify-center text-white/70 hover:text-white transition-colors" type="button">
+<svg class="w-5 h-5 stroke-[1.8]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewbox="0 0 24 24">
+<path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"></path>
+<path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"></path>
+</svg>
+</button>
+</nav>
+</div>
+<!-- END: FloatingBottomNavigation -->
+</div>
+</body></html>

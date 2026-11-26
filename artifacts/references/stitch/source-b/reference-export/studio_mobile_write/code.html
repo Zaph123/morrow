@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<meta content="mobile_stack" name="shell-type">
+<title>Morrow — Studio Write</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            divider: '#E5E6EB',
+            primary: '#121316',
+            secondary: '#5E636E',
+            'pale-lime': '#F2FCD6',
+            'muted-dot': '#8E94A0',
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #F5F5F7;
+      }
+      body {
+        overscroll-behavior: none;
+        font-family: 'DM Sans', sans-serif;
+        color: #121316;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      min-height: max(844px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F7] font-sans text-[#121316] antialiased min-h-screen flex flex-col">
+<!-- Fixed Top Navigation & Segmented Control -->
+<header class="fixed top-0 inset-x-0 z-50 pt-safe bg-[#F5F5F7]"><!-- Top Workspace Header Bar -->
+<div class="h-14 px-3 flex items-center justify-between border-b border-[#E5E6EB]"><!-- Left: Back Arrow + Draft Name -->
+<div class="flex items-center gap-1.5 min-w-0 flex-1 mr-2">
+  <button aria-label="Go back" class="w-8 h-8 flex items-center justify-center rounded-md text-[#121316] hover:bg-[#EBECEF] transition-colors shrink-0" type="button">
+    <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+  <span class="font-medium text-[15px] text-[#121316] truncate">Speed vs clarity</span>
+</div>
+<!-- Right: Grey Saved indicator and small bordered Copy action -->
+<div class="flex items-center gap-2.5 shrink-0">
+  <div class="flex items-center gap-1.5 text-[#5E636E] text-[13px] shrink-0">
+    <span class="w-1.5 h-1.5 rounded-full bg-[#5E636E]"></span>
+    <span>Saved</span>
+  </div>
+  <button aria-label="Copy draft" class="w-7 h-7 flex items-center justify-center rounded-[6px] border border-[#E5E6EB] bg-[#FFFFFF] text-[#5E636E] hover:text-[#121316] hover:bg-[#EBECEF] transition-colors shrink-0" type="button">
+    <svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+      <path d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+</div></div>
+<!-- Segmented Control: Write | Discuss -->
+<div class="px-4 py-2.5"><nav aria-label="Studio Mode" class="w-full p-0.5 bg-[#EBECEF] rounded-lg flex items-center gap-0.5">
+  <!-- Write (Active) -->
+  <a aria-current="page" class="flex-1 h-7 flex items-center justify-center rounded-[6px] bg-[#FFFFFF] text-[#121316] font-medium text-[12px] shadow-none transition-all" data-path="studio-write" href="#">
+    Write
+  </a>
+  <!-- Discuss (Inactive with neutral dot) -->
+  <a class="flex-1 h-7 flex items-center justify-center gap-1.5 rounded-[6px] text-[#5E636E] font-medium text-[12px] hover:text-[#121316] transition-colors" data-path="studio-discuss" href="#">
+    <span>Discuss</span>
+    <span aria-label="Waiting proposal" class="w-1.5 h-1.5 rounded-full bg-[#8E94A0] inline-block"></span>
+  </a>
+</nav></div></header>
+<!-- Main Content Area -->
+<main class="flex-1 w-full pb-safe px-4 flex flex-col pt-[104px]">
+<div class="w-full max-w-[390px] mx-auto flex flex-col items-center gap-3 pt-1 pb-6">
+<!-- Platform Segmented Control (Desktop clone) -->
+<div aria-label="Target Platform" class="inline-flex items-center p-0.5 rounded-lg border border-[#E5E6EB] bg-[#EBECEF]" role="tablist">
+  <!-- Active Tab: X -->
+  <button aria-selected="true" class="h-6 px-3 text-[12px] font-semibold text-[#121316] bg-[#FFFFFF] rounded-md transition-all flex items-center justify-center" role="tab" type="button">
+    <span>X</span>
+  </button>
+  <!-- Inactive Tab: LinkedIn -->
+  <button aria-selected="false" class="h-6 px-3 text-[12px] font-medium text-[#5E636E] hover:text-[#121316] rounded-md transition-colors flex items-center justify-center" role="tab" type="button">
+    <span>LinkedIn</span>
+  </button>
+  <!-- Add Platform Option -->
+  <button aria-label="Add platform version" class="h-6 w-6 flex items-center justify-center text-[#5E636E] hover:text-[#121316] rounded-md transition-colors" type="button">
+    <svg aria-hidden="true" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+</div>
+<!-- Working Draft Sheet (Desktop clone) -->
+<section aria-label="Draft Sheet" class="w-full bg-[#FFFFFF] rounded-xl border border-[#E5E6EB] p-5 flex flex-col gap-4">
+<!-- Origin Context Pill -->
+<div class="flex items-center">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F5F5F7] border border-[#E5E6EB] text-[#5E636E] text-[13px] font-medium max-w-full truncate">
+<svg aria-hidden="true" class="w-3.5 h-3.5 text-[#5E636E] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.381a3.015 3.015 0 0 1-3 0M12 2.25c-3.728 0-6.75 3.022-6.75 6.75 0 2.378 1.233 4.469 3.104 5.674.336.216.546.592.546.99v.586h6.2v-.586c0-.398.21-.774.546-.99 1.871-1.205 3.104-3.296 3.104-5.674 0-3.728-3.022-6.75-6.75-6.75Z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="truncate">From idea · Nobody warns you about the last 10%</span>
+</div>
+</div>
+<!-- Post Content -->
+<div class="text-[17px] leading-[26px] text-[#121316] select-text">
+<p class="mb-2">Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start.</p>
+<p><mark style="background-color: rgb(242, 252, 214); color: inherit; box-decoration-break: clone; -webkit-box-decoration-break: clone; padding: 2px 4px; border-radius: 4px; font-weight: inherit;">Speed is easy to measure. Clarity usually isn't.</mark></p>
+</div>
+<!-- Hairline Divider -->
+<div class="w-full h-px bg-[#E5E6EB] mt-1"></div>
+<!-- Footer Metadata Row -->
+<footer class="flex items-center justify-between text-[13px] text-[#5E636E]">
+<span>Edited 2 min ago</span>
+<span class="font-mono text-[12px] tracking-tight">168 / 280</span>
+</footer>
+</section>
+</div>
+</main>
+
+
+
+
+
+
+
+
+</body></html>

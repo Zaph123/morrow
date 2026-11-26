@@ -1,0 +1,35 @@
+{
+  "document": "DESIGN.md",
+  "mode": "repository; replacement artifact for approved target",
+  "governing_sources": [
+    "Direct user design decisions",
+    "DESIGN-DECISIONS.txt",
+    "design-tokens.json",
+    "UIARC-INTEGRATION.txt"
+  ],
+  "spec_checked": "npx @google/design.md spec; installed specification has no themes/default-theme syntax",
+  "lint": {
+    "command": "npx @google/design.md lint DESIGN.md",
+    "exit_code": 0,
+    "errors": 0,
+    "warnings": 0
+  },
+  "export": {
+    "command": "npx @google/design.md export --format css-tailwind DESIGN.md",
+    "exit_code": 0,
+    "verified_token_families": {
+      "colors": 14,
+      "fontFamilies": 5,
+      "fontSizes": 4,
+      "rounded": 5,
+      "spacing": 3
+    },
+    "export_file_retained": false
+  },
+  "diff": {
+    "command": "npx @google/design.md diff <previous-root-DESIGN.md> DESIGN.md",
+    "exit_code": 0,
+    "review": "Old palette, serif typography and dark variant are superseded by direct user decisions; Base UI baseline and selective Arc adoption retained. Exact geometry remains in DESIGN-DECISIONS.txt/design-tokens.json."
+  },
+  "limits": "No application visual verification; old dark-theme implementation is not a newly approved dark design."
+}

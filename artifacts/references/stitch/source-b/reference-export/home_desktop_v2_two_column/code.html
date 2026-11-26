@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home — Desktop v2 (two column)</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN with forms and container-queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            borderPrimary: '#E5E6EB',
+            textPrimary: '#121316',
+            textSecondary: '#5E636E',
+            textMuted: '#8E94A0',
+            accentLime: '#D4FC30',
+            selectedLime: '#F2FCD6',
+            controlQuiet: '#ECECEF',
+          }
+        }
+      }
+    }
+  </script>
+<!-- Styles for core layout and baseline typography -->
+<style data-purpose="base-styling">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    textarea {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-textPrimary min-h-screen flex selection:bg-selectedLime selection:text-textPrimary">
+<!-- BEGIN: LeftNavigationRail -->
+<!-- Slim fixed left navigation rail matching Studio screen (64px wide, borders, vertical layout) -->
+<aside class="w-52 bg-canvas border-r border-[#E5E6EB] fixed inset-y-0 left-0 z-30 flex flex-col justify-between p-4" data-purpose="navigation-rail">
+<div class="flex flex-col gap-6 w-full">
+<!-- Top Action Row: + New idea neutral button & collapse button -->
+<div class="flex items-center justify-between gap-2">
+<button class="flex-1 flex items-center justify-center gap-2 bg-[#ECECEF] hover:bg-[#E2E2E5] text-[#121316] text-sm font-medium py-2 px-3 rounded-md transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>New idea</span>
+</button>
+<button aria-label="Collapse sidebar" class="p-2 text-[#5E636E] hover:text-[#121316] hover:bg-[#ECECEF] rounded-md transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+<!-- Main Navigation Items with labels -->
+<nav aria-label="Main Navigation" class="flex flex-col gap-1 w-full">
+<!-- Home (active: pale lime #F2FCD6 pill and dark charcoal text #121316) -->
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg bg-[#F2FCD6] text-[#121316] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Home</span>
+</a>
+<!-- Studio -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Studio</span>
+</a>
+<!-- Library -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Library</span>
+</a>
+<!-- Ideas -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.516 0c.85.493 1.508 1.333 1.508 2.316V18" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Ideas</span>
+</a>
+<!-- Brand Brain -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors" href="#">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19 14.5M14.25 3.104c.251.023.501.05.75.082M19 14.5a3.75 3.75 0 01-5.303 3.407l-1.697-.75-1.697.75A3.75 3.75 0 015 14.5m14 0c.667-.889 1-1.956 1-3.08a5.978 5.978 0 00-1.757-4.243M5 14.5c-.667-.889-1-1.956-1-3.08a5.978 5.978 0 011.757-4.243" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span>Brand Brain</span>
+</a>
+</nav>
+</div>
+<!-- Bottom Nav Controls: Calendar and User row 'You' -->
+<div class="flex flex-col gap-2 w-full pt-4 border-t border-[#E5E6EB]">
+<button class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#5E636E] hover:text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors w-full text-left" type="button">
+<svg class="w-4 h-4 stroke-[1.8]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 9v7.5m-6.75-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm-3-3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Calendar</span>
+</button>
+<button class="flex items-center gap-3 px-3 py-2 rounded-lg text-[#121316] hover:bg-[#EAEBED] text-sm font-medium transition-colors w-full text-left" type="button">
+<div class="w-6 h-6 rounded-full bg-[#ECECEF] border border-[#E5E6EB] text-[#121316] text-xs font-semibold flex items-center justify-center">
+        Y
+      </div>
+<span>You</span>
+</button>
+</div>
+</aside>
+<!-- END: LeftNavigationRail -->
+<!-- BEGIN: MainContentCanvas -->
+<!-- Main content area offset by 64px rail, centered with max-width 720px -->
+<main class="flex-1 flex justify-center px-6 pt-16 pb-24 ml-52">
+<div class="w-full max-w-[1024px] flex items-start gap-16">
+<!-- Left Column (680px wide) -->
+<div class="w-[680px] flex-shrink-0 flex flex-col">
+<!-- Header / Confident Greeting -->
+<header class="mb-8" data-purpose="greeting-header">
+<p class="text-xs text-[#5E636E] mb-2 font-medium">Thursday · 19 Nov</p>
+<h1 class="text-3xl md:text-4xl tracking-tight text-textPrimary leading-tight font-semibold">
+        Make something of <span class="italic font-medium">today.</span>
+</h1>
+</header>
+<!-- Main Idea Capture Box -->
+<section aria-label="Quick Idea Capture" class="mb-12" data-purpose="idea-capture-box">
+<div class="bg-[#FFFFFF] border border-[#E5E6EB] rounded-xl p-5 shadow-none transition-all duration-150 focus-within:border-[#5E636E]">
+<!-- Text Input Area -->
+<textarea class="w-full text-lg text-[#121316] placeholder-[#5E636E] bg-transparent border-none p-0 focus:ring-0 focus:outline-none resize-none leading-relaxed min-h-[96px]" id="quick-thought-input" placeholder="What happened today that's worth saying?" rows="3"></textarea>
+<!-- Bottom Action Bar Inside Capture Box -->
+<div class="flex items-center justify-between pt-3 mt-1 border-t border-[#E5E6EB]">
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#ECECEF] transition-colors" type="button">
+<svg class="w-4 h-4 stroke-[2]" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Add context</span>
+</button>
+<button class="bg-[#D4FC30] text-[#121316] font-medium text-sm px-5 py-2.5 rounded-lg hover:opacity-90 active:scale-[0.99] transition-all cursor-pointer shadow-none" type="button">
+            Save idea
+          </button>
+</div>
+</div>
+</section>
+<!-- Continue Section -->
+<section aria-labelledby="continue-heading" class="mb-12" data-purpose="in-progress-drafts">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-xs uppercase tracking-wider font-semibold text-[#5E636E]" id="continue-heading">Continue</h2>
+<a class="text-sm text-[#5E636E] hover:text-[#121316] font-medium transition-colors" href="#">See all</a>
+</div>
+<div class="divide-y divide-[#E5E6EB]">
+<!-- Primary continuation row: The last 10% -->
+<article class="py-5 group cursor-pointer" role="button" tabindex="0">
+<h3 class="font-semibold text-[#121316] tracking-tight group-hover:text-black mb-1.5 text-lg">
+            The last 10%
+          </h3>
+<p class="text-sm text-[#121316] leading-relaxed line-clamp-2 mb-2">
+            I lost my job last month, and the strangest thing is how much of my old work was the last 10%. Nobody praises it. It's the empty state, the error message, the second look at a spinner.
+          </p>
+<div class="text-xs text-[#5E636E] flex items-center gap-1.5">
+<span>X</span>
+<span>·</span>
+<span>edited 2h ago</span>
+</div>
+</article>
+<!-- Continuation row: Taste without permission -->
+<article class="py-5 group cursor-pointer" role="button" tabindex="0">
+<h3 class="text-base font-medium text-[#121316] tracking-tight group-hover:text-black mb-1.5">
+            Taste without permission
+          </h3>
+<p class="text-sm text-[#121316] leading-relaxed line-clamp-2 mb-2">
+            Most people wait until someone gives them a title to have strong convictions about quality...
+          </p>
+<div class="text-xs text-[#5E636E] flex items-center gap-1.5">
+<span>LinkedIn</span>
+<span>·</span>
+<span>edited yesterday</span>
+</div>
+</article>
+<!-- Continuation row: The silent audience -->
+<article class="py-5 group cursor-pointer" role="button" tabindex="0">
+<h3 class="text-base font-medium text-[#121316] tracking-tight group-hover:text-black mb-1.5">
+            The silent audience
+          </h3>
+<p class="text-sm text-[#121316] leading-relaxed line-clamp-2 mb-2">
+            The people who read everything you write rarely leave a comment. They just remember when...
+          </p>
+<div class="text-xs text-[#5E636E] flex items-center gap-1.5">
+<span>Draft</span>
+<span>·</span>
+<span>edited 3 days ago</span>
+</div>
+</article>
+</div>
+</section>
+</div>
+<!-- Right Rail (280px wide) aligning vertically with the date line at top -->
+<aside aria-labelledby="revisit-heading" class="w-[280px] flex-shrink-0" data-purpose="unprocessed-ideas">
+<h2 class="text-xs uppercase tracking-wider font-semibold text-[#5E636E] mb-4" id="revisit-heading">
+      Ideas to revisit
+    </h2>
+<div class="divide-y divide-[#E5E6EB]">
+<!-- Item 1 -->
+<div class="py-3 cursor-pointer group" role="button" tabindex="0">
+<p class="text-sm text-[#121316] leading-snug line-clamp-2 group-hover:text-black mb-1">
+          Why tools designed for speed make thinking harder
+        </p>
+<span class="text-xs text-[#5E636E]">3 days ago</span>
+</div>
+<!-- Item 2 -->
+<div class="py-3 cursor-pointer group" role="button" tabindex="0">
+<p class="text-sm text-[#121316] leading-snug line-clamp-2 group-hover:text-black mb-1">
+          The difference between an authentic angle and manufactured vulnerability
+        </p>
+<span class="text-xs text-[#5E636E]">5 days ago</span>
+</div>
+<!-- Item 3 -->
+<div class="py-3 cursor-pointer group" role="button" tabindex="0">
+<p class="text-sm text-[#121316] leading-snug line-clamp-2 group-hover:text-black mb-1">
+          Notes from the talk on invisible craft: why friction sometimes protects meaning
+        </p>
+<span class="text-xs text-[#5E636E]">1 week ago</span>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- END: MainContentCanvas -->
+</body></html>

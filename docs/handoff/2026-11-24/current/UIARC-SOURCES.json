@@ -1,0 +1,57 @@
+{
+  "checked_on": "2026-11-24",
+  "library": "UIArc / Arc",
+  "user_decision": "Use alongside shadcn/ui, not as replacement",
+  "sources": [
+    {
+      "url": "https://uiarc.dev/docs/introduction",
+      "supports": [
+        "owned React source",
+        "shadcn coexistence",
+        "free and Pro distinction"
+      ]
+    },
+    {
+      "url": "https://uiarc.dev/docs/installation",
+      "supports": [
+        "React19/TypeScript/alias requirement",
+        "registry",
+        "foundation import",
+        "CSS modules",
+        "Next link/image provider adaptation"
+      ]
+    },
+    {
+      "url": "https://uiarc.dev/docs/motion",
+      "supports": [
+        "motion tokens",
+        "interruptibility",
+        "reduced motion",
+        "repeated keyboard actions"
+      ]
+    },
+    {
+      "url": "https://uiarc.dev/docs/ai",
+      "supports": [
+        "read-only coding-agent MCP",
+        "catalog/Markdown discovery",
+        "Pro source access"
+      ]
+    },
+    {
+      "url": "https://uiarc.dev/docs/theming",
+      "supports": [
+        "semantic CSS variables",
+        "stock type/radii differ",
+        "override after foundation"
+      ]
+    }
+  ],
+  "not_performed": [
+    "application dependency installation",
+    "MCP connection",
+    "Pro authentication",
+    "actual repository compatibility check"
+  ],
+  "application_ai_provider_selected": false
+}

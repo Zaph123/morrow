@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Brain — Mobile Flow Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            border: '#E5E6EB',
+            charcoal: '#121316',
+            muted: '#5E636E',
+            lime: '#D4FC30',
+            limeLight: '#F2FCD6',
+            error: '#BA1A1A',
+            pill: '#ECECEF',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #ECECEF;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #ECECEF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D9DADC;
+      border-radius: 9999px;
+    }
+    .phone-frame {
+      width: 320px;
+      height: 680px;
+      background: #F5F5F7;
+      border-radius: 36px;
+      box-shadow: 0 16px 40px -12px rgba(18, 19, 22, 0.12), 0 0 0 1px rgba(18, 19, 22, 0.08);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .interactive-tab {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+  </style>
+</head>
+<body class="p-8 min-h-screen">
+
+  <!-- Header & Top Navigation -->
+  <header class="max-w-7xl mx-auto mb-10">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#D9DADC]">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-[#D4FC30] text-[#121316]">Interactive Map</span>
+          <span class="text-xs text-[#5E636E] uppercase tracking-wider font-medium">Morrow Brand Brain</span>
+        </div>
+        <h1 class="text-3xl font-bold tracking-tight text-[#121316]">Brand Brain — Complete Mobile Flow</h1>
+        <p class="text-sm text-[#5E636E] mt-1 max-w-2xl leading-relaxed">
+          The complete end-to-end mobile experience for Morrow’s Brand Brain: all 4 core configuration domains (Identity, Voice, Content Strategy, Learning & Feedback) and the complete Voice authoring lifecycle (Add Example, Pending Changes, Saved State, Error Recovery).
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 bg-white px-4 py-2 rounded-2xl border border-[#E5E6EB] shadow-sm">
+        <span class="text-xs text-[#5E636E] font-medium">View Filter:</span>
+        <button onclick="filterFlow('all')" id="btn-all" class="px-3 py-1.5 rounded-xl text-xs font-medium bg-[#121316] text-white transition-all">All 8 Screens</button>
+        <button onclick="filterFlow('sections')" id="btn-sections" class="px-3 py-1.5 rounded-xl text-xs font-medium text-[#5E636E] hover:bg-[#ECECEF] transition-all">4 Core Tabs</button>
+        <button onclick="filterFlow('voice')" id="btn-voice" class="px-3 py-1.5 rounded-xl text-xs font-medium text-[#5E636E] hover:bg-[#ECECEF] transition-all">Voice Lifecycle</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Flow Visualizer Canvas -->
+  <main class="max-w-7xl mx-auto space-y-12">
+
+    <!-- Section 1: The 4 Core Brand Brain Sections -->
+    <section id="section-domains" class="flow-group space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-[#121316] flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#121316] text-white text-xs flex items-center justify-center font-bold">1</span>
+            Core Brand Brain Domains
+          </h2>
+          <p class="text-xs text-[#5E636E] mt-0.5">Horizontal tab-based navigation across the creator's mental model and guidelines.</p>
+        </div>
+        <span class="text-xs font-medium text-[#5E636E] bg-white px-3 py-1 rounded-full border border-[#E5E6EB]">4 Viewports (390×844)</span>
+      </div>
+
+      <div class="overflow-x-auto pb-6 pt-2">
+        <div class="flex gap-8 items-start min-w-max">
+
+          <!-- 1. Identity -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Identity Tab</span>
+              <span class="text-[11px] text-[#5E636E]">Default View</span>
+            </div>
+            
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Identity</span>
+                <span class="py-2 text-[#5E636E]">Voice</span>
+                <span class="py-2 text-[#5E636E]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Background & experience</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">What shapes your perspective?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Add relevant background or experience.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Interests & goals</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">What matters to you?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Add your interests and goals.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Topics to explore</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">Subjects you want to return to.</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-2.5 text-xs text-[#8E94A0]">
+                    Add topics.
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-2">Suggested preference changes need your approval.</p>
+                  <div class="w-full py-2.5 bg-[#ECECEF] text-[#8E94A0] rounded-xl text-center text-xs font-medium">
+                    Save identity
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Background, perspective, long-term interests and research goals.</p>
+          </div>
+
+          <!-- 2. Voice (Entry) -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Voice Tab</span>
+              <span class="text-[11px] text-[#5E636E]">Initial Empty State</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E]">Identity</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Voice</span>
+                <span class="py-2 text-[#5E636E]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Tone & style</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">How should your writing sound?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your preferred tone and writing style.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Formatting & language</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">The details that make writing feel like yours.</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Add language, spelling and formatting preferences.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Writing examples</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">Writing you want Morrow to use as a reference.</p>
+                  <p class="text-[11px] text-[#5E636E] mb-2">No examples added.</p>
+                  <button class="px-3 py-1.5 bg-[#ECECEF] text-[#121316] text-xs font-medium rounded-xl flex items-center gap-1.5">
+                    <span>+</span> Add example
+                  </button>
+                </div>
+
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-2">Suggested preference changes need your approval.</p>
+                  <div class="w-full py-2.5 bg-[#ECECEF] text-[#8E94A0] rounded-xl text-center text-xs font-medium">
+                    Save voice
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Writing cadence, tone guidelines, and style references.</p>
+          </div>
+
+          <!-- 3. Content Strategy -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Content Strategy</span>
+              <span class="text-[11px] text-[#5E636E]">Themes & Channels</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E]">Identity</span>
+                <span class="py-2 text-[#5E636E]">Voice</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Content pillars</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">The themes you want to return to.</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Add your recurring themes or areas of focus.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Platform priorities</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">Where you want to focus your writing.</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your priority platforms and how you want to use them.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Audience & objectives</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">Who you want to reach, and why.</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your audience and what you want your writing to achieve.
+                  </div>
+                </div>
+
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-2">Suggested preference changes need your approval.</p>
+                  <div class="w-full py-2.5 bg-[#ECECEF] text-[#8E94A0] rounded-xl text-center text-xs font-medium">
+                    Save strategy
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Pillars, target distribution channels, and growth objectives.</p>
+          </div>
+
+          <!-- 4. Learning & Feedback -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Learning & Feedback</span>
+              <span class="text-[11px] text-[#5E636E]">Review & Patterns</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip (Scrolled right to reveal Learning & feedback) -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E] shrink-0 opacity-50">Content strategy</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316] shrink-0">Learning & feedback</span>
+              </div>
+
+              <!-- Content Scroll Body (Flat Informational Empty States) -->
+              <div class="p-5 space-y-5 overflow-y-auto flex-1 pb-24 text-left">
+                <div class="border-b border-[#E5E6EB] pb-4">
+                  <h4 class="text-xs font-semibold text-[#121316]">Suggestions to review</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">You decide what becomes a lasting preference.</p>
+                  <p class="text-xs font-medium text-[#121316]">No suggestions to review.</p>
+                  <p class="text-[11px] text-[#5E636E] mt-0.5">Suggested changes from your feedback will appear here.</p>
+                </div>
+
+                <div class="border-b border-[#E5E6EB] pb-4">
+                  <h4 class="text-xs font-semibold text-[#121316]">Approved preferences</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">Writing preferences you have approved from feedback.</p>
+                  <p class="text-xs text-[#5E636E]">No approved preferences yet.</p>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Patterns & examples</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">Recurring feedback and useful writing references.</p>
+                  <p class="text-xs text-[#5E636E]">No patterns or examples saved yet.</p>
+                </div>
+
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E]">Suggested preference changes need your approval.</p>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Adaptive preferences learned through Studio feedback loops.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Flow Connector -->
+    <div class="flex items-center justify-center gap-4 py-2 text-[#5E636E]">
+      <div class="h-px bg-[#D9DADC] flex-1"></div>
+      <span class="text-xs font-semibold tracking-wider uppercase bg-white px-4 py-1 rounded-full border border-[#E5E6EB] shadow-xs">
+        Voice Authoring & Save Flow Lifecycle ↓
+      </span>
+      <div class="h-px bg-[#D9DADC] flex-1"></div>
+    </div>
+
+    <!-- Section 2: Complete Voice Authoring & State Lifecycle -->
+    <section id="section-voice" class="flow-group space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-[#121316] flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#121316] text-white text-xs flex items-center justify-center font-bold">2</span>
+            Voice Authoring, Persistence & Error Recovery Lifecycle
+          </h2>
+          <p class="text-xs text-[#5E636E] mt-0.5">Interaction loop: adding an example via bottom sheet → pending changes → saved success or non-destructive error recovery.</p>
+        </div>
+        <span class="text-xs font-medium text-[#5E636E] bg-white px-3 py-1 rounded-full border border-[#E5E6EB]">4 States in Flow</span>
+      </div>
+
+      <div class="overflow-x-auto pb-6 pt-2">
+        <div class="flex gap-8 items-start min-w-max">
+
+          <!-- State 1: Add Writing Example Bottom Sheet -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Step 1: Modal Sheet</span>
+              <span class="text-[11px] text-[#5E636E]">Add Example Sheet</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Dimmed Background of Voice page -->
+              <div class="absolute inset-0 bg-black/40 z-10 flex flex-col justify-end">
+                
+                <!-- Bottom Sheet -->
+                <div class="bg-white rounded-t-[20px] p-5 pb-6 space-y-3.5 shadow-2xl border-t border-[#E5E6EB]">
+                  <!-- Drag handle -->
+                  <div class="w-10 h-1 bg-[#D9DADC] rounded-full mx-auto mb-1"></div>
+
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <h4 class="text-sm font-bold text-[#121316]">Add writing example</h4>
+                      <p class="text-[11px] text-[#5E636E] mt-0.5">Add writing you want Morrow to use as a style reference.</p>
+                    </div>
+                    <button class="text-[#5E636E] hover:text-[#121316] text-base p-1 leading-none">✕</button>
+                  </div>
+
+                  <div class="space-y-3 pt-1">
+                    <div>
+                      <label class="block text-[11px] font-medium text-[#121316] mb-1">Title <span class="text-[#5E636E] font-normal">(optional)</span></label>
+                      <input type="text" placeholder="Give this example a name" class="w-full text-xs p-2.5 rounded-xl border border-[#E5E6EB] bg-white outline-none placeholder-[#8E94A0]" disabled>
+                    </div>
+
+                    <div>
+                      <label class="block text-[11px] font-medium text-[#121316] mb-1">Writing example</label>
+                      <textarea placeholder="Paste the writing here…" rows="3" class="w-full text-xs p-2.5 rounded-xl border border-[#E5E6EB] bg-white outline-none resize-none placeholder-[#8E94A0]" disabled></textarea>
+                    </div>
+                  </div>
+
+                  <div class="flex gap-2 pt-2">
+                    <button class="flex-1 py-2 bg-[#ECECEF] text-[#121316] rounded-xl text-xs font-medium">Cancel</button>
+                    <button class="flex-1 py-2 bg-[#ECECEF] text-[#8E94A0] rounded-xl text-xs font-medium cursor-not-allowed">Add example</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Background preview -->
+              <div class="p-5 opacity-40">
+                <h3 class="text-xl font-bold tracking-tight">Brand Brain</h3>
+                <div class="mt-4 border-b border-[#E5E6EB] pb-2 text-xs">Tone & style</div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Accessible bottom sheet with drag handle, cancel, and touch-target discipline.</p>
+          </div>
+
+          <!-- Step Arrow -->
+          <div class="self-center pt-32 text-[#8E94A0] font-bold">→</div>
+
+          <!-- State 2: Example Added (Unsaved Changes) -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Step 2: Unsaved State</span>
+              <span class="text-[11px] font-semibold text-[#121316] bg-[#F2FCD6] px-2 py-0.5 rounded-md">Pending Save</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E]">Identity</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Voice</span>
+                <span class="py-2 text-[#5E636E]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body with Example Fixture -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Tone & style</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">How should your writing sound?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your preferred tone and writing style.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Writing examples</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">Writing you want Morrow to use as a reference.</p>
+                  
+                  <!-- Flat writing fixture item -->
+                  <div class="border-b border-[#E5E6EB] pb-3 mb-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-semibold text-[#121316]">Speed vs clarity</span>
+                      <div class="flex gap-2 text-[11px]">
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Edit</span>
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Remove</span>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-[#5E636E] mt-1 line-clamp-2 leading-relaxed">
+                      Most tools are built to help you finish faster. The good ones help you notice what you actually think…
+                    </p>
+                  </div>
+
+                  <button class="px-3 py-1.5 bg-[#ECECEF] text-[#121316] text-xs font-medium rounded-xl flex items-center gap-1.5">
+                    <span>+</span> Add example
+                  </button>
+                </div>
+
+                <!-- Footer with Unsaved changes & Acid Lime CTA -->
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-1">Suggested preference changes need your approval.</p>
+                  <p class="text-[11px] font-medium text-[#121316] flex items-center gap-1.5 mb-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#121316]"></span> Unsaved changes
+                  </p>
+                  <div class="w-full py-2.5 bg-[#D4FC30] text-[#121316] rounded-xl text-center text-xs font-bold shadow-xs">
+                    Save voice
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Unsaved state with active acid-lime CTA button #D4FC30.</p>
+          </div>
+
+          <!-- Step Fork Arrows -->
+          <div class="self-center pt-32 text-[#8E94A0] font-bold">⇄</div>
+
+          <!-- State 3: Saved Success State -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#121316]">Outcome A: Saved</span>
+              <span class="text-[11px] text-[#5E636E]">✓ Confirmed</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E]">Identity</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Voice</span>
+                <span class="py-2 text-[#5E636E]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Tone & style</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">How should your writing sound?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your preferred tone and writing style.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Writing examples</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">Writing you want Morrow to use as a reference.</p>
+                  
+                  <div class="border-b border-[#E5E6EB] pb-3 mb-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-semibold text-[#121316]">Speed vs clarity</span>
+                      <div class="flex gap-2 text-[11px]">
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Edit</span>
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Remove</span>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-[#5E636E] mt-1 line-clamp-2 leading-relaxed">
+                      Most tools are built to help you finish faster. The good ones help you notice what you actually think…
+                    </p>
+                  </div>
+
+                  <button class="px-3 py-1.5 bg-[#ECECEF] text-[#121316] text-xs font-medium rounded-xl flex items-center gap-1.5">
+                    <span>+</span> Add example
+                  </button>
+                </div>
+
+                <!-- Footer with Quiet Saved Confirmation -->
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-1">Suggested preference changes need your approval.</p>
+                  <p class="text-[11px] text-[#5E636E] flex items-center gap-1.5 mb-2 font-medium">
+                    <span>✓</span> Saved
+                  </p>
+                  <div class="w-full py-2.5 bg-[#ECECEF] text-[#8E94A0] rounded-xl text-center text-xs font-medium">
+                    Save voice
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Subtle confirmation without intrusive modal toasts or timestamps.</p>
+          </div>
+
+          <!-- State 4: Error & Retry State -->
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between px-1">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#BA1A1A]">Outcome B: Error</span>
+              <span class="text-[11px] text-[#BA1A1A] font-semibold bg-red-50 px-2 py-0.5 rounded-md">Recovery</span>
+            </div>
+
+            <div class="phone-frame">
+              <!-- Internal Mobile Header -->
+              <div class="p-5 pb-3">
+                <h3 class="text-xl font-bold tracking-tight text-[#121316]">Brand Brain</h3>
+                <p class="text-xs text-[#5E636E] mt-0.5">Shape how Morrow supports your writing.</p>
+              </div>
+
+              <!-- Horizontal Tab Strip -->
+              <div class="flex border-b border-[#E5E6EB] px-5 gap-4 overflow-x-hidden text-xs">
+                <span class="py-2 text-[#5E636E]">Identity</span>
+                <span class="py-2 border-b-2 border-[#121316] font-semibold text-[#121316]">Voice</span>
+                <span class="py-2 text-[#5E636E]">Content strategy</span>
+                <span class="py-2 text-[#5E636E]">Learning</span>
+              </div>
+
+              <!-- Form Scroll Body with Error Feedback -->
+              <div class="p-5 space-y-4 overflow-y-auto flex-1 pb-24 text-left">
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Tone & style</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-1.5">How should your writing sound?</p>
+                  <div class="bg-white border border-[#E5E6EB] rounded-xl p-3 text-xs text-[#8E94A0]">
+                    Describe your preferred tone and writing style.
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-xs font-semibold text-[#121316]">Writing examples</h4>
+                  <p class="text-[11px] text-[#5E636E] mb-2">Writing you want Morrow to use as a reference.</p>
+                  
+                  <div class="border-b border-[#E5E6EB] pb-3 mb-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-semibold text-[#121316]">Speed vs clarity</span>
+                      <div class="flex gap-2 text-[11px]">
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Edit</span>
+                        <span class="text-[#5E636E] hover:underline cursor-pointer">Remove</span>
+                      </div>
+                    </div>
+                    <p class="text-[11px] text-[#5E636E] mt-1 line-clamp-2 leading-relaxed">
+                      Most tools are built to help you finish faster. The good ones help you notice what you actually think…
+                    </p>
+                  </div>
+
+                  <button class="px-3 py-1.5 bg-[#ECECEF] text-[#121316] text-xs font-medium rounded-xl flex items-center gap-1.5">
+                    <span>+</span> Add example
+                  </button>
+                </div>
+
+                <!-- Footer with Inline Error and Reassurance -->
+                <div class="pt-2">
+                  <p class="text-[10px] text-[#5E636E] mb-1.5">Suggested preference changes need your approval.</p>
+                  
+                  <div class="flex items-start gap-1.5 mb-2.5">
+                    <span class="text-[#BA1A1A] text-xs font-bold leading-none mt-0.5">⊘</span>
+                    <p class="text-[11px] leading-snug">
+                      <strong class="text-[#BA1A1A] font-semibold">Couldn’t save.</strong>
+                      <span class="text-[#5E636E]"> Your changes are still on this page. Try again.</span>
+                    </p>
+                  </div>
+
+                  <div class="w-full py-2.5 bg-[#D4FC30] text-[#121316] rounded-xl text-center text-xs font-bold shadow-xs">
+                    Retry
+                  </div>
+                </div>
+              </div>
+
+              <!-- Floating Bottom Nav Bar -->
+              <div class="absolute bottom-4 left-4 right-4 bg-[#121316] text-white rounded-full py-2 px-4 flex items-center justify-between shadow-lg">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <div class="flex items-center gap-1.5 bg-white/10 px-2 py-1 rounded-full text-white text-[11px] font-semibold">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v14"/></svg>
+                  <span>Brand Brain</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-[11px] text-[#5E636E] max-w-[320px] text-center">Non-destructive error state: keeps user input intact with clear Retry recovery.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture & Specification Summary Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-[#D9DADC]">
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E6EB] shadow-xs">
+        <div class="w-8 h-8 rounded-xl bg-[#F2FCD6] text-[#121316] flex items-center justify-center font-bold text-sm mb-3">01</div>
+        <h3 class="text-sm font-bold text-[#121316] mb-1">Persistent Shared Navigation</h3>
+        <p class="text-xs text-[#5E636E] leading-relaxed">
+          The 56px floating charcoal navigation capsule (#121316) houses the official Lucide Brain SVG with Brand Brain active across every mobile screen. Ample content bottom clearance (pb-36) prevents navigation occlusion.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E6EB] shadow-xs">
+        <div class="w-8 h-8 rounded-xl bg-[#F2FCD6] text-[#121316] flex items-center justify-center font-bold text-sm mb-3">02</div>
+        <h3 class="text-sm font-bold text-[#121316] mb-1">Horizontal Section Tabs</h3>
+        <p class="text-xs text-[#5E636E] leading-relaxed">
+          Four dedicated domains (Identity, Voice, Content strategy, Learning & feedback) organize the creator's mental model with zero nested menus or multi-level breadcrumbs.
+        </p>
+      </div>
+
+      <div class="bg-white p-6 rounded-2xl border border-[#E5E6EB] shadow-xs">
+        <div class="w-8 h-8 rounded-xl bg-[#F2FCD6] text-[#121316] flex items-center justify-center font-bold text-sm mb-3">03</div>
+        <h3 class="text-sm font-bold text-[#121316] mb-1">Creator Consent & Persistence</h3>
+        <p class="text-xs text-[#5E636E] leading-relaxed">
+          In strict fidelity with Morrow principles: “Suggested preference changes need your approval.” Unsaved edits trigger the signature acid lime #D4FC30 CTA; saved states quietly resolve without disruptive banners.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function filterFlow(mode) {
+      const sectionDomains = document.getElementById('section-domains');
+      const sectionVoice = document.getElementById('section-voice');
+      const btnAll = document.getElementById('btn-all');
+      const btnSections = document.getElementById('btn-sections');
+      const btnVoice = document.getElementById('btn-voice');
+
+      [btnAll, btnSections, btnVoice].forEach(b => {
+        b.className = 'px-3 py-1.5 rounded-xl text-xs font-medium text-[#5E636E] hover:bg-[#ECECEF] transition-all';
+      });
+
+      if (mode === 'all') {
+        sectionDomains.style.display = 'block';
+        sectionVoice.style.display = 'block';
+        btnAll.className = 'px-3 py-1.5 rounded-xl text-xs font-medium bg-[#121316] text-white transition-all';
+      } else if (mode === 'sections') {
+        sectionDomains.style.display = 'block';
+        sectionVoice.style.display = 'none';
+        btnSections.className = 'px-3 py-1.5 rounded-xl text-xs font-medium bg-[#121316] text-white transition-all';
+      } else if (mode === 'voice') {
+        sectionDomains.style.display = 'none';
+        sectionVoice.style.display = 'block';
+        btnVoice.className = 'px-3 py-1.5 rounded-xl text-xs font-medium bg-[#121316] text-white transition-all';
+      }
+    }
+  </script>
+</body>
+</html>

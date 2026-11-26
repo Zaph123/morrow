@@ -1,0 +1,301 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Idea — Desktop — Context menu</title>
+<!-- Google Font: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            canvas: '#F5F5F7',
+            surface: '#FFFFFF',
+            divider: '#E5E6EB',
+            primary: '#121316',
+            secondary: '#5E636E',
+            'pale-lime': '#F2FCD6',
+            'focus-ring': '#536600',
+            'dashed-border': '#8E94A0',
+          },
+          screens: {
+            'tablet': '768px',
+            'desktop': '1180px',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="base-typography">
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    ::selection {
+      background-color: #F2FCD6;
+      color: #121316;
+    }
+  </style>
+<style data-purpose="interactive-states">
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid #536600;
+      outline-offset: 2px;
+    }
+    .text-highlight-active {
+      background-color: #F2FCD6;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      padding: 2px 4px;
+      margin: -2px -4px;
+      border-radius: 4px;
+    }
+
+    /* Simulation device container styles */
+    .mode-desktop #app-root {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+    .mode-tablet #app-root {
+      width: 890px !important;
+      max-width: 890px !important;
+      height: 94% !important;
+      margin: auto !important;
+      border: 1px solid #E5E6EB !important;
+      border-radius: 12px !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
+      overflow: hidden !important;
+    }
+    .mode-mobile #app-root {
+      width: 390px !important;
+      max-width: 390px !important;
+      height: 844px !important;
+      max-height: 96% !important;
+      margin: auto !important;
+      border: 1px solid #E5E6EB !important;
+      border-radius: 28px !important;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08) !important;
+      overflow: hidden !important;
+    }
+
+    /* Responsive display overrides based on active simulation mode or CSS media queries */
+    .mode-mobile #sidebar-nav { display: none !important; }
+    .mode-mobile #mobile-header { display: flex !important; }
+    .mode-mobile #mobile-tabs-bar { display: block !important; }
+    .mode-mobile #desktop-header { display: none !important; }
+    
+    .mode-tablet #sidebar-nav { width: 64px !important; }
+    .mode-tablet #sidebar-nav .nav-label { display: none !important; }
+    .mode-tablet #sidebar-nav .header-btn-group { justify-content: center !important; }
+    .mode-tablet #sidebar-nav .new-idea-text { display: none !important; }
+    .mode-tablet #sidebar-nav .sidebar-collapse-btn { display: none !important; }
+    .mode-tablet #sidebar-nav .new-idea-btn { width: 40px !important; height: 40px !important; padding: 0 !important; }
+    .mode-tablet #sidebar-nav .nav-item-link { justify-content: center !important; padding: 10px 0 !important; }
+    .mode-tablet #sidebar-nav .avatar-item { justify-content: center !important; padding: 6px 0 !important; }
+    .mode-tablet #sidebar-nav .avatar-name { display: none !important; }
+    .mode-tablet #desktop-header { display: flex !important; }
+    .mode-tablet #mobile-header { display: none !important; }
+    .mode-tablet #mobile-tabs-bar { display: none !important; }
+
+    .mode-desktop #desktop-header { display: flex !important; }
+    .mode-desktop #mobile-header { display: none !important; }
+    .mode-desktop #mobile-tabs-bar { display: none !important; }
+
+    /* Default native media query behaviour when in desktop mode */
+    @media (max-width: 767px) {
+      body:not(.mode-desktop):not(.mode-tablet) #sidebar-nav { display: none !important; }
+      body:not(.mode-desktop):not(.mode-tablet) #mobile-header { display: flex !important; }
+      body:not(.mode-desktop):not(.mode-tablet) #mobile-tabs-bar { display: block !important; }
+      body:not(.mode-desktop):not(.mode-tablet) #desktop-header { display: none !important; }
+    }
+    @media (min-width: 768px) and (max-width: 1179px) {
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav { width: 64px !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .nav-label { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .new-idea-text { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .sidebar-collapse-btn { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .new-idea-btn { width: 40px !important; height: 40px !important; padding: 0 !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .nav-item-link { justify-content: center !important; padding: 10px 0 !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .avatar-item { justify-content: center !important; padding: 6px 0 !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #sidebar-nav .avatar-name { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #mobile-header { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #mobile-tabs-bar { display: none !important; }
+      body:not(.mode-desktop):not(.mode-mobile) #desktop-header { display: flex !important; }
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col overflow-hidden select-none bg-[#EBECEF]">
+<!-- Top Viewport Control Bar for Instant Responsive Previewing -->
+<!-- Main Responsive Simulation Frame -->
+<div class="w-full h-full bg-[#F5F5F7] flex overflow-hidden" id="app-root"><aside aria-label="Main Navigation" class="w-[220px] h-full bg-white border-r border-[#E5E6EB] flex flex-col justify-between p-3.5 shrink-0 z-20 select-none transition-all duration-150" id="sidebar-nav"><div class="flex flex-col gap-5"><div class="header-btn-group flex items-center justify-between gap-2 px-1 pt-1"><button class="new-idea-btn flex-1 flex items-center justify-center gap-2 h-9 px-3 bg-[#EBECEF] hover:bg-[#E5E6EB] text-[#121316] font-medium text-xs transition-colors rounded-[12px]" title="New idea" type="button"><svg aria-hidden="true" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="new-idea-text">New idea</span></button><button class="sidebar-collapse-btn h-9 w-9 rounded-lg flex items-center justify-center text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors" onclick="toggleSidebarCollapse()" title="Collapse sidebar" type="button"><svg aria-hidden="true" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="sr-only">Collapse sidebar</span></button></div><nav class="flex flex-col gap-0.5" role="menu"><a class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors rounded-[12px]" href="#home" role="menuitem" title="Home"><svg aria-hidden="true" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label">Home</span></a><a class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors rounded-[12px]" href="#studio" role="menuitem" title="Studio"><svg aria-hidden="true" class="w-4 h-4 shrink-0 text-[#121316]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label">Studio</span></a><a class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors rounded-[12px]" href="#library" role="menuitem" title="Library"><svg aria-hidden="true" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label">Library</span></a><a aria-current="page" class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium bg-[#F2FCD6] text-[#121316] transition-colors rounded-[12px]" href="#ideas" role="menuitem" title="Ideas"><svg aria-hidden="true" class="w-4 h-4 shrink-0 text-[#121316]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.381a3.015 3.015 0 0 1-3 0M12 2.25c-3.728 0-6.75 3.022-6.75 6.75 0 2.378 1.233 4.469 3.104 5.674.336.216.546.592.546.99v.586h6.2v-.586c0-.398.21-.774.546-.99 1.871-1.205 3.104-3.296 3.104-5.674 0-3.728-3.022-6.75-6.75-6.75Z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label font-semibold">Ideas</span></a><a class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors rounded-[12px]" href="#brand-brain" role="menuitem" title="Brand Brain"><svg aria-hidden="true" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label">Brand Brain</span></a></nav></div><div class="flex flex-col gap-1 pt-3 border-t border-[#E5E6EB]"><button class="nav-item-link flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] transition-colors rounded-[12px]" title="Calendar" type="button"><svg aria-hidden="true" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6.75 3v2.25M17.25 3v2.253M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="nav-label">Calendar</span></button><button class="avatar-item flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-[#121316] hover:bg-[#F5F5F7] transition-colors" title="Account settings" type="button"><span class="w-7 h-7 rounded-full bg-[#E5E6EB] text-xs font-medium flex items-center justify-center shrink-0">Y</span><span class="avatar-name text-xs font-medium text-[#121316] truncate">You</span></button></div></aside><main aria-label="Writing Workspace" class="flex-1 h-full bg-[#F5F5F7] flex flex-col overflow-y-auto px-4 tablet:px-8 desktop:px-10 py-4 tablet:py-6" id="writing-workspace"><div class="max-w-[700px] w-full mx-auto flex flex-col items-center flex-1"><header class="w-full flex items-center justify-between mb-6 pb-2" data-purpose="workspace-top-bar" id="desktop-header"><div class="flex items-center gap-2 text-xs font-medium text-[#5E636E]"><span class="hover:text-[#121316] cursor-pointer">Ideas</span><span class="text-[#8E94A0]">/</span><span class="text-[#121316] font-semibold truncate max-w-[340px]">Why tools designed for speed…</span></div><div class="flex items-center gap-3"><div aria-live="polite" class="flex items-center gap-1.5 text-xs text-[#5E636E]"><svg aria-hidden="true" class="w-3.5 h-3.5 text-[#121316]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Saved</span></div><button class="h-7 px-2.5 border border-[#E5E6EB] bg-white text-xs font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors flex items-center gap-1.5 rounded-[8px]" title="Copy idea" type="button"><svg aria-hidden="true" class="w-3.5 h-3.5 text-[#121316]" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Copy</span></button></div></header><div class="w-full flex flex-col items-center" id="write-view-content"><section class="w-full max-w-[700px] bg-white border border-[#E5E6EB] p-6 tablet:p-8 flex flex-col relative rounded-[16px]" data-purpose="idea-surface"><div class="text-[17px] leading-[26px] text-[#121316] select-text flex flex-col gap-3"><p>Why tools designed for speed make thinking harder.</p><p>The faster a tool gets you to a finished answer, the less room it leaves to notice what you actually think.</p></div><footer class="mt-8 pt-6 flex items-center justify-between border-t border-[#F5F5F7]"><span class="text-xs text-[#5E636E]">Captured 3 days ago</span><div class="relative inline-block"><button class="h-7 px-3 bg-[#E5E6EB] hover:bg-[#ECECEF] text-[#121316] text-xs font-medium transition-colors flex items-center gap-1.5 rounded-full cursor-pointer" title="Add context" type="button"><svg aria-hidden="true" class="w-3.5 h-3.5 text-[#121316] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Add context</span></button><div class="absolute right-0 top-full mt-2 w-48 bg-white border border-[#E5E6EB] rounded-[16px] p-1.5 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.08),0_8px_10px_-6px_rgba(0,0,0,0.04)] z-30 flex flex-col gap-0.5" role="menu"><button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-[14px] font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors text-left cursor-pointer" role="menuitem" type="button"><svg class="w-4 h-4 text-[#5E636E] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" stroke-linecap="round" stroke-linejoin="round"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line><line x1="10" x2="8" y1="9" y2="9"></line></svg><span>Note</span></button><button class="w-full flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-[14px] font-medium text-[#121316] hover:bg-[#F5F5F7] transition-colors text-left cursor-pointer" role="menuitem" type="button"><svg class="w-4 h-4 text-[#5E636E] shrink-0" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke-linecap="round" stroke-linejoin="round"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Link</span></button></div></div></footer></section><div class="w-full max-w-[700px] flex justify-start mt-5"><button class="h-10 px-5 bg-[#D4FC30] hover:bg-[#cbf223] text-[#121316] font-medium text-sm transition-colors rounded-[12px] flex items-center gap-2 cursor-pointer" type="button"><span>New draft from this idea</span><svg aria-hidden="true" class="w-4 h-4 text-[#121316] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div><section aria-label="Drafts from this idea" class="w-full max-w-[700px] mt-10 pb-8 flex flex-col"><div class="text-xs font-medium tracking-[0.05em] uppercase text-[#5E636E] mb-3">DRAFTS FROM THIS IDEA</div><div class="flex flex-col"><div class="py-4 border-t border-[#E5E6EB] flex items-center justify-between gap-4 cursor-pointer hover:bg-black/[0.015] px-1 transition-colors"><div class="flex flex-col gap-1 min-w-0"><h3 class="text-[15px] font-medium text-[#121316] leading-snug">Speed vs clarity</h3><p class="text-sm text-[#5E636E] truncate leading-normal">Most tools are built to help you finish faster. The good ones help you notice what you actually think before you start.</p><div class="text-xs text-[#5E636E]">X · LinkedIn · edited 2h ago</div></div><svg aria-hidden="true" class="w-4 h-4 text-[#5E636E] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="py-4 border-t border-b border-[#E5E6EB] flex items-center justify-between gap-4 cursor-pointer hover:bg-black/[0.015] px-1 transition-colors"><div class="flex flex-col gap-1 min-w-0"><h3 class="text-[15px] font-medium text-[#121316] leading-snug">Finishing vs noticing</h3><p class="text-sm text-[#5E636E] truncate leading-normal">Fast tools reward finishing, not noticing.</p><div class="text-xs text-[#5E636E]">LinkedIn · edited 3 days ago</div></div><svg aria-hidden="true" class="w-4 h-4 text-[#5E636E] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></section></div></div></main></div>
+<script>
+  // State management for responsive simulator and docked Discuss panel
+  let currentMode = 'desktop';
+  let isDiscussOpen = true;
+  let isSidebarCollapsed = false;
+  let activeMobileTab = 'write';
+
+  function setViewportMode(mode) {
+    currentMode = mode;
+    const body = document.body;
+    body.classList.remove('mode-desktop', 'mode-tablet', 'mode-mobile');
+    body.classList.add(`mode-${mode}`);
+
+    // Update switcher buttons UI
+    const buttons = {
+      desktop: document.getElementById('view-desktop-btn'),
+      tablet: document.getElementById('view-tablet-btn'),
+      mobile: document.getElementById('view-mobile-btn')
+    };
+
+    Object.keys(buttons).forEach(key => {
+      if (key === mode) {
+        buttons[key].className = 'px-2.5 py-1 rounded-md text-xs font-medium text-white bg-[#121316] shadow-sm transition-colors flex items-center gap-1.5';
+      } else {
+        buttons[key].className = 'px-2.5 py-1 rounded-md text-xs font-medium text-[#8E94A0] hover:text-white transition-colors flex items-center gap-1.5';
+      }
+    });
+
+    const discussPanel = document.getElementById('right-discuss-panel');
+    const writeView = document.getElementById('write-view-content');
+    const mobileDiscussView = document.getElementById('mobile-discuss-view');
+
+    if (mode === 'mobile') {
+      discussPanel.style.display = 'none';
+      if (activeMobileTab === 'write') {
+        writeView.style.display = 'flex';
+        mobileDiscussView.style.display = 'none';
+      } else {
+        writeView.style.display = 'none';
+        mobileDiscussView.style.display = 'flex';
+        renderMobileDiscussContent();
+      }
+    } else {
+      writeView.style.display = 'flex';
+      mobileDiscussView.style.display = 'none';
+      discussPanel.style.display = isDiscussOpen ? 'flex' : 'none';
+    }
+  }
+
+  function toggleDiscussPanel() {
+    isDiscussOpen = !isDiscussOpen;
+    const discussPanel = document.getElementById('right-discuss-panel');
+    const discussBtn = document.getElementById('discuss-toggle-btn');
+    
+    if (isDiscussOpen) {
+      discussPanel.style.display = 'flex';
+      discussBtn.classList.remove('bg-white', 'text-[#5E636E]');
+      discussBtn.classList.add('bg-[#EBECEF]', 'text-[#121316]');
+    } else {
+      discussPanel.style.display = 'none';
+      discussBtn.classList.remove('bg-[#EBECEF]');
+      discussBtn.classList.add('bg-white', 'text-[#5E636E]');
+    }
+  }
+
+  function toggleSidebarCollapse() {
+    isSidebarCollapsed = !isSidebarCollapsed;
+    const sidebar = document.getElementById('sidebar-nav');
+    if (isSidebarCollapsed) {
+      sidebar.classList.add('!w-16');
+      sidebar.querySelectorAll('.nav-label, .new-idea-text, .avatar-name').forEach(el => el.classList.add('hidden'));
+    } else {
+      sidebar.classList.remove('!w-16');
+      sidebar.querySelectorAll('.nav-label, .new-idea-text, .avatar-name').forEach(el => el.classList.remove('hidden'));
+    }
+  }
+
+  function setMobileTab(tab) {
+    activeMobileTab = tab;
+    const writeBtn = document.getElementById('mobile-tab-write');
+    const discussBtn = document.getElementById('mobile-tab-discuss');
+    const writeView = document.getElementById('write-view-content');
+    const mobileDiscussView = document.getElementById('mobile-discuss-view');
+
+    if (tab === 'write') {
+      writeBtn.className = 'py-1.5 rounded-md text-[#121316] bg-white font-semibold shadow-xs transition-all flex items-center justify-center gap-1.5';
+      discussBtn.className = 'py-1.5 rounded-md text-[#5E636E] hover:text-[#121316] transition-all flex items-center justify-center gap-1.5 relative';
+      writeView.style.display = 'flex';
+      mobileDiscussView.style.display = 'none';
+    } else {
+      discussBtn.className = 'py-1.5 rounded-md text-[#121316] bg-white font-semibold shadow-xs transition-all flex items-center justify-center gap-1.5 relative';
+      writeBtn.className = 'py-1.5 rounded-md text-[#5E636E] hover:text-[#121316] transition-all flex items-center justify-center gap-1.5';
+      writeView.style.display = 'none';
+      mobileDiscussView.style.display = 'flex';
+      renderMobileDiscussContent();
+    }
+  }
+
+  function renderMobileDiscussContent() {
+    const mobileContainer = document.getElementById('mobile-discuss-view');
+    // Content cloned cleanly for seamless segmented toggle without modal or overlay
+    mobileContainer.innerHTML = `
+      <div class="flex-1 bg-white rounded-xl border border-[#E5E6EB] p-4 flex flex-col justify-between mb-4">
+        <div class="space-y-4 overflow-y-auto mb-4">
+          <div class="flex flex-col items-end">
+            <div class="bg-[#F5F5F7] text-[#121316] text-xs rounded-xl px-3 py-2 max-w-[90%] leading-relaxed">
+              Can we make the opening punchier? It feels a bit slow to get to the point.
+            </div>
+          </div>
+          <div class="text-xs text-[#121316] leading-relaxed">
+            Here's an alternative that cuts straight to the emotional hook without losing the vulnerability:
+          </div>
+          <section class="border border-dashed border-[#8E94A0] rounded-xl p-3 bg-[#FAFAFB]">
+            <div class="text-[10px] font-medium tracking-wider text-[#5E636E] uppercase mb-1 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#8E94A0]"></span>
+              <span>Proposed opening · not in draft</span>
+            </div>
+            <p class="text-xs text-[#121316] leading-relaxed mb-3">
+              "Speed is easy to measure. Clarity usually isn't. Most tools are built to help you finish faster."
+            </p>
+            <div class="flex items-center gap-2">
+              <button class="px-2.5 py-1 rounded-md border border-[#121316] bg-white text-xs font-medium text-[#121316]" type="button">
+                Use as opening
+              </button>
+              <button class="text-xs font-medium text-[#5E636E]" type="button">
+                Another take
+              </button>
+            </div>
+          </section>
+          <div>
+            <div class="text-[10px] font-semibold tracking-wider text-[#5E636E] uppercase mb-1.5">Suggestions</div>
+            <div class="divide-y divide-[#E5E6EB] text-xs">
+              <button class="w-full py-2 flex items-center justify-between text-[#121316] text-left" type="button">
+                <span>Tighten to fit one post</span>
+                <span class="text-[#8E94A0]">›</span>
+              </button>
+              <button class="w-full py-2 flex items-center justify-between text-[#121316] text-left" type="button">
+                <span>Draft a LinkedIn version</span>
+                <span class="text-[#8E94A0]">›</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-[#E5E6EB] pt-3">
+          <div class="bg-[#F5F5F7] rounded-lg p-2 border border-[#E5E6EB]">
+            <input class="w-full text-xs text-[#121316] placeholder-[#5E636E] border-0 p-0 focus:ring-0 focus:outline-none mb-2 bg-transparent" placeholder="Ask about this draft" type="text">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-medium text-[#5E636E] bg-white px-1.5 py-0.5 rounded border border-[#E5E6EB]">+ Add context</span>
+              <button class="w-6 h-6 rounded-full bg-[#121316] text-white flex items-center justify-center text-xs">↑</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+</script>
+
+
+</body></html>

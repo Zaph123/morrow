@@ -1,0 +1,55 @@
+MORROW — FIRST CODEX BUILD SCOPE
+24 November 2026 · user decision
+
+CONFIRMED FIRST BUILD
+Home; Studio; Ideas and idea context; Library; Brand Brain; You/Profile/Account;
+Supabase authentication using email/password and Google.
+Implementation target: Next.js, explicitly confirmed by the user. Inspect the
+actual router, installed versions, package manager, Tailwind and component
+libraries before planning file changes. They are not established by Stitch.
+
+EXPLICITLY DEFERRED
+The user chose: Build the designed core first; add Calendar and publication
+recording later. This is a sequencing decision, not removal from the product.
+Do not implement a dummy Calendar, scheduling, reminders, publication-record
+forms or automatic publishing to make every reference destination clickable.
+
+FIRST-BUILD PRESENTATION GUIDANCE
+Hide Calendar from live first-build navigation so there is no placeholder route.
+This is the handoff's proposed presentation of the scope decision, not a separate
+user-approved redesign of the future sidebar. The archived sidebar still shows
+Calendar as the future complete component; its inclusion there is not first-build
+scope. Keep You and red Sign out at the bottom.
+Keep Library's established filters. Show only real persisted statuses, including
+valid migrated statuses; do not seed fake published records or add Mark published
+controls as an undocumented backdoor into the deferred publication workflow.
+Do not discard any real historical publication data during storage migration.
+
+CORE RELIABILITY IS INCLUDED
+Manual capture, edit, save, reopen, search, context selection, pending examples,
+explicit learning approval, auth/account actions and useful failure recovery.
+Original thoughts, platform-version relationships and existing content survive
+migration and errors. Fix real reliability defects; preserving demo bugs is not
+the goal of the conversion rules.
+
+AI CONFIGURATION IS STILL OPEN
+The designed Studio includes AI, but no provider, credential or free-tier
+eligibility is selected by this archive. Implement an adapter and truthful
+unconfigured/pending/failure states; keep manual workflows usable. Do not claim
+the AI-assisted slice is complete until the chosen integration works. Select a
+provider from the actual repo/context or resolve that operational choice before
+building the provider-specific integration. No unapproved paid subscription.
+
+DOCUMENTED, NOT NEWLY IMPLEMENTED
+AUTH-AND-ACCOUNT-FLOWS.txt is an assistant-drafted interaction contract for the
+chosen providers. It closes ambiguities in behaviour but is not visual approval
+of login/recovery screens or proof of Supabase configuration.
+Version history/export and later PRD operations are not silently expanded into
+this designed-core slice. Protect existing recovery/export capabilities when
+present and establish a migration recovery strategy before changing persistence.
+
+COMPONENT LIBRARY UPDATE — 24 NOVEMBER
+shadcn/ui remains the baseline; UIArc is approved alongside it. Use the dedicated
+UIARC-INTEGRATION.txt selection/theme/motion policy. Installed Arc source/registry and React19 are confirmed in the uploaded
+snapshot; live IDE state and runtime compatibility remain unverified. This does not expand first-build features
+or choose the application's AI provider.

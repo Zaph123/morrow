@@ -1,0 +1,77 @@
+> Rules for translating Stitch designs into the Churchera Next.js app.
+> Applies to ambassador UI in `app/(public)/ambassadors/`, `app/admin/ambassadors/`, and `components/ambassadors/`. Preserve associated ambassador API, auth, service, validation and email behavior.
+
+# Stitch → Churchera translation rules
+
+- Stitch output (HTML, screenshots) is a visual and content reference only. Read it through the MCP; never paste, save, or generate its code into the repo.
+- Restyle the existing ambassador components (`app/(public)/ambassadors/*`, `app/admin/ambassadors/*`, `components/ambassadors/*`). Do not rewrite logic: react-hook-form, zod validation, API calls, account-check states, cohort status must keep working. Markup and classes change; behavior does not.
+- Stack: Next.js App Router, Tailwind v4 with tokens in `globals.css`, shadcn/ui components, `motion` library (`Pressable`, `Stagger`, `lib/ease.ts`, `useReducedMotion` per component). No CDN scripts, no Tailwind v3 config, no new libraries except the approved shadcn Carousel and its Embla dependency, and no Material Symbols (use the repo's icon library).
+- Never copy class names from Stitch. Map by pixel size and by token. No hex values and no arbitrary Tailwind values (`-[`), unless a genuine custom layout need, with a comment.
+- Fonts are assigned in `globals.css`; do not add `font-heading`, `font-sans`, or `font-mono` to headings, paragraphs, or labels. Use `font-heading` only on a non-heading element that must look like a heading (for example, a large numeral).
+- Colors: semantic tokens only. White cards use `bg-surface-container-lowest` (not `bg-card`). Dark navy tile/footer uses `bg-deep-blue-container text-white`. Gold only per `DESIGN.md`.
+- Approved exception: focus rings in ambassador admin use the shared `--ring` token (gold), overriding DESIGN.md's note about blue focus rings. This is the only permitted gold use outside DESIGN.md's list.
+- Approved height exception: ambassador admin toolbar controls are 36px on desktop; search and filter buttons stay at least 44px on mobile. Export uses the shared default size (36px). Login and inline-review controls retain their shared 48px sizing.
+- Radius: ambassador admin uses the project's global radius configuration from `app/globals.css` through the existing semantic radius tokens and `rounded-*` utilities; no scoped or secondary radius class exists and none may be added.
+- Sheet/Dialog: ambassador admin uses the shared SheetContent and DialogContent defaults (default backdrop including blur, default close button) for consistency with other modals. This is the only approved exception to the no-blur rule; do not add overlay overrides, new overlay props or a scrim token. The shared default shadow stays on ambassador Sheets and Dialogs (do not add shadow-none; overlays need depth); local className is for sizing and layout only, and every override must be justified.
+- Do not use gradient, glass, glow utilities (`text-gradient-*`, `glass*`, `sacred-glow`, `light-ray`, `sanctuary-light`), resting shadows, or `backdrop-blur` on ambassador pages.
+- Use the real site header/footer. Do not port Stitch's header, footer, nav links, logo URL, global scrollbar hiding, scroll-smooth, or body layout classes.
+- Do not port inline scripts, inline event handlers, native `<select>` hacks, or Stitch carousel code. Build the approved carousel with the repository's shadcn Carousel component.
+- Labels use `<p>` or `<span>`, not `<h4>` or `<h6>` (global heading styles would resize them).
+- Verify after every phase: `tsc`, ESLint on ambassador files, and this grep must return nothing:
+
+  ```sh
+  rg 'cdn.tailwindcss|material-symbols|googleusercontent|\[#|<script|onchange=|onsubmit=|webkit-scrollbar|font-headline|font-body|font-code|backdrop-blur|text-gradient|glass|bg-gradient' "app/(public)/ambassadors" app/admin/ambassadors components/ambassadors lib/ambassador app/api/ambassador lib/ambassador-client.ts services/ambassador.service.ts types/ambassador.ts emails/ambassador-submitted.tsx emails/ambassador-internal.tsx emails/ambassador-decision.tsx
+  ```
+
+- Take Playwright screenshots (desktop and mobile, light and dark) and compare to the Stitch screenshot before reporting.
+
+## Additional rules (apply to every ambassador component)
+
+- Icons: use the project icon library (`lucide-react`). Inline `<svg>` is allowed only in decorative illustration components.
+- Use standard Tailwind only. Replacements: `text-[11px]` → `text-xs`; `tracking-[0.2em]` → `tracking-widest`; `tracking-[-0.02em]` → `tracking-tight`; `text-[15px]` → `text-base` or `text-sm`; `max-w-[620px]` → `max-w-xl`; arbitrary offsets → numeric spacing like `left-3.5`, `top-7`, `-bottom-7`.
+- Never create `<header>`, `<footer>`, or `<main>` inside ambassador page components; the shared shell provides them.
+- Do not invent IDs, emails, committees, program names, years, or footer links. Contact lines may use only addresses provided by the user.
+- No looping animation (`animate-pulse`, etc., except loading spinners), no resting shadows, and no kicker pills.
+- Use only tokens that exist in `globals.css`; verify every token class name before using it.
+- Do not use the Stitch screen's code. Use only its screenshot for layout and the copy spec for text.
+- Before presenting work, run this grep on changed files and fix every hit; paste the empty output in the report:
+
+  ```sh
+  rg -g '!app/admin/ambassadors/(auth)/layout.tsx' -g '!app/admin/ambassadors/(workspace)/layout.tsx' '\-\[|<svg|font-heading|font-sans|font-mono|<header|<footer|<main|shadow-|animate-pulse|href=\x22#\x22|primary-fixed' "app/(public)/ambassadors" app/admin/ambassadors components/ambassadors lib/ambassador app/api/ambassador lib/ambassador-client.ts services/ambassador.service.ts types/ambassador.ts emails/ambassador-submitted.tsx emails/ambassador-internal.tsx emails/ambassador-decision.tsx
+  ```
+
+- The structural verification grep excludes only `app/admin/ambassadors/(auth)/layout.tsx` and `app/admin/ambassadors/(workspace)/layout.tsx`, which own the admin main landmarks. Review both layouts separately against every color, typography, arbitrary-value, shadow and motion rule.
+- Review decorative `<svg>` matches against the illustration exception; do not modify unchanged public illustrations as part of an admin-only phase.
+
+- Verify login styling with this additional grep (no matches expected):
+
+  ```sh
+  rg 'text-red-|text-amber-|border-gray-|bg-white|bg-gray-|bg-card|style=\{|CSSProperties|colors\.' components/ambassadors/admin-login-form.tsx 'app/admin/ambassadors/(auth)/login'
+  ```
+
+## Reuse before inventing
+
+- Before creating any component, hook, schema, or helper, search the whole repository for an existing implementation of the same responsibility. Search beyond ambassador folders.
+- Follow the existing pattern for structure, composition, file placement, naming, data flow, validation, loading, errors, and mutation handling where it fits the task.
+- Follow these translation rules for styling. Existing code is not permission to copy hex values, raw palette classes, glass, blur, gradients, resting shadows, prohibited font classes, or other conflicting presentation.
+- Prefer direct reuse when the existing component fits. Use an ambassador-specific wrapper or composition when local overrides can make it compliant. Inspect internal elements and inherited styles before claiming that className overrides are sufficient.
+- When using a shared component, do not add classes that repeat its defaults or fight them. In every plan and diff report, list each class added to a shared component and explain why it is needed. If the same override is needed in more than one place, create one wrapper in `components/ambassadors`, write it once, and reuse it instead of repeating overrides per usage.
+- Do not edit shared primitives or rewrite existing authentication, API, validation, or other behavior merely to align a restyle with another repository pattern. Report limitations and plan behavioral changes separately.
+- In every implementation plan and diff report, identify the existing file followed by each new file or pattern. When there is no suitable precedent, state "no precedent", include the exact repository search command and its result, and explain why a new pattern is needed.
+- Distinguish direct reuse, reuse with ambassador-specific presentation, and a new implementation following an existing structural precedent.
+
+## Repo conventions for ambassador admin
+
+- Tables: use plain `components/ui/table.tsx` with server pagination as in `components/ambassadors/admin-page.tsx`; never use the shared DataTable.
+- Fetching: keep existing manual fetching in `admin-page.tsx` during restyles; moving to `hooks/useAmbassador.ts` requires a separate approved change.
+- Endpoints: follow the existing `ok` / `fail` / `handleRouteError` pattern in `lib/resource-center/api.ts`; preserve ambassador auth and API restrictions.
+- Forms: preserve existing login and public form logic; new validated forms follow RHF + Zod and `components/ambassadors/form/form-text-field.tsx` for accessible errors.
+- Sheet/dialogs: shared SheetContent and DialogContent render their own blurred overlay that content className cannot reach; the approach remains open for the Sheet phase.
+- Statuses/pills: use typed maps with display labels and semantic tokens only; stored status values never change.
+- Stat cards/page headers: use local ambassador components; no glass, no `bg-card`, no repeated `<h1>` per metric, and no `<header>` inside pages.
+- Skeletons: use one ambassador wrapper around `components/ui/skeleton.tsx` that passes `animate-none`.
+- States: distinguish loading, request errors, genuinely empty lists, and empty search results; follow transaction skeleton structure and existing collection-state distinctions with compliant styling.
+- Navigation: follow resource-admin shell composition; keep landmarks in the layout and preserve ambassador auth/logout rather than importing another domain's auth dependencies.
+- Toasts: use the existing `toast.add` manager; add no toast library. Shared toast styling debt is recorded, not fixed here.
+- Files/tests: keep existing ambassador folders, service/hook/type locations, and named component exports; new pure-logic tests follow `test/bachs-checkout-recovery.test.js` (`bun:test`).
+

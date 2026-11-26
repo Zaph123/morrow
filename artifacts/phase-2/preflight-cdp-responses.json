@@ -1,0 +1,53 @@
+{
+  "traffic": [
+    {
+      "method": "Browser.getVersion",
+      "result": {
+        "protocolVersion": "1.3",
+        "product": "Edg/158.0.4370.33",
+        "revision": "@56b8f691820060b6e15f702165117f203442943f",
+        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36 Edg/158.0.0.0",
+        "jsVersion": "15.8.13.3"
+      }
+    },
+    {
+      "method": "Runtime.evaluate",
+      "result": {
+        "result": {
+          "type": "number",
+          "value": 2,
+          "description": "2"
+        }
+      }
+    },
+    {
+      "method": "Page.getFrameTree",
+      "result": {
+        "frameTree": {
+          "frame": {
+            "id": "288EE736A7202A955BB0AF2BF26F8665",
+            "loaderId": "906A7A1DA54AA36A446114A82B3C7EA7",
+            "url": "about:blank",
+            "domainAndRegistry": "",
+            "securityOrigin": "://",
+            "securityOriginDetails": {
+              "isLocalhost": false
+            },
+            "mimeType": "text/html",
+            "adFrameStatus": {
+              "adFrameType": "none"
+            },
+            "secureContextType": "InsecureScheme",
+            "crossOriginIsolatedContextType": "NotIsolated",
+            "gatedAPIFeatures": []
+          }
+        }
+      }
+    },
+    {
+      "method": "Page.enable",
+      "result": {}
+    }
+  ],
+  "errors": []
+}

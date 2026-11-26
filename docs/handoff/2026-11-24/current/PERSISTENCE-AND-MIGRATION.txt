@@ -1,0 +1,88 @@
+MORROW — PERSISTENCE AND MIGRATION PROPOSAL
+Revision 4 · assistant recommendation for review, not a performed migration
+
+TARGET
+The user has created the Morrow Supabase project. Use that project; do not create
+another. Project existence does not prove app integration, Google configuration,
+schema, RLS or callbacks. Inspect the live setup before proposing changes.
+Supabase should be canonical for committed account-owned data. Present one typed
+application repository/service boundary to the UI. Local recovery is a separate
+responsibility; do not keep two competing permanent stores for the same account.
+
+WHY BROWSER STORAGE STILL HELPS
+Keep small harmless preferences and bounded draft/recovery records locally.
+Retain legacy keys until their contents are safely assessed and migrated.
+localStorage is acceptable for small existing synchronous recovery payloads;
+IndexedDB is a candidate for larger structured recovery/queued writes if the
+approved slice needs it. Do not build a full offline-first engine prematurely.
+Browser persistence is best-effort and may be cleared/blocked; it is not a backup
+service. Offer export/recovery for valuable content when needed.
+Use the supported Supabase/Next.js auth integration and environment boundaries.
+Do not manually save passwords, service-role keys or custom token copies in the
+application's draft storage. Never request secrets in chat or include them in docs.
+
+SAVE TRUTH
+Track current editor revision, last successful local revision and last server
+acknowledgement separately. An acknowledgement for an older revision cannot mark
+newer edits saved. If available, send an expected server revision for conflict
+detection; do not silently use last-write-wins across devices.
+Show “Saved on this device” only after a successful durable local write.
+Show cloud success only after the current revision is acknowledged by Supabase.
+If one destination fails, describe it accurately without claiming the other failed
+or succeeded. If neither succeeds, retain text and offer retry/copy/export.
+A failed read must not appear as an empty workspace and authorize overwriting it.
+Do not clear successful capture before the selected persistence contract succeeds.
+
+OWNERSHIP AND RECOVERY
+Account-owned rows require verified auth ownership and tested RLS across SELECT,
+INSERT, UPDATE and DELETE. Keep privileged keys server-only. Do not weaken RLS to
+make the frontend work. Inspect existing policies and schema before migrations.
+Namespace recovery by account/workspace/item/base revision; do not restore one
+user's text into another account or auto-import anonymous work into whoever logs in.
+Preview/confirm attribution of pre-auth/local-only data before cloud import.
+Handle sign-out with unsaved recovery explicitly; namespacing alone is not a
+security boundary. Do not silently discard unsaved text or leave another user's
+cached content visible after sign-out/account switching.
+Drafts, platform versions, selected context, pending examples and approved learning
+have different commit boundaries. Preserve the contracts in FLOWS-AND-DATA.txt.
+
+TWO LEGACY FORMATS — EXPLICIT MAPPING REQUIRED
+Keys morrow:ideas and morrow:content use types/index.ts:
+- Idea.text and active/developed/archived status.
+- Content draft/ready/published; platform whatsapp-status.
+- Existing IDs are timestamp/random strings, not necessarily UUIDs.
+Key morrow.workspace.v1 uses lib/workspace/types.ts and its parser:
+- Idea.body, no idea status.
+- Content accepts only draft; platform whatsapp.
+- Snapshot version1 holds ideas/content together.
+All preserve relationships through sourceIdeaId, which needs explicit mapping.
+The newer parser rejects some valid historical statuses/platforms; using it as
+the migration validator would lose or block older work.
+If server IDs are UUIDs, keep a stable source+legacyID -> serverID mapping and
+provenance. Do not replace IDs without rebuilding and checking every relationship.
+The future piece/platform-version model needs its own grouping rules; do not
+guess that similar titles represent the same piece or discard independent text.
+
+SAFE MIGRATION SEQUENCE — SEPARATE APPROVAL REQUIRED
+1. Inventory live callers and all legacy keys without mutation. Keep original raw
+   bytes and provide an export before transformation. Handle invalid sources
+   independently; one corrupt key must not trigger an empty rewrite of another.
+2. Propose destination schema, ownership, IDs, source mappings, status/platform
+   mappings and source-linked relationships. Preserve published history although
+   new publication-recording UX is deferred. Unknown values go to review/quarantine.
+3. Preview counts and conflicts per source. Equal IDs from different stores need
+   comparison; identical text/different IDs is not proof of duplication. Do not
+   resolve conflicts only by timestamps. Preserve both when uncertain and ask
+   for the meaningful user decision rather than silently choosing.
+4. Approve a dry-run output and migration scope. Import using stable idempotency
+   mappings; retries cannot create duplicate pieces or cross-account records.
+5. Verify contents, counts, relationships, statuses and ownership in the target,
+   including partial failure/retry. Plan rollback/recovery before remote writes.
+6. Switch all active readers/writers through the agreed boundary. Retire old
+   writers deliberately; do not perform a silent migration while rendering.
+7. Retain recoverable legacy data until verification and user-approved cleanup.
+
+MVP BOUNDARY
+Do not add multi-device collaborative editing, CRDTs, unlimited offline outboxes
+or background conflict engines without a demonstrated requirement. A documented
+manual conflict/recovery path can be sufficient for the first coherent release.

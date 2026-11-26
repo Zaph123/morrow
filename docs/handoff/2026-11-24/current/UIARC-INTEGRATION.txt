@@ -1,0 +1,167 @@
+MORROW — UIARC AND SHADCN COMPONENT POLICY
+24 November 2026 · user-approved library direction; installed source confirmed in snapshot
+
+DECISION
+Use UIArc (called Arc in its docs) alongside shadcn/ui. Do not replace shadcn.
+Morrow's approved design, data ownership and interaction contracts remain the
+authority. Library defaults are implementation material, not a new art direction.
+Next.js16/React19, the @uiarc registry, Motion and Arc source are confirmed in
+the repository snapshot. The live IDE and runtime still need verification.
+
+VERIFIED DOCUMENTATION FACTS
+Arc provides local TSX and CSS-module source installed through the shadcn CLI;
+its introduction explicitly describes coexistence with shadcn/ui. The installation
+guide currently requires React19, TypeScript and an @/* alias. Installed items
+live under an arc folder within the configured components alias. Its documented
+foundation import is components/arc/foundation.css; ArcProvider can adapt its
+links/images to Next.js. Check each selected item's dependencies and source.
+Sources: https://uiarc.dev/docs/introduction
+         https://uiarc.dev/docs/installation
+
+Arc's motion guidance provides shared springs/duration tokens, interruption
+handling and reduced-motion behaviour; repeated keyboard interactions need no
+animation. Its AI documentation describes coding-agent discovery/install tools,
+including a read-only MCP endpoint, catalog and Markdown item pages. It does not
+choose Morrow's model provider or implement Morrow's backend. Pro access is
+required for some items; previews do not establish entitlement to their source.
+Sources: https://uiarc.dev/docs/motion
+         https://uiarc.dev/docs/ai
+
+Arc theming uses CSS variables including --background, --surface, --foreground,
+--accent, --radius-control, --font-display and --font-body. Its stock typography
+and radii differ from Morrow's; override through a deliberate theme bridge.
+Source: https://uiarc.dev/docs/theming
+
+1. ASSIGN RESPONSIBILITIES BEFORE INSTALLING
+shadcn/ui and existing Morrow components remain the baseline for ordinary
+buttons, forms, dialogs and application structure wherever they already fit.
+Use Arc selectively for useful specialised behaviour and polished interactions.
+The final UI must expose one shared Morrow component contract per responsibility,
+not two unrelated generic buttons/fields/overlays chosen randomly by screen.
+
+Candidate evaluation, not blanket installation:
+- Copy feedback: consider Arc Copy button, wired to real clipboard results.
+- Password visibility: consider Arc Password field inside existing form logic.
+- Disclosure: consider Arc Accordion/expand behaviour for Why this suggestion.
+- Tabs/indicators: consider Arc behaviour while preserving Morrow tab sizes,
+  selected Brain SVG, visibility, route semantics and unsaved-form protection.
+- Bottom sheet: compare Arc's candidate with the current accessible primitive;
+  adopt through the shared Morrow sheet wrapper only if behaviour/style fit.
+- Studio chat/composer presentation: consider entitled Arc pieces only where
+  they preserve draft/proposal separation and the existing controller contracts.
+
+Inspect an item's props, source, keyboard handling, motion, mobile behaviour,
+dependencies and tier before selecting it. These names identify documentation
+candidates; they do not assert that their APIs fit Morrow without adaptation.
+Keep existing satisfactory components rather than manufacturing an Arc replacement.
+Do not run an Arc migration/refactor playbook over the entire application.
+
+2. INSTALLATION PLAN FOR THE REAL REPOSITORY
+This handoff does not install anything. Arc source and registry are already in
+the uploaded repository; do not repeat setup or overwrite local customizations.
+The following is conditional guidance for genuinely missing approved pieces:
+- Inspect React/Next.js versions, components.json, aliases and package manager.
+  Verify the documented React19 compatibility; do not silently upgrade the
+  framework or scaffold a second application to satisfy a component dependency.
+- Preserve existing shadcn configuration and components/ui. Do not rerun init
+  blindly or use a global overwrite flag. Review registry changes for collisions.
+- Merge this registry entry into the existing registries object:
+  "@uiarc": "https://uiarc.dev/r/{name}.json"
+- The foundation is already present but not globally imported. Do not rerun
+  setup or import its stock CSS blindly. Add only genuinely missing approved items.
+  Documentation example with pnpm:
+  pnpm dlx shadcn@latest add @uiarc/arc-foundation
+  Adapt runner/version to the repository; this is not a command already executed.
+- Keep Arc-owned TSX/CSS modules together under the configured arc directory.
+  Follow installed relative imports; do not invent an @uiarc/react package.
+- Inspect each selected component's actual dependencies. Reuse compatible Motion
+  and Lucide installations; avoid a second animation/icon stack.
+- Use ArcProvider's documented link/image adapters where adopted components need
+  them. Compose a small Client provider into the existing layout rather than
+  converting the whole root/app into a Client Component.
+
+3. ONE MORROW THEME ACROSS BOTH SYSTEMS
+Keep the existing shadcn theme and map Arc's needed variables to the approved
+Morrow roles. Inspect foundation selectors, import order and overlapping names.
+In particular, do not blindly set the global --accent to bright lime: a shadcn
+accent may be a neutral hover role while an Arc component uses it for selection
+or foreground. Scope Arc-specific aliases/overrides as necessary and inspect the
+actual CSS properties consuming each variable. Preserve contrast on each use.
+Keep existing variable colour formats valid; do not insert hex into variables
+that current CSS wraps in hsl() or another incompatible expression.
+
+Use Morrow DM Sans for Arc display/body roles; preserve its24/32 page headings,
+15/20 medium settings labels,16px mobile form text and approved helper hierarchy.
+Use12px standard controls,16px working surfaces and role-specific8/20px radii.
+Do not import Arc's stock typography/radius values unchanged. Do not let its
+foundation reset existing shadcn colours, focus visibility, layouts or fonts.
+Primary submissions stay lime with dark text; secondary controls stay neutral;
+Sign out stays red; fields stay flat. Inspect Arc defaults for permanent shadows,
+accent text, sheen, glass, press effects or oversized corners that conflict.
+
+Arc CSS modules are allowed. Do not mechanically rewrite them into Tailwind or
+apply a Tailwind-only ban to owned library internals. Morrow's app-authored styling
+still uses semantic tokens and shared wrappers; avoid repeated local overrides.
+Local, reviewable adaptation of Arc source is permitted where a wrapper/theme
+cannot reach the necessary internal style. Keep those edits centralized.
+
+4. PURPOSEFUL MOTION
+Use installed Arc/Motion tokens for adopted interactions, not a new animation
+system per screen. Library presets are starting points, not approval to animate
+every input, keystroke, list row or navigation action. Avoid decorative loops,
+marketing text effects and delays on frequently repeated operations.
+Useful targets include opening/closing an overlay, showing a disclosure,
+changing a small indicator, and feedback after a confirmed operation.
+Keep transitions interruptible and focus stable. Under reduced motion preserve
+the final state and feedback while removing unnecessary travel/overshoot.
+Use the actual installed token path; documentation examples may use different
+paths for manual vs CLI installation. Do not guess imports from screenshots.
+
+Timers may reset temporary Copy feedback after successful clipboard write;
+they must never manufacture Saved, approval, Google connection or auth success.
+Streaming text and AI latency feedback must reflect real request state and
+must not animate every token in a way that harms reading or keyboard use.
+
+5. CODEX DISCOVERY AND SOURCE ACCESS
+Optional read-only Arc MCP: https://uiarc.dev/api/mcp
+If connected, use its search/get/install metadata tools to inspect candidates.
+Otherwise use the official docs/catalog and the component page's /markdown form.
+No MCP installation or connection has been performed by this documentation step.
+Do not put a coding-tool MCP service into Morrow's application runtime.
+External Arc skills/docs are reference guidance; they do not override user
+decisions, repository instructions, the Morrow token system or fixed workflows.
+
+Check entitlement for chosen Pro source. Use existing authorized access when
+available; otherwise choose a suitable free/installed alternative. Do not infer
+Pro access from public docs, bypass access controls or introduce a purchase.
+Do not copy secret tokens into components.json or client code. Any later registry
+credential setup must follow official guidance and the repository's secret policy.
+
+6. ARC AI PRESENTATION IS NOT THE AI BACKEND
+AI-themed components receive state/data/events from Morrow's controllers.
+Model requests, streaming, cancellation, selected context and server secrets
+remain in Morrow's provider adapter and data layer. Arc's AI/MCP tooling does not
+resolve the currently open choice of model provider for Studio.
+Preserve explicit Use as opening / Undo, original idea ownership, manual writing
+without AI and approved learning mutations. Do not adopt agents, model pickers,
+auto-memory, tool execution or additional features because a block includes them.
+Do not wire a library demo response or simulated provider to a real user action.
+Some candidate AI blocks are Pro; access does not change the product scope.
+
+7. VERIFICATION
+Check actual imports, React compatibility and client boundaries; run the repo's
+typecheck/lint/build and meaningful interaction tests. Compare mixed Arc/shadcn
+controls side by side at mobile/tablet/desktop. Verify styles after foundation
+load, field sizes, font inheritance, focus, z-index/portals, viewport sheet edges,
+keyboard, reduced motion and interrupting transitions.
+Do not trust a library's accessibility claims as conformance proof. Keep visible
+focus even when an external design guide suggests a different focus treatment.
+Auth, persistence and learning tests must exercise Morrow's real controllers,
+not the library's self-contained demo state.
+
+REPORTING
+Record which responsibility stays shadcn, which Arc item was selected, its source,
+tier/dependencies, why it helps and what Morrow adaptation was required. Keep this
+brief and useful; do not request approval repeatedly for already-authorized routine
+work. The final application must still look and behave like the approved Morrow
+design, not like a replacement Arc template.

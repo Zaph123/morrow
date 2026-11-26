@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You — Desktop — Account — Revised</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F7] text-[#121316] min-h-screen flex">
+
+  <!-- Desktop Sidebar inherited from Reference A -->
+  <aside class="w-[240px] shrink-0 min-h-screen bg-[#FFFFFF] border-r border-[#E5E6EB] flex flex-col justify-between p-6">
+    <div class="flex flex-col gap-8">
+      <!-- New idea button -->
+      <button class="w-full py-2.5 px-4 rounded-[12px] bg-[#ECECEF] text-[#121316] font-medium text-[15px] flex items-center justify-center gap-2 hover:bg-[#E5E6EB] transition-colors" aria-label="New idea">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>New idea</span>
+      </button>
+
+      <!-- Main Navigation -->
+      <nav class="flex flex-col gap-1">
+        <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </a>
+        <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+            <path d="m15 5 4 4"></path>
+          </svg>
+          <span>Studio</span>
+        </a>
+        <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+            <path d="M6 2v20"></path>
+          </svg>
+          <span>Library</span>
+        </a>
+        <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+            <path d="M9 18h6"></path>
+            <path d="M10 22h4"></path>
+          </svg>
+          <span>Ideas</span>
+        </a>
+        <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg><span>Brand Brain</span></a>
+      </nav>
+    </div>
+
+    <!-- Bottom sidebar controls -->
+    <div class="flex flex-col gap-1 border-t border-[#E5E6EB] pt-4">
+      <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] text-[#5E636E] hover:text-[#121316] hover:bg-[#F5F5F7] font-medium text-[15px] transition-colors">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>Calendar</span>
+      </a>
+      <!-- Active You Navigation Item in pale lime #F2FCD6 -->
+      <a href="#" class="flex items-center gap-3.5 px-3 py-2.5 rounded-[12px] bg-[#F2FCD6] text-[#121316] font-medium text-[15px]" aria-current="page">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="5"></circle>
+          <path d="M20 21a8 8 0 0 0-16 0"></path>
+        </svg>
+        <span>You</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Canvas -->
+  <main class="flex-1 min-h-screen overflow-y-auto px-12 py-10"><div class="w-full flex flex-col">
+    <h1 class="text-[24px] leading-[32px] font-semibold text-[#121316] m-0 mb-6">You</h1>
+
+    <!-- Profile Header matching desktop Profile specs -->
+    <div class="relative w-full mb-8">
+      <!-- Cover area -->
+      <div class="relative w-full h-[160px] rounded-[16px] bg-gradient-to-r from-[#d2f8d8] via-[#e5f8d9] to-[#fedec8] border border-[#E5E6EB]/60 overflow-hidden">
+        <button class="absolute top-4 right-4 py-2 px-3.5 bg-white/90 backdrop-blur-sm rounded-[10px] text-[13px] font-medium text-[#121316] border border-[#E5E6EB] flex items-center gap-1.5 hover:bg-white transition-colors" aria-label="Add cover">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+          <span>Add cover</span>
+        </button>
+      </div>
+
+      <!-- Avatar wrapper: absolute top-full left-[24px] -translate-y-1/2 w-[128px] h-[128px] rounded-full border-4 border-[#FFFFFF] z-20 bg-[#ECECEF] -->
+      <div class="absolute top-[160px] left-[24px] -translate-y-1/2 w-[128px] h-[128px] rounded-full border-4 border-[#FFFFFF] bg-[#ECECEF] shadow-sm z-20 flex items-center justify-center">
+        <span class="text-2xl font-semibold text-[#121316]">Z</span>
+        <button class="absolute bottom-0 right-0 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-[#FFFFFF] border border-[#E5E6EB] shadow-sm flex items-center justify-center text-[#5E636E] hover:text-[#121316] transition-colors" aria-label="Change avatar photo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Lower-header area below cover: reserved height 64px, name block starting 176px from cover edge and 12px below cover -->
+      <div class="h-[64px] relative w-full pt-[12px]">
+        <div class="ml-[176px] flex flex-col">
+          <h2 class="text-[20px] leading-[28px] font-semibold text-[#121316] m-0">Zaphenath</h2>
+          <p class="text-[13px] leading-[20px] text-[#5E636E] m-0 mt-1">Your profile and account settings.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs: 32px spacing between lower-header area and tabs -->
+    <div class="flex items-center gap-8 border-b border-[#E5E6EB] mt-0">
+      <a href="#" class="pb-3 text-[15px] font-medium text-[#5E636E] hover:text-[#121316] transition-colors">Profile</a>
+      <a href="#" class="pb-3 text-[15px] font-semibold text-[#121316] border-b-2 border-[#121316] -mb-[1px]" aria-current="page">Account</a>
+    </div>
+
+    <!-- Account Rows: Label/helper on left, Value/action group on right -->
+    <div class="w-full flex flex-col divide-y divide-[#E5E6EB]">
+      <!-- Row 1: Email -->
+      <div class="py-5 flex items-center justify-between gap-6">
+        <div class="flex flex-col gap-0.5">
+          <span class="text-[15px] font-medium text-[#121316]">Email address</span>
+          <span class="text-[13px] text-[#5E636E]">The email you use to sign in.</span>
+        </div>
+        <div class="flex items-center gap-6 shrink-0">
+          <div class="w-[220px] text-right text-[15px] text-[#121316] font-normal select-all">zaphenath@example.com</div>
+          <button class="w-[160px] h-[40px] rounded-[12px] bg-[#ECECEF] hover:bg-[#E5E6EB] text-[#121316] text-sm font-medium flex items-center justify-center transition-colors" aria-label="Change email address">Change email</button>
+        </div>
+      </div>
+
+      <!-- Row 2: Password -->
+      <div class="py-5 flex items-center justify-between gap-6">
+        <div class="flex flex-col gap-0.5">
+          <span class="text-[15px] font-medium text-[#121316]">Password</span>
+          <span class="text-[13px] text-[#5E636E]">Manage your sign-in password.</span>
+        </div>
+        <div class="flex items-center gap-6 shrink-0">
+          <div class="w-[220px] flex items-center justify-end gap-2 text-[15px] text-[#121316]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#5E636E]">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Password set</span>
+          </div>
+          <button class="w-[160px] h-[40px] rounded-[12px] bg-[#ECECEF] hover:bg-[#E5E6EB] text-[#121316] text-sm font-medium flex items-center justify-center transition-colors" aria-label="Change account password">Change password</button>
+        </div>
+      </div>
+
+      <!-- Row 3: Google -->
+      <div class="py-5 flex items-center justify-between gap-6">
+        <div class="flex flex-col gap-0.5">
+          <span class="text-[15px] font-medium text-[#121316]">Google</span>
+          <span class="text-[13px] text-[#5E636E]">Another way to sign in to this account.</span>
+        </div>
+        <div class="flex items-center gap-6 shrink-0">
+          <div class="w-[220px] text-right text-[15px] text-[#5E636E]">Not connected</div>
+          <button class="w-[160px] h-[40px] rounded-[12px] bg-[#ECECEF] hover:bg-[#E5E6EB] text-[#121316] text-sm font-medium flex items-center justify-center transition-colors" aria-label="Connect Google account">Connect Google</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign out button aligned to content left edge -->
+    <div class="pt-8">
+      <button class="py-2 px-4 rounded-[10px] bg-[#ECECEF] hover:bg-[#E5E6EB] text-[#121316] text-[14px] font-medium inline-flex items-center gap-2 transition-colors" aria-label="Sign out of account">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#5E636E]">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+          <polyline points="16 17 21 12 16 7"></polyline>
+          <line x1="21" y1="12" x2="9" y2="12"></line>
+        </svg>
+        <span>Sign out</span>
+      </button>
+    </div>
+  </div></main>
+
+
+
+
+
+
+
+
+</body></html>

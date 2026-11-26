@@ -1,0 +1,219 @@
+MORROW — STITCH TO NEXT.JS TRANSLATION RULES
+24 November 2026 · adapted from the user's Churchera example
+
+PURPOSE AND STATUS
+Next.js is the confirmed target. Stitch HTML and PNGs describe design/content;
+they are not production code, a backend contract or a runnable Next.js application.
+These are Morrow-specific implementation rules, not Churchera instructions.
+Use with FIRST-BUILD-SCOPE.txt, DESIGN-DECISIONS.txt, FLOWS-AND-DATA.txt,
+AUTH-AND-ACCOUNT-FLOWS.txt, the maintained `artifacts/references/stitch/SCREEN-CATALOGUE.csv`
+and KNOWN-EXPORT-ISSUES.txt.
+Do not start product implementation merely because these rules are supplied.
+
+1. INSPECT THE REAL REPOSITORY BEFORE CHANGING IT
+Read AGENTS.md and current product/architecture/design guidance. Inspect
+package.json, lockfile, Next.js version, App Router vs Pages Router, TypeScript,
+Tailwind version, global CSS, existing UI primitives, auth clients, services,
+schemas, hooks, icons, test tools, scripts and current stored data.
+Next.js is user-confirmed. The user now explicitly retains shadcn/ui and adds
+UIArc alongside it. Verify actual installation/versions and Arc's documented
+React19 compatibility. Historical notes reported Tailwind4/pnpm; do not import
+Churchera's RHF, Zod, bun:test, toast manager, API envelopes or domain folders.
+Do not migrate routers, change package managers or create a parallel app merely
+to match a generated example structure.
+
+2. USE THE EXPORT AS REFERENCE MATERIAL
+The export is already preserved under reference-export/. Do not copy its pages,
+scripts, Tailwind config or complete class lists into the application source.
+Do not generate a second raw-HTML app, iframe screens or render whole exports
+with dangerouslySetInnerHTML. Convert the intended layout into typed JSX/TSX.
+HTML may be read to recover labels, content, relationships and intended geometry
+when a PNG is blank or incomplete. Screenshots alone are not authoritative in
+those cases; current written decisions outrank rendering defects.
+Do not re-create wide mobile canvases, black image regions, missing headers,
+stale colours or malformed positioning from the export.
+
+3. REUSE BEFORE INVENTING
+Search beyond the feature folder for existing components, hooks, schemas,
+services, state machines, auth helpers and loading/error patterns.
+Prefer direct reuse, then a small Morrow-specific wrapper/composition, then a
+new implementation following a suitable repository precedent.
+Record the useful precedent or explain briefly why a new component is needed.
+Do not require verbose no-result reports for every trivial file.
+If multiple routes need the same presentation override, define it once in a
+shared wrapper rather than repeating per-screen fixes.
+Use installed libraries where they fit. Add only dependencies needed for the
+authorized scope, explain their purpose and avoid duplicate UI/animation stacks.
+No new motion, toast, form or icon library solely because Stitch used one.
+UIArc is now an explicitly approved addition; read UIARC-INTEGRATION.txt. Its
+licensed TSX/CSS-module source may be installed selectively using the shadcn
+registry. This does not permit copying Stitch HTML or replacing shadcn/ui.
+Keep one shared Morrow component contract per responsibility and map Arc's
+foundation to Morrow's theme without overwriting shadcn defaults.
+
+4. PRESERVE WORKING BEHAVIOUR; SEPARATE FUNCTIONAL CHANGES
+During visual conversion preserve existing validation, service calls, route
+protection, ownership checks, mutation handling and usable manual workflows.
+The first build also requires real auth/persistence: implement missing behaviour
+as explicit functional slices. Do not preserve a broken save simulation under
+the banner of restyling, or silently rewrite working logic to simplify markup.
+Inspect historical storage models and preserve/migrate real data deliberately.
+Do not change stored status values simply to match display labels.
+
+5. NEXT.JS COMPOSITION AND CLIENT BOUNDARIES
+Follow the actual router. If App Router is in use, layouts own the app shell,
+fonts, navigation and shared landmarks; pages compose feature views.
+Use Server Components by default where compatible; isolate interactive forms,
+tabs, editors, dialogs and mobile navigation into small Client Components.
+Do not put use client on the whole app to make copied browser scripts run.
+No window/document/localStorage access at module evaluation or server render.
+Pass serializable data across server/client boundaries. Keep privileged keys,
+server-only SDKs and provider calls out of browser bundles.
+Use the project's Supabase server/browser/session pattern appropriate to its
+installed Next.js version; do not invent proxy/middleware filenames blindly.
+Resolve auth/session loading before protected content, avoiding misleading
+signed-out/empty flashes. Use owner-authorized mutations and database policies.
+
+6. BUILD SHARED COMPONENTS ONCE
+Responsibilities to locate/reuse/extract:
+- App shell and desktop sidebar with footer Sign out.
+- Mobile floating navigation and the common Brain icon.
+- Button variants, labelled fields, inline errors and save-status feedback.
+- Profile header shared by Profile/Account on each viewport.
+- Horizontal section tabs with active-tab visibility.
+- Collection rows, skeletons, first-use empty, no-results and load-error states.
+- Overlay foundation: desktop dialog and mobile bottom-sheet composition.
+- Studio editor/Discuss/context/proposal components.
+- Brand Brain form sections, writing-example editor and learning review item.
+Do not generate a unique sidebar, token theme or overlay per exported state.
+Use one shared shell main landmark; avoid nested main elements. Use labels for
+form controls and headings for actual sections. Morrow does not adopt Churchera's
+blanket ban on semantic header/footer/section elements; compose landmarks correctly.
+
+7. MAP VALUES TO Morrow TOKENS, NOT CHURCHERA TOKENS
+Inspect tokens that actually exist before using token classes. Reuse matching
+ones; define missing agreed Morrow roles once in the global design layer.
+Do not invent undefined utility classes or use a similar-looking wrong token.
+No raw palette/hex styling scattered through TSX. Hex primitives belong in the
+global token definition; components consume semantic roles.
+For Tailwind4 use the existing CSS-first @theme/variable bridge. Do not import
+Tailwind3 config scripts or create a second theme. If the repo uses another
+version, follow it until an explicit migration is justified.
+Morrow roles include canvas, surface, text, secondary text, border, neutral
+control, primary lime, selected navigation, error/danger and focus.
+Do not import Churchera's navy/gold colours, bg-deep-blue-container or ambassador
+exceptions. Do not assume a generic bg-card token represents Morrow's surfaces.
+
+8. PRESERVE EXACT AGREED TYPOGRAPHY AND GEOMETRY
+Do not mechanically round 15px section labels to14px/16px or18px because those
+utilities happen to exist. Define a reusable15px/20px medium settings-label role.
+Page headings24/32, mobile form text16px and established supporting scales must
+remain consistent. Typography roles belong in CSS/theme or shared components.
+Use the app's font-loading strategy; prefer next/font when appropriate and keep
+DM Sans with sensible fallback. Remove exported Google-font links in page bodies.
+Avoid per-element font overrides that fight the shared typography system.
+Use the existing spacing/radius scale, mapping standard geometry to utilities
+where exact: desktop avatar128px, mobile96px, cover160px/112px, sidebar240px.
+Use central semantic sizes for needed values not represented by existing tokens.
+Avoid arbitrary values scattered across routes. A genuine one-off calculation
+may be local and explained; runtime-driven editor/viewport geometry is not banned.
+Do not force arbitrary-value grep hits to zero by changing the approved layout.
+
+9. NAVIGATION AND ICONS ARE FIXED ASSETS
+Use the installed icon library where it matches approved assets. No Material
+Symbols fonts, psychology/neurology substitutions or page-specific icon redraws.
+The exact Brain geometry is preserved at `artifacts/phase-2/references/brain.svg`. Verify the installed Brain icon
+matches it; otherwise use ONE shared BrainIcon component with that geometry.
+Do not add an SVG loader dependency solely for this icon. A single central SVG
+component is permitted; Churchera's decorative-only SVG restriction does not
+apply to Morrow's explicitly locked navigation asset.
+Reuse the same icon components throughout desktop/mobile routes.
+Use Next Link or the existing router mechanism for internal destinations and
+buttons for actions. No href=# navigation or invented dead destinations.
+Defer Calendar in the live first-build nav per FIRST-BUILD-SCOPE.txt.
+Keep red Sign out in desktop sidebar; mobile Account retains red Sign out.
+Carry the user's requested selected Brain pill on You mobile as a documented
+visual exception without falsely announcing the Brain route as current page.
+
+10. Morrow-SPECIFIC VISUAL EXCEPTIONS
+Enabled primary submissions are lime, secondary actions neutral, disabled grey.
+Add context is an approved filled neutral pill; other controls use their roles.
+Fields are flat with fine borders. Browsing lists are not stacks of cards.
+Temporary dialog/popover/sheet shadows are allowed; do not remove overlay depth
+with a global shadow ban. Do not introduce resting shadows on every surface.
+The personal cover's mint/peach gradient is an approved replaceable fallback.
+Do not ban all gradients as in Churchera, and do not spread it onto workspace,
+fields or toolbars. No invented glass/glow/shader effect or animated background.
+Approved paper illustrations may use gentle internal depth. Keep decorative SVG
+illustration assets separate from navigation components and content data.
+No final dark theme is approved. Arc/Motion dependencies and tokens may support
+selectively adopted Arc components; do not introduce another animation stack or
+blanket animations. Respect reduced motion and honest request feedback.
+Arc CSS modules are permitted; do not force all owned component internals into
+Tailwind classes or reject their approved scoped CSS mechanically.
+
+11. OVERLAYS MUST USE THE REAL VIEWPORT
+Reuse installed accessible primitives where suitable. Inspect their overlay,
+focus, close-button and portal defaults; do not assume content className reaches
+the backdrop. Centralize necessary Morrow presentation in shared wrappers.
+Desktop context/example forms use centred dialogs; mobile forms use bottom
+sheets. Studio desktop Discuss remains docked, not a modal overlay.
+Use full-viewport backdrop and sheet positioning, safe-area padding, internal
+scrolling, focus return, background inertness and keyboard-safe actions.
+Do not fix a390px-wide screenshot column inside a desktop layout and call it
+responsive. The app is fluid at mobile/tablet/desktop;390x844 is a test viewport,
+not a production fixed-width body or phone frame.
+
+12. REPLACE PROTOTYPE SCRIPTS WITH REAL STATE
+Convert class/for/events to React forms and use keyed components for lists.
+Do not port inline event attributes, global functions, querySelector mutations,
+document.write, arbitrary innerHTML or timer-based Saved success.
+Reuse the project's form/validation/mutation strategy rather than importing
+Churchera's RHF/Zod stack automatically. Dirty state must include link/example
+adds, edits and removes. Async completion must acknowledge the exact revision.
+No fake local success, auto-accepted learning, hidden extra Account panels,
+invented personal details or simulated Google linking.
+
+13. ASSETS AND FIXTURE DATA
+Use actual local/approved illustration assets with the project's image strategy.
+Use next/image for suitable content images with dimensions/remote allowlists
+where needed; SVG/icon components may use their appropriate existing pattern.
+Do not hotlink Stitch/googleusercontent preview assets as permanent UI content.
+Mock names, sample emails and draft text stay in explicit fixtures/dev previews,
+not production user profiles, auth screens or seeded publication history.
+Personal profile fields do not silently become Brand Brain preferences.
+
+14. VERIFICATION THAT MATCHES THE CHANGE
+Run the repository's actual typecheck/lint/build and meaningful behaviour tests
+after each substantive slice. Do not assume Churchera's scripts or bun:test.
+Protect save/reopen, failed-save recovery, accept/undo, explicit context selection,
+learning approval, auth callbacks and owner-scoped account linking with useful
+tests. Avoid snapshot-only tests that merely mirror a component's markup.
+Capture the real Next.js app at390x844, narrower mobile, tablet and desktop.
+Compare against selected references plus written corrections, not broken PNGs.
+Check keyboard focus, viewport sheet edges, safe areas, zoom, text wrapping,
+active-tab visibility, reduced motion and hydration/server-client boundaries.
+No dark-mode screenshot gate unless the existing app/task actually includes it.
+
+15. FOCUSED CONVERSION CHECKS
+Run these against actual changed feature files (exclude this packet/reference
+archive), adapting paths to the real repo. Inspect each result in context.
+
+Source contamination — unintended matches must be removed:
+  rg -n 'cdn\.tailwindcss|material-symbols|font-headline|font-body|primary-fixed|onclick=|onsubmit=|onchange=|href=.#' <changed-source-files>
+
+Unsafe/demo patterns — review, not a blind empty-output rule:
+  rg -n 'dangerouslySetInnerHTML|innerHTML|setTimeout|localStorage|sessionStorage' <changed-source-files>
+Real editor selection, debouncing, safe recovery storage or existing application
+behaviour can legitimately use some browser APIs/timers. They cannot fake saving.
+
+Presentation drift — inspect roles and approved exceptions:
+  rg -n '#[0-9a-fA-F]{3,8}|text-\[|bg-gradient|shadow-|backdrop-blur|animate-pulse' <changed-source-files>
+Expected exceptions include central token primitives, approved cover gradients,
+overlay shadows and justified layout values. Do not fix legitimate matches by
+degrading the design. No claim that grep alone proves accessibility/correctness.
+
+REPORT
+State changed files/components, reused precedents, functional changes separated
+from presentation, checks actually run and material remaining gaps. Do not paste
+fictional empty command output or claim a mocked backend is implemented.

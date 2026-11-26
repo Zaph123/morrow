@@ -1,0 +1,7 @@
+22 November 2026 — current Add context decisions
+User selected Notes and links only.
+User selected dropdown Note/Link then centred desktop dialog / mobile bottom sheet. Full-screen standalone context forms are superseded studies, not the chosen flow.
+User selected filled secondary pill for Add context: #ECECEF fill, #121316 text, no border, rounded-full. Desktop28px, mobile44px touch target. Prior outlined8/12-trigger specs are superseded. Other dialog/sheet buttons retain standard rounded rectangles.
+Original idea and linked drafts remain intact. Context attaches only to idea, does not modify Brand Brain, and is used in Discuss only through explicit Studio Context selection.
+No-drafts idea detail: Develop in Studio creates first linked draft, hide drafts section. With existing pieces: New draft from this idea creates another; rows resume existing pieces.
+Latest review is context-export-2026-11-22/REVIEW.txt; read its export/source discrepancies before requesting further visual changes.

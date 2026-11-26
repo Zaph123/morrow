@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>You — Desktop — Profile</title>
+<!-- Google Fonts: DM Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            workspace: '#F5F5F7',
+            borderPrimary: '#E5E6EB',
+            primaryText: '#121316',
+            secondaryText: '#5E636E',
+            sidebarPill: '#F2FCD6',
+            btnNeutral: '#ECECEF',
+            disabledText: '#8E94A0',
+          },
+          borderRadius: {
+            'xl': '12px',
+            '2xl': '16px',
+            '3xl': '20px',
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Style Blocks -->
+<style data-purpose="base-styling">
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #F5F5F7;
+      color: #121316;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Cover banner gradient matching image subtle mint, lime, white, peach transition */
+    .cover-gradient {
+      background: radial-gradient(130% 120% at 10% 20%, #B4ECD6 0%, #D4F4DC 22%, #F6F8EB 48%, #FEE5D4 76%, #FDC3A9 100%);
+    }
+  </style>
+<style data-purpose="form-controls">
+    /* Remove default outline focus halos and standardize input focus rings */
+    input:focus, textarea:focus {
+      outline: none !important;
+      border-color: #121316 !important;
+      box-shadow: none !important;
+    }
+    
+    /* Smooth placeholder styling */
+    input::placeholder, textarea::placeholder {
+      color: #717684;
+      font-weight: 400;
+    }
+  </style>
+<!-- END: Style Blocks -->
+</head>
+<body class="bg-workspace min-h-screen text-primaryText flex overflow-x-hidden">
+<!-- BEGIN: Sidebar -->
+<aside class="w-[230px] min-h-screen bg-white border-r border-borderPrimary flex flex-col justify-between py-5 px-3 flex-shrink-0" data-purpose="primary-sidebar">
+<!-- Top section with Action Button & Navigation -->
+<div class="space-y-6">
+<!-- New Idea Action Button -->
+<div class="px-1">
+<button class="w-full h-9 bg-btnNeutral hover:bg-[#E3E3E7] transition-colors rounded-xl flex items-center px-3.5 space-x-2 text-primaryText text-sm font-medium">
+<!-- Plus Icon -->
+<svg class="w-4 h-4 text-primaryText" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<line x1="12" x2="12" y1="5" y2="19"></line>
+<line x1="5" x2="19" y1="12" y2="12"></line>
+</svg>
+<span>New idea</span>
+</button>
+</div>
+<!-- Main Navigation Menu -->
+<nav class="space-y-1 px-1" data-purpose="main-nav">
+<!-- Home -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+<polyline points="9 22 9 12 15 12 15 22"></polyline>
+</svg>
+<span>Home</span>
+</a>
+<!-- Studio -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M12 20h9"></path>
+<path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+</svg>
+<span>Studio</span>
+</a>
+<!-- Library -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+<path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+</svg>
+<span>Library</span>
+</a>
+<!-- Ideas -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M9 18h6"></path>
+<path d="M10 22h4"></path>
+<path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"></path>
+</svg>
+<span>Ideas</span>
+</a>
+<!-- Brand Brain -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-[19px] h-[19px] text-[#22242A]"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg><span>Brand Brain</span></a>
+</nav>
+</div>
+<!-- Bottom Pinned Navigation Section -->
+<div class="space-y-1 px-1 pb-1" data-purpose="bottom-nav">
+<!-- Calendar -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText hover:bg-[#F8F8FA] rounded-xl transition-colors" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+<span>Calendar</span>
+</a>
+<!-- You (Active Tab) -->
+<a class="flex items-center space-x-3 px-3 py-2 text-[14.5px] font-medium text-primaryText bg-sidebarPill rounded-xl" href="#">
+<svg class="w-[19px] h-[19px] text-[#22242A]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewBox="0 0 24 24">
+<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+<circle cx="12" cy="7" r="4"></circle>
+</svg>
+<span>You</span>
+</a>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: MainContent -->
+<main class="flex-1 px-12 py-10 max-w-[1140px] overflow-y-auto" data-purpose="profile-page-content">
+<!-- Page Title -->
+<header class="mb-8 pt-4">
+<h1 class="text-[24px] leading-[32px] font-semibold tracking-tight text-primaryText">You</h1>
+</header>
+<!-- Cover Image & Identity Header -->
+<section class="relative mb-8" data-purpose="profile-banner-and-avatar">
+  <!-- Cover Wrapper: relative, overflow visible, height 160px -->
+  <div class="relative w-full h-[160px]">
+    <!-- Inner gradient surface: rounded-[16px], overflow hidden, height 160px -->
+    <div class="w-full h-[160px] rounded-[16px] overflow-hidden cover-gradient relative shadow-sm">
+      <button class="absolute top-4 right-4 bg-white/95 hover:bg-white text-primaryText px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center space-x-1.5 shadow-[0_1px_3px_rgba(0,0,0,0.06)] border border-black/5 transition-all">
+        <svg class="w-3.5 h-3.5 text-primaryText" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+          <circle cx="12" cy="13" r="4"></circle>
+        </svg>
+        <span>Add cover</span>
+      </button>
+    </div>
+
+    <!-- Avatar wrapper: top: 100%, left: 24px, translateY(-50%), 128x128, rounded-full, 4px white border, z-20, bg #ECECEF -->
+    <div class="absolute top-full left-[24px] -translate-y-1/2 w-[128px] h-[128px] rounded-full border-4 border-white z-20 bg-[#ECECEF] flex items-center justify-center shadow-sm">
+      <span class="text-2xl font-semibold text-[#121316] select-none tracking-tight">Z</span>
+      <!-- Camera affordance button: bottom-0 right-0, min 44px target (w-11 h-11), rounded-full -->
+      <button aria-label="Change profile picture" class="absolute bottom-0 right-0 w-11 h-11 rounded-full flex items-center justify-center">
+        <span class="w-7 h-7 bg-white rounded-full border border-borderPrimary flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors">
+          <svg class="w-3.5 h-3.5 text-[#2C2E35]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+            <circle cx="12" cy="13" r="4"></circle>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Lower Header Area: normal flow height 64px below cover, text block offset 176px from left, 12px below cover edge -->
+  <div class="h-[64px] relative">
+    <div class="pl-[176px] pt-[12px]">
+      <h2 class="text-[20px] leading-[28px] font-semibold text-[#121316]">Zaphenath</h2>
+      <p class="text-[13px] leading-[20px] text-[#5E636E] mt-[4px]">Your profile and account settings.</p>
+    </div>
+  </div>
+</section>
+<!-- Navigation Tabs (Profile / Account) -->
+<div class="border-b border-borderPrimary mb-7" data-purpose="tabs-navigation">
+<div class="flex space-x-8 text-[15px]">
+<button class="font-semibold text-primaryText pb-2.5 border-b-2 border-primaryText inline-flex items-center">
+          Profile
+        </button>
+<button class="font-medium text-secondaryText hover:text-primaryText pb-2.5 transition-colors inline-flex items-center">
+          Account
+        </button>
+</div>
+</div>
+<!-- BEGIN: Form Section -->
+<form class="space-y-6" data-purpose="profile-settings-form" onsubmit="event.preventDefault();">
+<!-- Row 1: Display name -->
+<div class="grid grid-cols-12 items-center gap-6 pb-6 border-b border-[#EBEBEF]">
+<div class="col-span-3">
+<label class="text-[15px] font-bold text-primaryText block" for="display-name">Display name</label>
+</div>
+<div class="col-span-9">
+<input class="w-full h-11 px-3.5 bg-white border border-borderPrimary rounded-xl text-primaryText text-[14.5px] font-normal focus:border-primaryText" id="display-name" name="displayName" type="text" value="Zaphenath">
+</div>
+</div>
+<!-- Row 2: Username -->
+<div class="grid grid-cols-12 items-center gap-6 pb-6 border-b border-[#EBEBEF]">
+<div class="col-span-3">
+<label class="text-[15px] font-bold text-primaryText block" for="username">Username</label>
+</div>
+<div class="col-span-9">
+<input class="w-full h-11 px-3.5 bg-white border border-borderPrimary rounded-xl text-primaryText text-[14.5px] font-normal placeholder-[#787D89] focus:border-primaryText" id="username" name="username" placeholder="Add a username" type="text">
+</div>
+</div>
+<!-- Row 3: Bio -->
+<div class="grid grid-cols-12 items-start gap-6 pb-6 border-b border-[#EBEBEF]">
+<div class="col-span-3 pt-2">
+<label class="text-[15px] font-bold text-primaryText block" for="bio">Bio</label>
+</div>
+<div class="col-span-9">
+<textarea class="w-full p-3.5 bg-white border border-borderPrimary rounded-xl text-primaryText text-[14.5px] font-normal placeholder-[#787D89] resize-none focus:border-primaryText min-h-[96px]" id="bio" name="bio" placeholder="A little about you." rows="3"></textarea>
+</div>
+</div>
+<!-- Row 4: Social links -->
+<div class="grid grid-cols-12 items-start gap-6 pb-6 border-b border-[#EBEBEF]">
+<div class="col-span-3">
+<label class="text-[15px] font-bold text-primaryText block" for="social-link">Social links</label>
+<span class="text-[13px] text-secondaryText block mt-0.5">Links to your social profiles.</span>
+</div>
+<div class="col-span-9 flex items-center space-x-3">
+<div class="flex-1">
+<input class="w-full h-11 px-3.5 bg-white border border-borderPrimary rounded-xl text-primaryText text-[14.5px] font-normal placeholder-[#787D89] focus:border-primaryText" id="social-link" name="socialLink" placeholder="Paste a profile URL" type="text">
+</div>
+<button class="h-11 px-5 bg-btnNeutral text-primaryText text-[14px] font-medium rounded-xl hover:bg-[#E3E3E7] transition-colors whitespace-nowrap flex items-center justify-center" type="button">
+            Add link
+          </button>
+</div>
+</div>
+<!-- Bottom Form Action: Save Profile -->
+<div class="flex justify-end pt-3">
+<button class="h-11 px-6 bg-btnNeutral text-disabledText font-medium text-[14.5px] rounded-xl cursor-not-allowed select-none transition-colors" disabled="" type="button">
+          Save profile
+        </button>
+</div>
+</form>
+<!-- END: Form Section -->
+</main>
+<!-- END: MainContent -->
+
+
+
+
+
+
+</body></html>

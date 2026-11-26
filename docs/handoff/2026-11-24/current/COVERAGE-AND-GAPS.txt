@@ -1,0 +1,87 @@
+MORROW — COVERAGE AND REMAINING DECISIONS
+24 November 2026
+
+READY TO USE AS CURATED DESIGN INPUT
+- Home: chosen desktop centred-card layout, mobile v5 and desktop empty/loading/
+  load-error/saved states. Mobile equivalents can inherit the shared state model.
+- Studio: desktop/mobile entrance; active desktop editor/Discuss, blank, closed,
+  context, proposal accepted and save failure; mobile Write/Discuss/context/
+  acceptance. Responsive implementation and real persistence still required.
+- Ideas + Library: desktop/mobile lists, empty/loading/no-results/load-error;
+  idea detail with/without linked writing; context menu, note/link forms.
+- Brand Brain: desktop/mobile Identity, Voice, Strategy, Learning; Voice example
+  pending/saved/error lifecycle; learning pending and approved states.
+- You: desktop Profile/Account and mobile Profile/Account content, shared header
+  geometry, sidebar reference, and password sheet anatomy.
+
+CURATION IS NOT IMPLEMENTATION
+Several useful HTMLs have incomplete PNGs. The password-sheet PNG is a wide
+desktop export; there is no corrected native password replacement in this ZIP.
+The source shows intended content, not evidence of working routes or persistence.
+An image taller than 844px alone is not a defect: it may be a full-page export.
+There is no device metadata manifest proving the actual viewport for each PNG.
+
+FIRST-BUILD SCOPE — RESOLVED BY USER
+The user chose designed core first and Calendar/manual publication recording later.
+The older PRD's fuller product scope remains historical context; do not claim the
+first slice implements it all. See FIRST-BUILD-SCOPE.txt for the exact boundary.
+Hide the deferred Calendar entry in the live first-build nav; keep archival
+reference images unchanged. Do not create placeholder operations screens.
+
+AUTH CONTRACT — DRAFT NOW PROVIDED
+AUTH-AND-ACCOUNT-FLOWS.txt specifies email/password, Google, confirmation,
+recovery, callbacks, expiry, email/password changes, linking and sign-out states.
+It is assistant-drafted using the selected providers and shared component system.
+No new visual auth composition or live provider configuration has been verified.
+Next.js is now user-confirmed; apply `.agents/rules/stitch-to-morrow.md` and inspect
+the repo instead of importing Churchera's application-specific conventions.
+(Packet STITCH-TO-NEXTJS-RULES.txt is historical provenance only.)
+
+AI PROVIDER DECISION
+No provider/budget/key configuration is established by the export. Historical
+brief sought no paid API subscription in early testing. Check current feasibility
+and data handling before committing. Manual capture/edit/save/list flows must
+work without AI. Adapter and truthful unconfigured/unavailable states can be
+specified independently. Do not present mocked responses as working integration.
+
+OTHER FUNCTIONAL FLOWS NEEDING WRITTEN CONTRACTS OR SCOPE
+- Idea edit/archive and content status controls (PRD supports flexible statuses).
+- Selecting a source idea from Studio entrance, starting Discuss without a piece,
+  adding a platform version and handling platform-length limits.
+- AI pending/cancel/failure and exact replacement selection boundaries.
+- Home pre-save context staging, attachment edit/remove and unsaved dismiss.
+- Learning approval/removal errors and example editing can reuse shared forms;
+  they still need explicit persistence behaviour.
+- Photo upload/crop/remove, storage limits and image validation; no approved
+  Gravatar integration or public username-page feature.
+- Search/filter empty/error distinction, mobile keyboard and tablet adaptation.
+
+LATER PRD CAPABILITIES — DO NOT SILENTLY CLAIM DESIGNED
+Version history and export/recovery UI (PRD P1), reminders and performance
+tracking, scheduling recommendations, alternative comparison and threads lack
+dedicated references or full contracts in this archive. Review original
+priorities and current user scope rather than declaring them implemented/deferred.
+
+HANDOFF READINESS
+The first-build scope is settled and a written auth/account contract is included.
+The packet is suitable for authorized Next.js repository discovery and a bounded
+implementation plan. Remaining operational choices include the AI provider,
+Supabase project configuration, existing migration path and image-upload policy.
+Auth visuals have no dedicated approved export; build within the shared system
+and present real desktop/mobile captures for review when implementation is asked.
+This is not a claim of full-PRD design completion or working backend integration.
+No product coding or service changes were performed to create the handoff.
+
+COMPONENT LIBRARY UPDATE — 24 NOVEMBER
+shadcn/ui remains the baseline; UIArc is approved alongside it. Use the dedicated
+UIARC-INTEGRATION.txt selection/theme/motion policy. Installed Arc source/registry and React19 are confirmed in the uploaded
+snapshot; live IDE state and runtime compatibility remain unverified. This does not expand first-build features
+or choose the application's AI provider.
+
+
+REVISION4 REPOSITORY UPDATE
+The uploaded repository snapshot has now been inspected. REPOSITORY-REVIEW.txt
+records source conflicts, two active data models and reproduced storage defects.
+The user has created Supabase; no live setup/backend verification was performed.
+The replacement DESIGN.md is an artifact for review, not an IDE change.
+Use CODEX-COLLABORATION.txt and approve phases before further implementation.

@@ -1,0 +1,123 @@
+MORROW — FLOW AND DATA CONTRACTS
+24 November 2026 · design handoff; no backend implementation verified
+
+CORE OWNERSHIP
+Original ideas remain intact when developed. A content item can have multiple
+independently editable platform versions. Conversation messages and proposals
+are separate from persisted writing. AI must not invent personal experiences
+or turn tentative opinions into confirmed beliefs.
+
+HOME AND CAPTURE
+Raw thought capture requires no title/platform/AI call. Save idea stays on Home;
+optional View idea feedback is inside the capture area, not an automatic route.
+Clear the capture only after confirmed persistence of that revision. A late
+response must not clear text typed after the request began. Continue resumes
+work; Revisit opens an idea; Blank draft starts Studio without an attached idea.
+Empty, loading and failed recent-work states do not disable manual capture.
+Loading skeletons affect dynamic cards; Blank draft stays usable.
+Open interaction detail: Home's pre-save Add context needs staged note/link
+handling; do not make it silently apply Brand Brain or launch AI.
+
+IDEAS AND LIBRARY
+Ideas rows open idea detail. Search/filter state is distinct from first-use
+empty state, loading and load failure. A failed request must not display No data.
+Library has one row per piece, grouping platform versions; each version can
+have its own status. All includes Approved and other statuses beyond Drafts/
+Published shortcuts. Library rows resume Studio; Open Studio from empty Library
+opens the entrance without creating a draft automatically.
+Published is a creator-recorded event, not verified social-platform publication.
+
+IDEA DETAIL AND CONTEXT
+With no linked writing: Develop in Studio creates the first linked draft;
+hide the drafts section entirely. With linked writing: New draft from this idea
+creates another linked piece; existing rows resume that piece.
+
+Add context = neutral filled pill -> Note/Link dropdown -> centred desktop
+dialog or mobile bottom sheet. Notes and links only in this version. Preserve
+the source idea and attached material when navigating. No files, article-import
+claims, automatic previews, AI request or permanent Brand Brain change.
+Context attaches to the idea but is NOT used in Discuss until explicitly selected
+in Studio Context. Do not silently discard entered form text on dismiss.
+Allow viewing/editing/removing attachments; reuse the form anatomy when suitable.
+
+STUDIO
+Entrance routes: Start writing / From an idea / Discuss a thought / Resume.
+Desktop active editor has working draft left and optional docked Discuss right;
+do not turn desktop Discuss into an overlay that dims writing. Mobile separates
+Write and Discuss. Keep platform versions connected but independently editable.
+Source idea chip opens the original; never overwrite the source with generated
+text. An internal piece name is not a mandatory article headline.
+
+Context popover: Writing voice and Source idea controls + explicit added material.
+Only relevant selected context is sent to AI. No automatic full-history upload.
+Use as opening applies the proposed replacement to the intended range; retain
+unrelated text. Added to your draft feedback has Undo restoring the exact prior
+revision. Another take does not auto-apply. AI failures preserve writing and
+allow manual continuation. No configured provider means do not simulate AI.
+
+SAVE TRUTH — COMMON CONTRACT
+Track the latest local revision and the revision acknowledged by persistence.
+Saving... while pending; Saved only after confirmation for the current revision.
+Old acknowledgements do not mark newer edits saved. Edited timestamp is not
+proof of saving. Real failures retain text and show actionable Retry.
+Show Saved on this device only if durable device persistence actually succeeds.
+Show Saved online plus a separate device-backup warning if only device backup
+fails. If no persistence is confirmed, show Could not save plus persistent
+guidance to preserve/copy text; never clear input or promise automatic sync.
+Do not label every failed request Offline. Resolve obsolete errors after success.
+Use polite live feedback; handle conflicts by revisions, not timestamps alone.
+Never copy export setTimeout success simulations into product code.
+
+BRAND BRAIN
+Identity: background/experience, interests/goals, topics.
+Voice: tone/style, formatting/language, writing examples.
+Content strategy: pillars, platform priorities, audiences/objectives.
+Manual form changes stay pending until explicit Save. Add example places the
+example in the pending Voice form; it does not independently claim saved status.
+Example title optional; writing required. Edit/remove participate in dirty state.
+Suggestion approval is a separate persisted action in Learning, not a form Save.
+Suggestion remains pending until approval succeeds; Dismiss does not apply it.
+Approved preference becomes available as relevant Voice context for future
+requests, never retroactively rewriting drafts. Removal stops future use.
+Failures retain the pending data and truthful state. Repeated actions must not
+create duplicate preferences or examples.
+
+YOU / AUTHENTICATION — EXPLICIT USER CHOICE
+Supabase Auth with email/password AND Google in the first version. Other social
+providers may be added later; no current controls for them.
+Profile: display name, optional username, bio, avatar, cover and ordinary social
+URLs. No public-profile URL feature, verified badge, invented occupation or
+automatic profile-to-Brand-Brain sync. Image fallback is initials/gradient.
+Link adds/removes must participate in pending dirty state, not bypass saving.
+Do not insert user URLs with unsafe innerHTML. Accept ordinary valid HTTP(S)
+profile links; handle invalid/duplicate values without losing other edits.
+
+Account: actual auth email, password capability and Google identity-link state.
+Google linking is to the existing authenticated account; do not create a second
+workspace or merge different accounts merely because of an email string.
+Google-only accounts may need Set password; do not falsely display Password set.
+Reflect provider data truthfully and respect actual Supabase verification and
+reauthentication responses. Current password/confirmation policy depends on
+configured Auth settings; do not invent a minimum password policy in UI copy.
+Email stays current until provider confirmation; required verification needs
+an explicit pending state. Password/reset failures must not show timer success.
+Desktop Sign out lives in the shared sidebar; mobile Sign out remains in Account.
+Signing out must not silently discard unsaved work.
+
+AUTH FLOW CONTRACT
+Read AUTH-AND-ACCOUNT-FLOWS.txt for the assistant-drafted sign-in, signup,
+confirmation, reset, callbacks, expiry, email/password change, linking and
+sign-out contract. Provider settings and actual Next.js routes must be verified.
+Calendar/publication recording are deferred by the user for the first build.
+
+DATA RELATIONSHIPS — GUIDANCE, NOT FINAL MIGRATIONS
+Owner -> profile, ideas, content items, conversations, Brand Brain entries.
+Idea -> optional context notes/links and zero/many linked content items.
+Content item -> independently editable platform versions + recoverable revisions.
+Conversation -> user/assistant messages and unapplied proposals; reference a piece
+where appropriate. Brand Brain -> manual settings, examples, pending suggestions,
+approved preferences with provenance. Approval does not imply a verified life event.
+Supabase auth user ID is the stable ownership identity. Protect rows and image
+objects by owner; do not place privileged service credentials in client code.
+Calendar entries, publication records and performance entities depend on scope.
+Inspect current repository/data first; do not blindly replace existing storage.

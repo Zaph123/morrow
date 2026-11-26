@@ -1,0 +1,56 @@
+{
+  "review_date": "2026-11-24",
+  "timezone": "Africa/Lagos",
+  "source_zip_name": "stitch_morrow_creator_workspace.zip",
+  "source_zip_sha256": "77785b98ed0488d30a0cbebe3196d846f4b441cf7eba9569c0d2f164c1c62236",
+  "source_counts": {
+    "html": 94,
+    "png": 105,
+    "design_documents": 2
+  },
+  "classification_counts": {
+    "supporting-overview": 2,
+    "implementation-reference": 74,
+    "historical": 17,
+    "content-only": 1
+  },
+  "copied_sources_unchanged": true,
+  "application_repository_reviewed": true,
+  "live_behaviour_verified": false,
+  "scope_question_pending": false,
+  "handoff_revision": 5,
+  "framework_confirmed": "Next.js",
+  "first_build_scope": "designed core + Supabase email/password and Google",
+  "user_deferred": [
+    "Calendar",
+    "manual publication recording"
+  ],
+  "translation_rules_source": "User-supplied Churchera example, adapted for Morrow; original example is non-normative",
+  "auth_contract_status": "assistant-drafted; no new visual mockup approval or live setup verification",
+  "ai_provider_selected": false,
+  "component_library_decision": {
+    "baseline": "shadcn/ui",
+    "additional": "UIArc / Arc",
+    "replace_shadcn": false,
+    "docs_checked_on": "2026-11-24",
+    "installed_in_application": true,
+    "installation_evidence": "components.json registry, components/arc source and package.json in uploaded snapshot",
+    "runtime_verified": false
+  },
+  "uiarc_source_count": 5,
+  "repository_review_scope": "uploaded snapshot only; live IDE/worktree/browser/Supabase not inspected",
+  "repository_zip_name": "morrow-project.zip",
+  "repository_source_files": 136,
+  "repository_source_changed": false,
+  "user_created_supabase_project": true,
+  "supabase_app_integration_verified": false,
+  "collaboration_mode": "bounded phases approved by user; no full autonomy",
+  "repository_zip_sha256": "8c15a717b46daecca70921d7bb81ad488a0fafe6f1eb4ac530630cb8b62819dd",
+  "environment_template": {
+    "file": ".env.sample",
+    "setup_contract": "ENVIRONMENT-SETUP.txt",
+    "contains_real_credentials": false,
+    "live_env_modified": false,
+    "integration_status": "proposed; runtime consumers not implemented by this handoff"
+  }
+}
