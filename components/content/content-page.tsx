@@ -1,5 +1,7 @@
 "use client";
 
+import { CollectionLoading } from "@/components/layout/loading-skeletons";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronRight, Plus, Search } from "lucide-react";
@@ -78,11 +80,7 @@ export function ContentPage() {
 
       <div>
         {!mounted ? (
-          <section className="collection-state" role="status" aria-label="Loading writing">
-            <h2>Loading writing…</h2>
-            <div className="collection-skeleton" aria-hidden="true" />
-            <div className="collection-skeleton" aria-hidden="true" />
-          </section>
+          <CollectionLoading label="Loading writing" kind="writing" />
         ) : loadError ? (
           <section className="collection-state">
             <h2>Couldn’t load writing</h2>
@@ -122,7 +120,7 @@ export function ContentPage() {
 function NewDraftAction() {
   return (
     <Link
-      href="/studio"
+      href="/studio/new"
       className={cn(
         buttonVariants({ variant: "secondary", size: "sm" }),
         "collection-mobile-action md:hidden"

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 
 import { ContentEditor } from "@/components/content/content-editor"
+import { StudioEditorSkeleton } from "@/components/studio/writing-surface"
 
 export const metadata: Metadata = {
   title: "New draft",
@@ -25,11 +26,7 @@ async function NewContent({
 export default function NewContentPage({ searchParams }: NewContentPageProps) {
   return (
     <Suspense
-      fallback={
-        <p className="text-sm text-muted-foreground" role="status">
-          Loading editor…
-        </p>
-      }
+      fallback={<StudioEditorSkeleton label="Loading draft editor" />}
     >
       <NewContent searchParams={searchParams} />
     </Suspense>

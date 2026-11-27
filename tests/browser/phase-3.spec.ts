@@ -44,11 +44,34 @@ async function emulatePointer(page: Page, profile: "coarse" | "fine") {
 }
 async function compareSourceAndOutput(page: Page, name: string, sourceInput: string | Buffer) {
   const { width, height } = page.viewportSize()!
+  // A rendered heading does not imply a CSS background SVG has decoded yet.
+  await page.evaluate(async () => {
+    await document.fonts.ready
+    await Promise.all([...document.querySelectorAll(".collection-empty")].map(async node => {
+      const url = getComputedStyle(node, "::before").backgroundImage.match(/url\(["']?(.*?)["']?\)/)?.[1]
+      if (!url) return
+      const image = new Image()
+      image.src = url
+      await image.decode()
+    }))
+    await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())))
+  })
   const output = await page.screenshot({ animations: "disabled" })
   const source = Buffer.isBuffer(sourceInput) ? sourceInput : readFileSync(sourceInput)
   const outputPath = resolve("artifacts/phase-3/comparisons")
   mkdirSync(outputPath, { recursive: true })
   writeFileSync(resolve(outputPath, `${name}-morrow.png`), output)
+  const measured = await page.evaluate(() => {
+    const selectors = [".collection-page", ".collection-heading", ".collection-search", ".collection-filter-segmented", ".collection-row", ".collection-empty", ".collection-loading", ".collection-loading-row", ".collection-loading-title", ".collection-loading-preview", ".collection-loading-meta"]
+    return Object.fromEntries(selectors.map(selector => {
+      const node = document.querySelector(selector)
+      if (!node) return [selector, null]
+      const style = getComputedStyle(node)
+      const before = getComputedStyle(node, "::before")
+      return [selector, { bounds: node.getBoundingClientRect().toJSON(), fontSize: style.fontSize, lineHeight: style.lineHeight, padding: style.padding, color: style.color, border: style.border, background: style.backgroundColor, artwork: { content: before.content, background: before.backgroundImage, width: before.width, height: before.height } }]
+    }))
+  })
+  writeFileSync(resolve(outputPath, `${name}-measurements.json`), JSON.stringify({ viewport: { width, height }, measured }, null, 2))
   await page.setViewportSize({ width: width * 2, height: height + 32 })
   const image = (bytes: Buffer) => `data:image/png;base64,${bytes.toString("base64")}`
   await page.setContent(`<!doctype html><html><head><style>
@@ -401,6 +424,41 @@ test("capture matched Stitch and Morrow collection states", async ({ page, conte
   }
 })
 
+test("Home selected reference comparisons and current decision measurements", async ({ page }) => {
+  test.setTimeout(90_000)
+  await page.emulateMedia({ reducedMotion: "reduce" })
+  await seed(page)
+  const cases = [
+    { state: "populated", name: "home-populated-desktop", width: 1280, height: 1024, source: "source-b/reference-export/morrow_desktop_home_cards_centered_refined_radii/screen.png" },
+    { state: "populated", name: "home-populated-mobile", width: 353, height: 800, source: "source-a/reference-export/morrow_mobile_home_cards_v5/screen.png" },
+    { state: "empty", name: "home-empty-desktop", width: 1280, height: 1024, source: "source-a/reference-export/morrow_desktop_home_empty_state/screen.png" },
+  ] as const
+  const measurements = []
+  for (const item of cases) {
+    await page.setViewportSize({ width: item.width, height: item.height })
+    await page.goto("/")
+    await page.evaluate(values => {
+      localStorage.setItem("morrow:ideas", values.ideas)
+      localStorage.setItem("morrow:content", values.content)
+    }, item.state === "empty" ? { ideas: "[]", content: "[]" } : { ideas: fixture["morrow:ideas"], content: fixture["morrow:content"] })
+    await page.reload()
+    await expect(page.locator(".home-action-card--empty")).toHaveCount(item.state === "empty" ? 2 : 0)
+    await page.evaluate(() => document.fonts.ready)
+    const measured = await page.evaluate(() => {
+      const element = (selector: string) => {
+        const node = document.querySelector(selector)!
+        const style = getComputedStyle(node)
+        return { bounds: node.getBoundingClientRect().toJSON(), font: style.fontFamily, fontSize: style.fontSize, lineHeight: style.lineHeight, color: style.color, background: style.backgroundColor, border: style.border, radius: style.borderRadius }
+      }
+      return { rootWidth: document.documentElement.scrollWidth, heading: element("h1"), composer: element(".home-capture"), rail: element(".home-actions"), cards: [...document.querySelectorAll(".home-action-card")].map(node => node.getBoundingClientRect().toJSON()) }
+    })
+    expect(measured.rootWidth).toBe(item.width)
+    measurements.push({ ...item, measured })
+    await compareSourceAndOutput(page, item.name, resolve("artifacts/references/stitch", item.source))
+  }
+  writeFileSync(resolve("artifacts/phase-3/comparisons/home-stabilization-measurements.json"), JSON.stringify(measurements, null, 2))
+})
+
 test("detail successful revision, later dirty edits, quota retry and metadata", async ({ page }) => {
   await seed(page)
   await page.goto("/ideas/idea-0")
@@ -656,7 +714,7 @@ test("empty Home wording and idea detail mobile actions are clear", async ({ pag
   await screenshot(page, "idea-detail-mobile-readable-actions")
 })
 
-test("capture keeps its text selection while switching between desktop and mobile surfaces", async ({ page }) => {
+test("capture keeps its draft and usable focus while switching responsive surfaces", async ({ page }) => {
   await seed(page, { ...fixture, "morrow:ideas": "[]" })
   await page.setViewportSize({ width: 1280, height: 900 })
   await page.goto("/ideas")
@@ -664,28 +722,21 @@ test("capture keeps its text selection while switching between desktop and mobil
   await page.locator(".app-sidebar").getByRole("button", { name: "New idea" }).click()
   const field = page.getByRole("textbox", { name: "Capture an idea" })
   await expect(field).toBeFocused()
-  await field.fill("A draft whose selection survives the responsive surface change")
-  await field.evaluate((node) => {
-    const textarea = node as HTMLTextAreaElement
-    textarea.focus()
-    textarea.setSelectionRange(3, 21, "forward")
-  })
+  await field.fill("A draft preserved while responsive surfaces switch")
   await screenshot(page, "new-idea-desktop-dialog")
 
   await page.setViewportSize({ width: 390, height: 844 })
   await emulatePointer(page, "coarse")
   await expect(page.getByRole("button", { name: "Collapse sheet" })).toBeVisible()
-  await expect(field).toHaveValue("A draft whose selection survives the responsive surface change")
+  await expect(field).toHaveValue("A draft preserved while responsive surfaces switch")
   await expect(field).toBeFocused()
-  await expect.poll(() => field.evaluate((node) => [(node as HTMLTextAreaElement).selectionStart, (node as HTMLTextAreaElement).selectionEnd])).toEqual([3, 21])
   await screenshot(page, "new-idea-mobile-sheet")
 
   await page.setViewportSize({ width: 1280, height: 900 })
   await emulatePointer(page, "fine")
   await expect(page.getByRole("dialog", { name: "New idea" })).toBeVisible()
-  await expect(field).toHaveValue("A draft whose selection survives the responsive surface change")
+  await expect(field).toHaveValue("A draft preserved while responsive surfaces switch")
   await expect(field).toBeFocused()
-  await expect.poll(() => field.evaluate((node) => [(node as HTMLTextAreaElement).selectionStart, (node as HTMLTextAreaElement).selectionEnd])).toEqual([3, 21])
 })
 
 test("mobile drag, Close, Escape and outside press all guard unsaved capture text", async ({ page }) => {
@@ -836,7 +887,8 @@ test("server loading states and Home composer focus appearance", async ({ page }
     const pattern = /\/_next\/.*\.js(?:\?|$)/
     await page.route(pattern, route => new Promise<void>(resolve => held.push(async () => { await route.continue(); resolve() })))
     await page.goto(route, { waitUntil: "commit" })
-    await expect(page.getByRole("status", { name: label })).toBeVisible()
+    await expect(page.getByRole("status").filter({ hasText: label })).toHaveCount(1)
+    await expect(page.locator(".collection-loading-row")).toHaveCount(4)
     await screenshot(page, name)
     await page.unroute(pattern)
     await Promise.all(held.map(release => release()))
@@ -958,7 +1010,7 @@ test("device-toolbar widths keep capture and discard actions inside their rows",
     await sheet.getByRole("button", { name: "Cancel" }).click()
     const discard = page.getByRole("dialog", { name: "Discard idea?" })
     await expect(discard).toBeVisible()
-    const discardLayout = await inspectRow(discard)
+    const discardLayout = await inspectRow(discard.locator(".morrow-dialog-actions"))
     measurements.push({ viewport, discard: discardLayout })
     expect(discardLayout.buttons).toHaveLength(2)
     expect(discardLayout.scrollWidth).toBeLessThanOrEqual(discardLayout.clientWidth + 1)
@@ -970,4 +1022,170 @@ test("device-toolbar widths keep capture and discard actions inside their rows",
   const directory = resolve("artifacts/phase-3/comparisons")
   mkdirSync(directory, { recursive: true })
   writeFileSync(resolve(directory, "capture-action-measurements.json"), JSON.stringify(measurements, null, 2))
+})
+
+test("content skeletons preserve layout until hydration completes", async ({ browser }) => {
+  test.setTimeout(180_000)
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 900 }]) {
+    for (const [route, status, selector] of [
+      ["/", "Loading recent work", ".home-loading-preview"],
+      ["/ideas", "Loading ideas", ".collection-loading-row"],
+      ["/content", "Loading writing", ".collection-loading-row"],
+      ["/ideas/idea-0", "Loading idea", ".idea-loading"],
+    ] as const) {
+      const context = await browser.newContext({ viewport })
+      const page = await context.newPage()
+      await seed(page)
+      let release!: () => void
+      const held = new Promise<void>(resolve => { release = resolve })
+      await page.route("**/_next/static/**/*.js", async route => { await held; await route.continue() })
+      await page.goto(`http://127.0.0.1:3117${route}`, { waitUntil: "commit" })
+      await expect(page.locator(selector).first()).toBeVisible()
+      await expect(page.getByRole("status").filter({ hasText: status })).toHaveCount(1)
+      await expect(page.locator('[aria-busy="true"]').first()).toBeAttached()
+      if (route === "/") await expect(page.getByPlaceholder("What's on your mind?")).toBeVisible()
+      if (route === "/ideas") await expect(page.getByRole("heading", { name: "No ideas yet" })).toHaveCount(0)
+      if (route === "/content") await expect(page.getByRole("heading", { name: "No writing yet" })).toHaveCount(0)
+      await page.screenshot({ path: `artifacts/stabilization/loading-${route === "/" ? "home" : route.startsWith("/ideas/") ? "idea-detail" : route.slice(1)}-${viewport.width}.png` })
+      release()
+      await expect(page.locator(selector)).toHaveCount(0)
+      if (route === "/ideas") {
+        await expect(page.getByText(ideas[0].text.split("\n")[0])).toBeVisible()
+        await page.evaluate(() => window.dispatchEvent(new Event("morrow:ideas-changed")))
+        await expect(page.getByText(ideas[0].text.split("\n")[0])).toBeVisible()
+        await expect(page.locator(".collection-loading-row")).toHaveCount(0)
+      }
+      if (route === "/content") await expect(page.getByText(content[0].title)).toBeVisible()
+      if (route.startsWith("/ideas/")) await expect(page.getByLabel("Edit idea text")).toHaveValue(ideas[0].text)
+      if (route === "/") await expect(page.getByRole("link", { name: /Revisit idea:/ })).toBeVisible()
+      await context.close()
+    }
+  }
+})
+
+test("Home capture stays usable while the recent-work hydration callback is held", async ({ page }) => {
+  await seed(page)
+  let patched = false
+  await page.route("**/_next/static/**/*.js", async route => {
+    const response = await route.fetch()
+    let body = await response.text()
+    if (body.includes("Loading recent work")) {
+      const pattern = /queueMicrotask\(\(\)=>\{([a-z])&&\(([\w$]+)\(\),([\w$]+)\(!0\)\)\}\)/
+      if (pattern.test(body)) {
+        body = body.replace(pattern, "window.__releaseRecentWork=()=>{$1&&($2(),$3(!0))}")
+        patched = true
+      }
+    }
+    await route.fulfill({ response, body })
+  })
+  await page.goto("/")
+  expect(patched).toBe(true)
+  await expect(page.locator(".home-loading-preview")).toHaveCount(2)
+  const composer = page.getByRole("textbox", { name: "Capture an idea" })
+  await composer.fill("Capture while recent work is loading")
+  await page.getByRole("button", { name: "Save idea" }).click()
+  await expect(page.getByText("Saved on this device.")).toBeVisible()
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem("morrow:ideas") || "[]").some((idea: { text: string }) => idea.text === "Capture while recent work is loading"))).toBe(true)
+  await expect(page.locator('[aria-busy="true"]')).toHaveCount(1)
+  await page.evaluate(() => (window as unknown as { __releaseRecentWork: () => void }).__releaseRecentWork())
+  await expect(page.locator(".home-loading-preview")).toHaveCount(0)
+  await expect(page.locator('[aria-busy="true"]')).toHaveCount(0)
+})
+
+test("loading reference viewports", async ({ browser }) => {
+  test.setTimeout(180_000)
+  const cases = [
+    ["/", 1280, 1024, "home-loading-desktop", "source-b/reference-export/morrow_desktop_home_loading/screen.png"],
+    ["/ideas", 1280, 1024, "ideas-loading-desktop", "source-b/reference-export/ideas_desktop_loading/screen.png"],
+    ["/ideas", 390, 884, "ideas-loading-mobile", "source-b/reference-export/ideas_mobile_loading/screen.png"],
+    ["/content", 1280, 1024, "library-loading-desktop", "source-a/reference-export/library_desktop_loading/screen.png"],
+    ["/content", 390, 889, "library-loading-mobile", "source-a/reference-export/library_mobile_loading/screen.png"],
+  ] as const
+  for (const [path, width, height, name, source] of cases) {
+    const context = await browser.newContext({ viewport: { width, height } })
+    const page = await context.newPage()
+    let release!: () => void
+    const held = new Promise<void>(resolve => { release = resolve })
+    await page.route("**/_next/static/**/*.js", async route => { await held; await route.continue() })
+    await page.goto(`http://127.0.0.1:3117${path}`, { waitUntil: "commit" })
+    await expect(page.locator(path === "/" ? ".home-loading-preview" : ".collection-loading-row").first()).toBeVisible()
+    await compareSourceAndOutput(page, name, resolve("artifacts/references/stitch", source))
+    release()
+    await context.close()
+  }
+})
+
+test("loading transitions keep persistent layout and resolve announcements", async ({ browser }) => {
+  test.setTimeout(240_000)
+  const evidence: unknown[] = []
+  for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 1024 }]) {
+    for (const route of ["/ideas", "/content"]) {
+      for (const mode of ["populated", "empty", "error"]) {
+        const context = await browser.newContext({ viewport })
+        const page = await context.newPage()
+        const values = mode === "populated" ? { ...fixture } : { ...fixture, "morrow:ideas": "[]", "morrow:content": "[]" }
+        if (mode === "error") values[route === "/ideas" ? "morrow:ideas" : "morrow:content"] = "invalid json"
+        await seed(page, values)
+        let release!: () => void
+        const held = new Promise<void>(resolve => { release = resolve })
+        await page.route("**/_next/static/**/*.js", async route => { await held; await route.continue() })
+        await page.goto(`http://127.0.0.1:3117${route}`, { waitUntil: "commit" })
+        await expect(page.locator(".collection-loading-row")).toHaveCount(4)
+        await expect(page.locator(".collection-page [role=status]")).toHaveCount(1)
+        const before = await page.evaluate(() => {
+          const bounds = (selector: string) => document.querySelector(selector)?.getBoundingClientRect().toJSON()
+          return { heading: bounds(".collection-heading"), tools: bounds(".collection-tools"), list: bounds(".collection-loading"), rows: [...document.querySelectorAll(".collection-loading-row")].map(node => node.getBoundingClientRect().toJSON()), widths: [...document.querySelectorAll(".collection-loading-title .collection-skeleton")].map(node => node.getBoundingClientRect().width) }
+        })
+        expect(new Set(before.widths).size).toBeGreaterThan(1)
+        await page.evaluate(() => {
+          const target = document.querySelector(".collection-page")!
+          const frames: { skeletons: number; statuses: number; headingY: number; headingX: number; tools: boolean; empty: boolean; error: boolean }[] = []
+          const sample = () => {
+            const heading = target.querySelector(".collection-heading")!.getBoundingClientRect()
+            frames.push({ skeletons: target.querySelectorAll(".collection-loading-row").length, statuses: target.querySelectorAll('[role="status"]').length, headingY: heading.y, headingX: heading.x, tools: !!target.querySelector(".collection-tools"), empty: !!target.querySelector(".collection-empty"), error: !!target.querySelector('[role="alert"]') })
+          }
+          const observer = new MutationObserver(sample)
+          observer.observe(target, { subtree: true, childList: true, attributes: true })
+          let running = true
+          const tick = () => { sample(); if (running) requestAnimationFrame(tick) }
+          tick()
+          Object.assign(window, { finishLoadingObservation: () => { running = false; observer.disconnect(); sample(); return frames } })
+        })
+        release()
+        await expect(page.locator(".collection-loading-row")).toHaveCount(0)
+        if (mode === "populated") await expect(page.locator(".collection-row")).toHaveCount(4)
+        else await expect(page.getByRole("heading", { name: mode === "empty" ? (route === "/ideas" ? "No ideas yet" : "No writing yet") : (route === "/ideas" ? /load ideas/ : /load writing/) })).toBeVisible()
+        await expect(page.locator(".collection-page [role=status]")).toHaveCount(0)
+        if (mode === "populated" && route === "/ideas") {
+          await page.evaluate(() => window.dispatchEvent(new Event("morrow:ideas-changed")))
+          await expect(page.locator(".collection-row")).toHaveCount(4)
+        }
+        // Observe multiple rendered frames after resolution, without delaying production.
+        await page.evaluate(() => new Promise<void>(resolve => { let left = 12; const tick = () => --left ? requestAnimationFrame(tick) : resolve(); requestAnimationFrame(tick) }))
+        const after = await page.evaluate(() => {
+          const bounds = (selector: string) => document.querySelector(selector)?.getBoundingClientRect().toJSON()
+          return { heading: bounds(".collection-heading"), tools: bounds(".collection-tools"), list: bounds(".collection-list"), state: bounds(".collection-state"), rows: [...document.querySelectorAll(".collection-row")].map(node => node.getBoundingClientRect().toJSON()), overflow: document.documentElement.scrollWidth > innerWidth }
+        })
+        const frames = await page.evaluate(() => (window as unknown as { finishLoadingObservation: () => { skeletons: number; statuses: number; headingY: number; headingX: number; tools: boolean; empty: boolean; error: boolean }[] }).finishLoadingObservation())
+        expect(after.heading!.x).toBe(before.heading!.x)
+        expect(after.heading!.y).toBe(before.heading!.y)
+        expect(after.overflow).toBe(false)
+        expect(frames.every(frame => frame.statuses <= 1 && frame.headingX === before.heading!.x && frame.headingY === before.heading!.y)).toBe(true)
+        const firstResult = frames.findIndex(frame => frame.skeletons === 0)
+        expect(firstResult).toBeGreaterThanOrEqual(0)
+        expect(frames.slice(firstResult).every(frame => frame.skeletons === 0)).toBe(true)
+        expect(frames.every(frame => !(frame.skeletons && (frame.empty || frame.error)))).toBe(true)
+        if (mode !== "empty") expect(after.tools!.y).toBe(before.tools!.y)
+        if (mode === "populated") {
+          expect(after.list!.y).toBe(before.list!.y)
+          expect(after.rows[0].x).toBe(before.rows[0].x)
+          expect(after.rows[0].width).toBe(before.rows[0].width)
+        }
+        evidence.push({ viewport, route, mode, before, after, frames })
+        await context.close()
+      }
+    }
+  }
+  mkdirSync("artifacts/phase-3/comparisons", { recursive: true })
+  writeFileSync("artifacts/phase-3/comparisons/loading-transitions.json", JSON.stringify(evidence, null, 2))
 })

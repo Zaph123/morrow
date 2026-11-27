@@ -77,7 +77,7 @@ test('Studio retries failed saving without retyping and later title/body/platfor
 
 test('Studio creation failure retains writing and retry creates exactly one draft', async () => {
   const runtime = componentRuntime(legacy());
-  await runtime.mount('components/studio/studio-page.tsx', 'StudioPage');
+  await runtime.mount('components/studio/studio-page.tsx', 'StudioPage', { newDraft: true });
   await runtime.change('textarea', 'New writing');
   const write = runtime.storage.setItem;
   runtime.storage.setItem = () => { throw new Error('quota'); };

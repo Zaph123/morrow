@@ -1,5 +1,7 @@
 "use client"
 
+import { CollectionLoading } from "@/components/layout/loading-skeletons"
+
 import { useState, useEffect } from "react"
 import { ChevronRight, Plus, Search } from "lucide-react"
 
@@ -113,15 +115,7 @@ export function IdeasPage() {
 
       <div className="flex flex-col gap-6">
         {!mounted ? (
-          <section
-            className="collection-state"
-            role="status"
-            aria-label="Loading ideas"
-          >
-            <h2>Loading ideas…</h2>
-            <div className="collection-skeleton" aria-hidden="true" />
-            <div className="collection-skeleton" aria-hidden="true" />
-          </section>
+          <CollectionLoading label="Loading ideas" />
         ) : loadError ? (
           <section className="collection-state">
             <h2>Couldn’t load ideas</h2>

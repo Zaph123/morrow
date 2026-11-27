@@ -1,5 +1,7 @@
 "use client";
 
+import { IdeaDetailLoading } from "@/components/layout/loading-skeletons";
+
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -97,20 +99,7 @@ export function IdeaDetail({ ideaId }: { ideaId: string }) {
   }
 
   if (!mounted) {
-    return (
-      <div className="idea-detail-page flex items-center gap-3" role="status">
-        <Link
-          href="/ideas"
-          aria-label="Back to ideas"
-          className="flex size-11 items-center justify-center rounded-md border border-border outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </Link>
-        <h1 className="text-2xl font-semibold leading-8">
-          Loading...
-        </h1>
-      </div>
-    );
+    return <IdeaDetailLoading />;
   }
 
   if (loadError) {

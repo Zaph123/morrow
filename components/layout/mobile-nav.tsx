@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { UserRound } from "lucide-react";
 import { NavLink } from "@/components/layout/nav-link";
 import { mobilePrimaryNav } from "@/lib/navigation";
 
 export function MobileTopBar() {
   return (
-    <header className="flex h-16 items-center justify-between px-6 md:hidden">
+    <header className="mobile-top-bar flex h-16 items-center justify-between px-6 md:hidden">
       <Link
         href="/"
         className="inline-flex min-h-11 items-center rounded-sm font-semibold focus-visible:outline-2 focus-visible:outline-ring"
@@ -28,8 +28,11 @@ export function MobileTopBar() {
 
 export function MobileBottomNav() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const studioEditor = pathname === "/studio" &&
+    (searchParams.has("contentId") || searchParams.has("sourceIdeaId"));
   if (
-    pathname === "/studio" ||
+    studioEditor ||
     pathname.startsWith("/studio/") ||
     pathname.startsWith("/content/")
   )

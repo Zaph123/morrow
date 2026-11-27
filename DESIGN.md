@@ -108,12 +108,9 @@ Keep Profile and Account under You; Brand Brain holds writing identity and prefe
 
 Make motion purposeful, interruptible and compatible with reduced-motion preferences. Use the installed motion system for adopted interactions; do not add decorative looping animation or animate repeated keyboard input.
 
-Home’s compact auto-growing composer, equal-height action cards, secondary
-collection links outside the card group, and restrained card hover/press
-feedback are approved product decisions recorded in
-`docs/handoff/2026-11-24/current/DESIGN-DECISIONS.txt` (Home redesign —
-26 November 2026). Older Stitch Home export details that conflict with that
-record must not override it.
+Home retains its compact auto-growing composer and unchanged resting/focused appearance. Later approved refinements supersede the older 26 November Home card notes: white cards at rest and hover, a semantic neutral hover border, at most a 1px fine-pointer lift, visible View all links in populated card headers, a 16px group inset on the three-column desktop layout, and a native horizontal rail on narrow layouts. Rail cards begin near 82% width, capped near 280px; preserve next-card preview, hidden scrollbar, keyboard access and native touch/vertical scrolling. Mouse drag/glide must suppress accidental links and competing snap/press effects. Keep one recent record per relevant card, full stored text, two-line visual previews and equal compact card heights. Empty collections hide View all; Blank draft comes first on mobile when no draft exists. The older single-column, detached-link and gray-hover notes are superseded by these later user corrections.
+
+Home's action-card icon and heading direction intentionally uses category accents: cool violet for Continue, warm ochre for Revisit an idea, and teal for Blank draft. This is an approved revision to the neutral-only source treatment. The direction is accepted; the exact rendered shades remain open for visual review and are not accepted by this note.
 
 ## Do's and Don'ts
 

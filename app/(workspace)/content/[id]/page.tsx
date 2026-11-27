@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Suspense } from "react"
 
 import { ContentEditor } from "@/components/content/content-editor"
+import { StudioEditorSkeleton } from "@/components/studio/writing-surface"
 
 export const metadata: Metadata = {
   title: "Draft",
@@ -23,11 +24,7 @@ async function ContentDetail({
 export default function ContentDetailPage({ params }: ContentDetailPageProps) {
   return (
     <Suspense
-      fallback={
-        <p className="text-sm text-muted-foreground" role="status">
-          Loading draft…
-        </p>
-      }
+      fallback={<StudioEditorSkeleton label="Loading saved draft" />}
     >
       <ContentDetail params={params} />
     </Suspense>

@@ -4,11 +4,9 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useRef, useState, type ReactNode } from "react"
 
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { SaveStatus, type SaveStatusKind } from "@/components/workspace/save-status"
+import { Button } from "@/components/ui/button"
+import { WritingSurface, WritingSurfaceState, StudioEditorSkeleton, type WritingPlatformOption } from "@/components/studio/writing-surface"
+import { type SaveStatusKind } from "@/components/workspace/save-status"
 import {
   notifyWorkspaceChanged,
   useContentItem,
@@ -25,7 +23,6 @@ import {
   type ContentItem,
   type ContentPlatform,
 } from "@/lib/workspace/types"
-import { cn } from "@/lib/utils"
 
 export type ContentEditorMode =
   | { kind: "create"; sourceIdeaId?: string | null }
@@ -35,9 +32,9 @@ type ContentEditorProps = {
   mode: ContentEditorMode
 }
 
-const PLATFORM_OPTIONS: Array<{ value: "" | ContentPlatform; label: string }> =
+const PLATFORM_OPTIONS: WritingPlatformOption[] =
   [
-    { value: "", label: "No platform yet" },
+    { value: "", label: "Choose platform" },
     { value: "x", label: PLATFORM_LABELS.x },
     { value: "linkedin", label: PLATFORM_LABELS.linkedin },
     { value: "whatsapp", label: PLATFORM_LABELS.whatsapp },
@@ -61,54 +58,34 @@ function CreateContentEditor({ sourceIdeaId }: { sourceIdeaId: string | null }) 
   const [saveStatus, setSaveStatus] = useState<SaveStatusKind>("idle")
   const [saveError, setSaveError] = useState<string | null>(null)
   const [created, setCreated] = useState(false)
-  const seededFromIdea = useRef(false)
+  const [seededFromIdea, setSeededFromIdea] = useState(false)
 
   useEffect(() => {
-    if (!sourceIdeaId || !idea || seededFromIdea.current) return
+    if (!sourceIdeaId || !idea || seededFromIdea) return
     let active = true
     queueMicrotask(() => {
-      if (!active || seededFromIdea.current) return
-      seededFromIdea.current = true
+      if (!active) return
+      setSeededFromIdea(true)
       setBody(idea.body)
       setSaveStatus("dirty")
     })
     return () => { active = false }
-  }, [idea, sourceIdeaId])
+  }, [idea, seededFromIdea, sourceIdeaId])
+
+  if (sourceIdeaId && idea && !seededFromIdea) {
+    return <StudioEditorSkeleton label="Preparing draft from idea" />
+  }
 
   if (sourceIdeaId && ideaStatus === "loading") {
-    return (
-      <p className="text-sm text-muted-foreground" role="status">
-        Loading source idea…
-      </p>
-    )
+    return <StudioEditorSkeleton label="Loading source idea" />
   }
 
   if (sourceIdeaId && ideaStatus === "error") {
-    return (
-      <div>
-        <p className="text-sm text-destructive" role="alert">{ideaError || "Could not load the source idea."}</p>
-        <Button variant="secondary" className="mt-3" onClick={reload}>Try again</Button>
-      </div>
-    )
+    return <WritingSurfaceState parentLabel="Ideas" backHref="/ideas" backLabel="Back to Ideas" title="Couldn’t load the source idea" message={ideaError || "Could not load the source idea."} actionLabel="Try again" onAction={reload} />
   }
 
   if (sourceIdeaId && !idea) {
-    return (
-      <section className="rounded-2xl border border-border bg-card px-5 py-6">
-        <h1 className="font-heading text-2xl font-medium tracking-tight">
-          Source idea not found
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          You can still start a draft without that idea.
-        </p>
-        <Link
-          href="/content/new"
-          className={cn(buttonVariants({ variant: "default" }), "mt-5")}
-        >
-          Start a blank draft
-        </Link>
-      </section>
-    )
+    return <WritingSurfaceState parentLabel="Ideas" backHref="/ideas" backLabel="Back to Ideas" title="Source idea not found" message="You can still start a draft without that idea." actionLabel="Start a blank draft" actionHref="/content/new" />
   }
 
   function handleCreate() {
@@ -212,39 +189,15 @@ function EditContentEditor({ contentId }: { contentId: string }) {
   }, [item])
 
   if (status === "loading" || (status === "ready" && item && !savedItem)) {
-    return (
-      <p className="text-sm text-muted-foreground" role="status">
-        Loading draft…
-      </p>
-    )
+    return <StudioEditorSkeleton label="Loading draft" />
   }
 
   if (status === "error" && !savedItem) {
-    return (
-      <div>
-        <p className="text-sm text-destructive" role="alert">{error || "Could not load this draft."}</p>
-        <Button variant="secondary" className="mt-3" onClick={reload}>Try again</Button>
-      </div>
-    )
+    return <WritingSurfaceState parentLabel="Library" backHref="/content" backLabel="Back to Library" title="Couldn’t load this draft" message={error || "Could not load this draft."} actionLabel="Try again" onAction={reload} />
   }
 
   if (!item && !savedItem) {
-    return (
-      <section className="rounded-2xl border border-border bg-card px-5 py-6">
-        <h1 className="font-heading text-2xl font-medium tracking-tight">
-          Draft not found
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          It may have been deleted, or the link is out of date.
-        </p>
-        <Link
-          href="/content"
-          className={cn(buttonVariants({ variant: "outline" }), "mt-5")}
-        >
-          Back to Content
-        </Link>
-      </section>
-    )
+    return <WritingSurfaceState parentLabel="Library" backHref="/content" backLabel="Back to Library" title="Draft not found" message="It may have been deleted, or the link is out of date." actionLabel="Back to Content" actionHref="/content" />
   }
 
   function handleSave() {
@@ -289,12 +242,7 @@ function EditContentEditor({ contentId }: { contentId: string }) {
   }
 
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-6">
-      {status === "error" && <div>
-        <p className="text-sm text-destructive" role="alert">{error} Your current text is retained below. Keep or copy it before leaving.</p>
-        <Button variant="secondary" className="mt-3" onClick={reload}>Try loading again</Button>
-      </div>}
-      {status === "ready" && !item && savedItem && <p className="text-sm text-destructive" role="alert">The stored draft is no longer available. Your current text is retained below; keep or copy it before leaving.</p>}
+    <div className="mx-auto w-full max-w-[54.5rem] space-y-6">
       <EditorChrome
         heading="Edit draft"
         description="Changes save to this content item only. The source idea is not updated."
@@ -304,7 +252,7 @@ function EditContentEditor({ contentId }: { contentId: string }) {
           sourceIdea ? (
             <SourceIdeaPanel ideaId={sourceIdea.id} body={sourceIdea.body} />
           ) : sourceMissing ? (
-            <p className="rounded-xl border border-border bg-secondary/40 px-4 py-3 text-sm text-muted-foreground">
+            <p className="studio-source-unavailable">
               This draft came from an idea that is no longer available. The draft
               remains editable on its own.
             </p>
@@ -333,6 +281,14 @@ function EditContentEditor({ contentId }: { contentId: string }) {
         onSave={handleSave}
         saveStatus={currentSaveStatus}
         saveError={saveError}
+        notice={status === "error" ? (
+          <div className="studio-editor-notice">
+            <p role="alert">{error} Your current text is retained below. Keep or copy it before leaving.</p>
+            <Button variant="secondary" className="mt-3" onClick={reload}>Try loading again</Button>
+          </div>
+        ) : status === "ready" && !item && savedItem ? (
+          <p className="studio-editor-notice" role="alert">The stored draft is no longer available. Your current text is retained below; keep or copy it before leaving.</p>
+        ) : undefined}
       />
 
       <section className="rounded-2xl border border-border px-5 py-6">
@@ -379,22 +335,11 @@ function EditContentEditor({ contentId }: { contentId: string }) {
 
 function SourceIdeaPanel({ ideaId, body }: { ideaId: string; body: string }) {
   return (
-    <aside className="rounded-xl border border-border bg-secondary/40 px-4 py-3">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <p className="text-sm font-medium text-foreground">Source idea</p>
-        <Link
-          href={`/ideas/${ideaId}`}
-          className={cn(buttonVariants({ variant: "ghost", size: "xs" }))}
-        >
-          Open idea
-        </Link>
-      </div>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        {previewText(body, 220) || "Empty idea"}
-      </p>
-      <p className="mt-2 text-xs text-muted-foreground">
-        Shown for context only. Editing the draft does not change this idea.
-      </p>
+    <aside className="studio-source-context">
+      <span className="studio-source-label">From idea</span>
+      <p>{previewText(body, 220) || "Empty idea"}</p>
+      <Link href={`/ideas/${ideaId}`}>View idea</Link>
+      <span className="studio-source-note">Editing this draft does not change the original idea.</span>
     </aside>
   )
 }
@@ -416,6 +361,7 @@ type EditorChromeProps = {
   onSave: () => void
   saveStatus: SaveStatusKind
   saveError: string | null
+  notice?: ReactNode
 }
 
 function EditorChrome({
@@ -435,80 +381,29 @@ function EditorChrome({
   onSave,
   saveStatus,
   saveError,
+  notice,
 }: EditorChromeProps) {
   return (
-    <div className="mx-auto w-full max-w-3xl space-y-6">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="max-w-xl">
-          <h1 className="font-display text-[2rem] font-normal leading-10 tracking-[-0.02em] text-balance">
-            {heading}
-          </h1>
-          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-            {description}
-          </p>
-        </div>
-        <Link
-          href={backHref}
-          className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-        >
-          {backLabel}
-        </Link>
-      </div>
-
-      {sourcePanel}
-
-      <section className="rounded-2xl border border-border bg-card px-5 py-6">
-        <div className="space-y-4">
-          <label className="block">
-            <span className="text-sm font-medium text-foreground">Title</span>
-            <Input
-              type="text"
-              value={title}
-              onChange={(event) => onTitleChange(event.target.value)}
-              placeholder="Untitled draft"
-              className="mt-2"
-            />
-          </label>
-
-          <label className="block">
-            <span className="text-sm font-medium text-foreground">Draft</span>
-            <Textarea
-              value={body}
-              onChange={(event) => onBodyChange(event.target.value)}
-              rows={12}
-              placeholder="Write the piece here…"
-              className="mt-2 min-h-48 text-lg leading-[1.65]"
-            />
-          </label>
-
-          <label className="block max-w-xs">
-            <span className="text-sm font-medium text-foreground">
-              Intended platform
-            </span>
-            <Select
-              value={platform}
-              onChange={(event) =>
-                onPlatformChange(event.target.value as "" | ContentPlatform)
-              }
-              className="mt-2"
-            >
-              {PLATFORM_OPTIONS.map((option) => (
-                <option key={option.value || "none"} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </Select>
-          </label>
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <Button type="button" onClick={onSave} disabled={saveDisabled}>
-            {saveLabel}
-          </Button>
-          <SaveStatus status={saveStatus} error={saveError} />
-        </div>
-        <p className="mt-3 text-xs text-muted-foreground">Status: Draft</p>
-      </section>
-    </div>
+    <WritingSurface
+      parentLabel={backLabel === "Back to idea" ? "Ideas" : "Library"}
+      backHref={backHref}
+      backLabel={backLabel}
+      description={description}
+      titlePlaceholder={heading}
+      title={title}
+      body={body}
+      platform={platform || null}
+      platformOptions={PLATFORM_OPTIONS}
+      onTitleChange={onTitleChange}
+      onBodyChange={onBodyChange}
+      onPlatformChange={(value) => onPlatformChange(value as "" | ContentPlatform)}
+      sourcePanel={sourcePanel}
+      notice={notice}
+      saveLabel={saveLabel}
+      saveDisabled={saveDisabled || !body.trim()}
+      onSave={onSave}
+      saveStatus={saveStatus}
+      saveError={saveError}
+    />
   )
 }

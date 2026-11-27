@@ -1,5 +1,7 @@
 # Capture and sidebar interactions
 
+**Evidence cleanup (2026-11-27):** Generated app screenshots and comparison images were deleted per request. Original Stitch PNG/HTML sources under `artifacts/references/stitch/` remain the design targets. Screenshot labels below identify removed verification output; browser tests can regenerate local captures.
+
 This approved interaction follow-up keeps the current route and both persistence formats. It uses the existing legacy idea writer and changes presentation and feedback only. Context attachments, Studio’s docked Discuss panel, backend work, migrations, and deployment remain outside scope.
 
 ## New idea
@@ -31,9 +33,9 @@ The Playwright Edge suite used isolated contexts and synthetic records. The fina
 
 Visual captures:
 
-- Capture dialog and sheet: [desktop dialog](../../../artifacts/phase-3/new-idea-desktop-dialog.png), [mobile sheet](../../../artifacts/phase-3/new-idea-mobile-sheet.png), [mobile writing](../../../artifacts/phase-3/new-idea-mobile-writing.png), [discard guard](../../../artifacts/phase-3/new-idea-mobile-drag-discard-guard.png)
-- Sidebar: [expanded desktop](../../../artifacts/phase-3/sidebar-expanded-desktop.png), [collapsed desktop](../../../artifacts/phase-3/sidebar-collapsed-desktop.png), [mobile navigation](../../../artifacts/phase-3/sidebar-mobile-navigation.png)
-- Failure feedback: [delete retry state](../../../artifacts/phase-3/idea-delete-failure.png), [capture save retry state](../../../artifacts/phase-3/ideas-capture-failure.png)
+- Capture dialog and sheet: desktop dialog (generated screenshot removed per request), mobile sheet (generated screenshot removed per request), mobile writing (generated screenshot removed per request), discard guard (generated screenshot removed per request)
+- Sidebar: expanded desktop (generated screenshot removed per request), collapsed desktop (generated screenshot removed per request), mobile navigation (generated screenshot removed per request)
+- Failure feedback: delete retry state (generated screenshot removed per request), capture save retry state (generated screenshot removed per request)
 
 `pnpm.cmd build` passed, including TypeScript. `node --test scripts/test-*.mjs` passed **34/34**. Focused ESLint passed for changed TypeScript/JavaScript modules. `git diff --check` passed. The final full browser run for the original interaction slice passed **15/15** tests. The isolated visual and keyboard checks do not constitute a screen-reader audit or real-device touch certification.
 
@@ -43,7 +45,7 @@ Visual captures:
 - `components/ui/responsive-dialog-drawer.tsx`, `components/ideas/idea-capture-dialog.tsx`, `components/ideas/idea-capture-context.tsx`, `components/ideas/idea-detail.tsx`, `components/layout/workspace-shell.tsx`, `components/layout/app-sidebar.tsx`
 - `lib/ui-preferences.ts`, `app/globals.css`, `package.json`, `pnpm-lock.yaml`
 - `scripts/helpers/local-runtime.mjs`, `tests/browser/phase-3.spec.ts`
-- `artifacts/phase-3/new-idea-*.png`, `artifacts/phase-3/sidebar-*.png`, and the existing save/delete recovery captures
+- Generated capture screenshots were removed on 2026-11-27; browser tests can regenerate them as local output, but they are not design references.
 
 The initial interaction follow-up stops here for review. The bounded correction below records subsequent acceptance fixes; it does not begin another feature phase.
 
@@ -53,13 +55,13 @@ The sheet starts at its compact detent at regular viewport heights. At heights u
 
 At 577×429 CSS pixels, the expanded sheet's capture action row measures 542px wide; Cancel and Save idea are 269px and 261px wide, with a 12px gap and 44px height. The initial body position placed them at y=487–531, outside that 429px viewport; scrolling the sheet body brought them to y=349–393, leaving 36px below the buttons. At 717×522, Cancel measures 79.75px and Save idea 88.98px, with 8px between; the buttons end at y=511, 11px above the viewport edge. Discard actions measure 116.55px and 84.38px, with a 12px gap. All buttons computed `flex-shrink: 0` and `white-space: nowrap`; none overlapped. The apparent shrink/clipping was the responsive switch to a bottom sheet plus the short-height, partial-detent body clipping, not the shared button primitive shrinking its labels.
 
-The supplied red `N 1 Issue` is the Next.js development indicator. The existing server log identified its issue: Next blocked `/_next/hmr` when the page was opened as `127.0.0.1` while that server was bound to `localhost` (`allowedDevOrigins`). Opening the same synthetic page on `localhost` removed the warning and page-console errors; no indicator was hidden and no server configuration was changed. See [the origin diagnostic](../../../artifacts/phase-3/dev-origin-diagnostic.md), [diagnostic JSON](../../../artifacts/phase-3/dev-indicator-diagnostic.json), and [screenshot](../../../artifacts/phase-3/dev-indicator.png).
+The supplied red `N 1 Issue` is the Next.js development indicator. The existing server log identified its issue: Next blocked `/_next/hmr` when the page was opened as `127.0.0.1` while that server was bound to `localhost` (`allowedDevOrigins`). Opening the same synthetic page on `localhost` removed the warning and page-console errors; no indicator was hidden and no server configuration was changed. See [the origin diagnostic](../../../artifacts/phase-3/dev-origin-diagnostic.md), [diagnostic JSON](../../../artifacts/phase-3/dev-indicator-diagnostic.json), and screenshot (generated screenshot removed per request).
 
 The selected `component_desktop_sidebar_you_active` source was compared with the actual You-route sidebar at 1280×1024. The fixed Morrow width remains 240px; the component region is normalized to the approved product width before the side-by-side comparison. Collapsed width remains 72px and is checked against the written requirement. The added pointer-only edge rail has a 6px target at the outside edge, uses the `ew-resize` cursor, and toggles the fixed widths; chevrons remain the keyboard/touch control. The rail is absent with the mobile navigation.
 
 The UIArc Copy control's CSS-module measurement spans rendered visibly under this repository's global CSS handling. Its existing behavior and dependency were retained; its classes are now prefixed and styled in `app/globals.css`, and one responsive instance serves both mobile and desktop. Copy uses the displayed textarea value, reports clipboard success or failure, and does not affect save status. The visible measurement spans are verified hidden.
 
-Updated comparison evidence includes [expanded sidebar source/output](../../../artifacts/phase-3/comparisons/sidebar-you-expanded-comparison.png), [linked detail desktop](../../../artifacts/phase-3/comparisons/idea-detail-linked-desktop-comparison.png), [no-draft desktop](../../../artifacts/phase-3/comparisons/idea-detail-empty-desktop-comparison.png), [linked detail mobile](../../../artifacts/phase-3/comparisons/idea-detail-linked-mobile-comparison.png), and [no-draft mobile](../../../artifacts/phase-3/comparisons/idea-detail-empty-mobile-comparison.png). Device-toolbar captures are [577×429 capture](../../../artifacts/phase-3/device-toolbar-577-capture.png), [577×429 discard](../../../artifacts/phase-3/device-toolbar-577-discard.png), [717×522 capture](../../../artifacts/phase-3/device-toolbar-717-capture.png), and [717×522 discard](../../../artifacts/phase-3/device-toolbar-717-discard.png). Measurements are in the adjacent JSON files.
+Updated comparison evidence includes expanded sidebar source/output (generated screenshot removed per request), linked detail desktop (generated screenshot removed per request), no-draft desktop (generated screenshot removed per request), linked detail mobile (generated screenshot removed per request), and no-draft mobile (generated screenshot removed per request). Device-toolbar captures are 577×429 capture (generated screenshot removed per request), 577×429 discard (generated screenshot removed per request), 717×522 capture (generated screenshot removed per request), and 717×522 discard (generated screenshot removed per request). Measurements are in the adjacent JSON files.
 
 The final maintained regression suite passed **34/34**; the final Playwright Edge suite passed **21/21** in 4.2 minutes using isolated contexts and synthetic data. Build and standalone typecheck passed. Focused lint on changed modules passed. Full lint still reports 18 existing `@typescript-eslint/no-require-imports` errors in `.cursor/hooks/trail-hooks.cjs`, `.trail/hook.cjs`, `.trail/statusline.cjs`, and `artifacts/phase-2/inspect-development.cjs`. No dependency, persistence, or data-format changes were made.
 
@@ -73,7 +75,7 @@ After the final production rebuild, Playwright Edge passed **21/21** tests (4.7 
 
 Use the profile-specific `device-toolbar-577-desktop-*`, `device-toolbar-577-mobile-*`, and `device-toolbar-620-mobile-*` captures generated by the final run; these supersede the earlier unprofiled filenames referenced above.
 
-Final captures: [577x429 fine-pointer dialog](../../../artifacts/phase-3/device-toolbar-577-desktop-capture.png), [577x429 coarse-pointer sheet](../../../artifacts/phase-3/device-toolbar-577-mobile-capture.png), [577x429 discard guard](../../../artifacts/phase-3/device-toolbar-577-mobile-discard.png), [620x522 coarse-pointer sheet](../../../artifacts/phase-3/device-toolbar-620-mobile-capture.png), and [620x522 discard guard](../../../artifacts/phase-3/device-toolbar-620-mobile-discard.png). Row hover captures: [Ideas linked drafts](../../../artifacts/phase-3/idea-linked-row-hover.png) and [Library collection](../../../artifacts/phase-3/library-row-hover.png). Source comparisons are linked above.
+Final captures: 577x429 fine-pointer dialog (generated screenshot removed per request), 577x429 coarse-pointer sheet (generated screenshot removed per request), 577x429 discard guard (generated screenshot removed per request), 620x522 coarse-pointer sheet (generated screenshot removed per request), and 620x522 discard guard (generated screenshot removed per request). Row hover captures: Ideas linked drafts (generated screenshot removed per request) and Library collection (generated screenshot removed per request). Source comparisons are linked above.
 
 ## Visual acceptance ledger
 
@@ -91,3 +93,7 @@ These rubric scores are the engineering review for the requested corrections, us
 | Ideas and Library collection rows plus linked drafts, 390x844 | 95/100 | Hover background resolves to the shared semantic muted token over the canvas, not a white row. Both collection routes and the linked-draft case have screenshots and computed-style measurements. |
 
 The capture/mobile viewport is inferred from the supplied raster because the DevTools chrome and CSS viewport metadata are not embedded. That uncertainty is recorded rather than treated as a pixel-perfect comparison. Home’s focused appearance remains unchanged and is covered by the regression check.
+
+## 27 November stabilization follow-up
+
+The [stabilization report](STABILIZATION-REPORT.md) records the latest Home fixes, actual failed/passing runs, live reduced-motion handling and refreshed source comparisons. Its current-status snapshot supersedes earlier claims. The responsive wrapper preserves draft text and usable focus without selection-range snapshots. User visual review and the Ideas populated-mobile source comparison remain open.

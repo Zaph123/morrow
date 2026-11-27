@@ -58,6 +58,9 @@ export function componentRuntime(initial = {}, options = {}) {
   const instances = new Map();
   const sameDeps = (left, right) => left && right && left.length === right.length && left.every((item, index) => Object.is(item, right[index]));
   const react = {
+    useId() {
+      return `test-id-${current.cursor++}`;
+    },
     useState(initialValue) {
       const instance = current;
       const index = instance.cursor++;
@@ -113,7 +116,21 @@ export function componentRuntime(initial = {}, options = {}) {
       DialogContent: ({ children, ...props }) => element('div', { ...props, children }),
     },
     '@/components/arc/toast-stack/toast-stack': { useToastStack: () => ({ toast() {} }), ToastStackProvider: 'div', ToastStack: 'div' },
+    '@/components/arc/breadcrumb/breadcrumb': { Breadcrumb: 'nav' },
+    '@/components/arc/copy-button/copy-button': { CopyButton: 'button' },
+    '@/components/workspace/save-status': {
+      SaveStatus: ({ status, error, ...props }) => element('p', {
+        ...props,
+        role: status === 'error' ? 'alert' : 'status',
+        children: status === 'error'
+          ? `${error || 'Could not save. Your latest changes are still on this page.'} Keep or copy your current text before leaving, then retry saving.`
+          : ({ idle: 'Saved on this device', dirty: 'Unsaved changes', saving: 'Saving…', saved: 'Saved on this device' })[status],
+      }),
+    },
     '@/components/ideas/idea-capture-context': { useIdeaCapture: () => ({ openCapture() {} }), IdeaCaptureProvider: 'div' },
+    // Rail gestures and layout are exercised in Edge; keep controller tests
+    // focused on Home's records and handlers without simulating browser motion.
+    '@/components/home/horizontal-card-rail': { HorizontalCardRail: ({ children, label }) => element('div', { role: 'region', 'aria-label': label, children }) },
     'lucide-react': new Proxy({}, { get: (_, name) => `icon-${String(name)}` }),
     '@/components/ui/button': { Button: 'button', buttonVariants: () => '' },
     '@/components/ui/input': { Input: 'input' },
@@ -122,7 +139,7 @@ export function componentRuntime(initial = {}, options = {}) {
     'motion/react': { AnimatePresence: ({ children }) => children, motion: new Proxy({}, { get: (_, name) => name === 'create' ? (component) => component : `motion-${String(name)}` }), useReducedMotion: () => true },
     '@/components/ui/textarea': { Textarea: 'textarea' },
     '@/lib/utils': { cn: (...values) => values.filter(Boolean).join(' ') },
-    '@/lib/format': { formatDateTime: () => 'date', formatDate: () => 'date' },
+    '@/lib/format': { formatDateTime: () => 'date', formatDate: () => 'date', formatRelativeTime: () => 'date' },
   };
   const runtime = localRuntime(initial, overrides);
   const repository = runtime.load('lib/workspace/repository.ts');

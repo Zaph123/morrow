@@ -7,7 +7,7 @@ import {
   useRef,
 } from "react";
 import Link from "next/link";
-import { PencilLine, Lightbulb, FilePlus2, ChevronRight } from "lucide-react";
+import { PencilLine, Lightbulb, FilePlus2 } from "lucide-react";
 import {
   animate,
   useReducedMotion,
@@ -203,13 +203,16 @@ export function HomePageClient() {
           Continue
         </h2>
       </div>
-      <p className="home-action-card-body text-sm leading-relaxed text-muted-foreground">
-        {!mounted
-          ? "Your drafts will appear here."
-          : loadError
-            ? "Recent drafts are unavailable."
-            : "No drafts yet. Start whenever you’re ready."}
-      </p>
+      {!mounted ? (
+        <div className="home-action-card-body home-loading-preview" aria-hidden="true">
+          <div className="collection-skeleton skeleton-preview" />
+          <div className="collection-skeleton skeleton-meta" />
+        </div>
+      ) : (
+        <p className="home-action-card-body text-sm leading-relaxed text-muted-foreground">
+          {loadError ? "Recent drafts are unavailable." : "No drafts yet. Start whenever you’re ready."}
+        </p>
+      )}
     </article>
   );
 
@@ -221,7 +224,7 @@ export function HomePageClient() {
           Revisit an idea
         </h2>
         <Link href="/ideas" draggable={false} className="home-action-secondary-link" aria-label="View all ideas">
-          <span className="sr-only">View all</span> <ChevronRight size={15}/>
+          View all
         </Link>
       </div>
       <Link
@@ -244,13 +247,16 @@ export function HomePageClient() {
           Revisit an idea
         </h2>
       </div>
-      <p className="home-action-card-body text-sm leading-relaxed text-muted-foreground">
-        {!mounted
-          ? "Your ideas will appear here."
-          : loadError
-            ? "Recent ideas are unavailable."
-            : "Save a thought to return to later."}
-      </p>
+      {!mounted ? (
+        <div className="home-action-card-body home-loading-preview" aria-hidden="true">
+          <div className="collection-skeleton skeleton-preview" />
+          <div className="collection-skeleton skeleton-meta" />
+        </div>
+      ) : (
+        <p className="home-action-card-body text-sm leading-relaxed text-muted-foreground">
+          {loadError ? "Recent ideas are unavailable." : "Save a thought to return to later."}
+        </p>
+      )}
     </article>
   );
 
@@ -262,7 +268,7 @@ export function HomePageClient() {
           Blank draft
         </h2>
       </div>
-      <Link href="/studio" draggable={false} className="home-action-primary" aria-label="Start a blank draft">
+      <Link href="/studio/new" draggable={false} className="home-action-primary" aria-label="Start a blank draft">
         <p className="home-action-card-body text-sm leading-relaxed text-muted-foreground">
           Start writing with no idea attached
         </p>
@@ -360,11 +366,7 @@ export function HomePageClient() {
         )}
       </section>
       <div className="mt-6">
-        {!mounted && (
-          <p className="mb-4 text-sm text-muted-foreground" role="status">
-            Loading recent work…
-          </p>
-        )}
+        {!mounted && <span className="sr-only" role="status">Loading recent work</span>}
         {loadError && (
           <section className="mb-5" aria-labelledby="home-load-error-heading">
             <h2 id="home-load-error-heading" className="font-medium">
@@ -378,11 +380,13 @@ export function HomePageClient() {
             </Button>
           </section>
         )}
+        <div aria-busy={!mounted}>
         <HorizontalCardRail label="Home actions">
           {showBlankFirst
             ? [blankDraftCard, continueCard, ideaCard]
             : [continueCard, ideaCard, blankDraftCard]}
         </HorizontalCardRail>
+        </div>
       </div>
     </div>
   );

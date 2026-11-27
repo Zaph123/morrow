@@ -142,3 +142,20 @@ stronger border; optional ≤1px lift on fine-pointer hover; press scale ~0.985
 via Motion; visible keyboard focus; respect reduced motion. No persistent
 selected state, heavy shadows, bounce, decorative tilt or looping animation.
 Do not add 3D artwork or new illustrations in this pass.
+
+
+HOME REFINEMENTS AND STABILIZATION ? 27 NOVEMBER 2026
+This records later user-approved corrections; it supersedes conflicting Home
+card presentation in the earlier 26 November entry, not its save protections.
+Keep white card fill at rest/hover, shared neutral hover border near #DADDE3,
+and at most a 1px fine-pointer lift. Keep View all in populated card headers,
+with separate links and accessible collection names. Empty cards remain inert.
+The wide three-column group is inset 16px each side of the composer. Narrow
+layouts use a native horizontal rail (~82% / max ~280px cards, ~12px gaps),
+next-card preview, hidden scrollbar, and equal compact heights. Blank draft
+precedes empty Continue on mobile. No fixed 212px card height. One recent
+record per relevant card and two-line previews remain intentional; full text
+and both stores are preserved. Keep keyboard reveal and native touch/trackpad
+scrolling; only mouse dragging adds cancellable glide and suppresses links.
+Do not infer full visual acceptance from tests; use the Stitch comparison gate.
+The compact Home composer retains its unchanged focused appearance.

@@ -1,4 +1,6 @@
-﻿# Phase 2 report: complete within the approved scope
+# Phase 2 report: complete within the approved scope
+
+**Evidence cleanup (2026-11-27):** Generated app screenshots and comparison images were deleted per request. Original Stitch PNG/HTML sources under `artifacts/references/stitch/` remain the design targets. Screenshot labels below identify removed verification output; browser tests can regenerate local captures.
 
 25 November 2026. The synthetic Edge screenshot/interaction gate passed before visual implementation resumed. Final visual and functional acceptance checks have now passed. Earlier partial/blocked status is superseded by this report. No Phase 3 implementation has started.
 
@@ -28,7 +30,7 @@ The approved established-tool replacement uses installed Edge **158.0.4370.33**,
 
 The independent preflight returned `Browser.getVersion`, `Runtime.evaluate` with value **2**, `Page.getFrameTree`, and successful empty `Page.enable` response **{}**. Typing into a synthetic field and pressing Enter on a focused button produced **Verified: Synthetic test**, then a screenshot was captured. No page errors or crashes were recorded. The raw `pw:protocol,pw:browser` log includes command IDs, session routing, responses, process stderr and orderly browser exit code 0; the summarized response JSON contains no errors.
 
-- [Preflight screenshot](../../../artifacts/phase-2/browser-preflight.png)
+- Preflight screenshot (generated screenshot removed per request)
 - [Raw protocol/process log](../../../artifacts/phase-2/preflight-protocol.log)
 - [Independent command results](../../../artifacts/phase-2/preflight-cdp-responses.json)
 
@@ -54,11 +56,11 @@ Machine-readable results: [app-results.json](../../../artifacts/phase-2/app-resu
 
 Inspected the supplied desktop/mobile PNGs and corresponding HTML, then compared rendered screens at the corresponding CSS viewports: **1280x1024 desktop** and **390x884 mobile**. Original PNG exports are scaled raster captures; this is a layout/state comparison, not a claimed zero-pixel-difference result.
 
-- [Desktop, one synthetic draft/idea and enabled Save](../../../artifacts/phase-2/desktop-reference.png)
-- [Mobile, same state](../../../artifacts/phase-2/mobile-reference.png)
-- [Mobile after scrolling: final cards clear the capsule](../../../artifacts/phase-2/mobile-bottom-clearance.png)
-- [Five-width populated example](../../../artifacts/phase-2/home-populated-390.png), [desktop example](../../../artifacts/phase-2/home-populated-1440.png)
-- [Empty](../../../artifacts/phase-2/home-empty-390.png), [loading](../../../artifacts/phase-2/home-loading.png), [load error](../../../artifacts/phase-2/home-load-error.png), [save failure](../../../artifacts/phase-2/home-save-error.png), [saved](../../../artifacts/phase-2/home-saved.png)
+- Desktop, one synthetic draft/idea and enabled Save (generated screenshot removed per request)
+- Mobile, same state (generated screenshot removed per request)
+- Mobile after scrolling: final cards clear the capsule (generated screenshot removed per request)
+- Five-width populated example (generated screenshot removed per request), desktop example (generated screenshot removed per request)
+- Empty (generated screenshot removed per request), loading (generated screenshot removed per request), load error (generated screenshot removed per request), save failure (generated screenshot removed per request), saved (generated screenshot removed per request)
 
 The desktop centered column, three-card anatomy, mobile heading break, wide Continue card and two smaller cards, light/lime roles, radii, typography and navigation were compared. Intentional differences follow the approved written corrections: 240px white sidebar; real date/records; named generic You access instead of invented identity; no Calendar nav, collapse control, Add context or Sign out; keyboard shortcut help; error/retry states; visible keyboard focus; disabled Save for empty input; and additional recent rows up to the preserved limit of three. Content can scroll instead of being clipped to the reference's fixed mobile frame.
 
@@ -93,7 +95,7 @@ The approved correction removes Home's inner textarea rectangle and moves its fo
 
 The 240px desktop sidebar now uses the reference's 24px side padding, full-width 44px New idea action with 18px plus, 32px gap before navigation, 20px icons, 12px icon/label gap and 15px labels. The desktop Library icon uses the reference geometry while mobile retains its existing icon; the exact supplied Brain SVG is unchanged. The actual route controls the pale selected row and `aria-current`; You remains at the bottom. The extra tagline was removed. Calendar, Sign out and Add context remain deferred.
 
-Playwright Edge screenshots at reference CSS viewports: [desktop rest](../../../artifacts/phase-2/correction-home-rest.png), [desktop pointer focus](../../../artifacts/phase-2/correction-home-pointer.png), [desktop keyboard focus](../../../artifacts/phase-2/correction-home-keyboard.png), [desktop You selected](../../../artifacts/phase-2/correction-sidebar-you.png), [mobile rest](../../../artifacts/phase-2/correction-mobile-rest.png), [mobile keyboard focus](../../../artifacts/phase-2/correction-mobile-keyboard.png). The [computed state values](../../../artifacts/phase-2/correction-focus-styles.json) record border, outline and shadow. Screenshots were compared with `component_desktop_sidebar_you_active` and the approved Home references, rather than pixel-diffed. The You reference includes Calendar and Sign out and reserves their vertical space; those approved omissions mean You sits lower in Morrow. The rest of the page is the real You placeholder rather than the reference's blank canvas; Home uses real empty states and shortcut help rather than seeded reference copy. The active desktop row follows the actual route rather than showing You on Home.
+Playwright Edge screenshots at reference CSS viewports: desktop rest (generated screenshot removed per request), desktop pointer focus (generated screenshot removed per request), desktop keyboard focus (generated screenshot removed per request), desktop You selected (generated screenshot removed per request), mobile rest (generated screenshot removed per request), mobile keyboard focus (generated screenshot removed per request). The [computed state values](../../../artifacts/phase-2/correction-focus-styles.json) record border, outline and shadow. Screenshots were compared with `component_desktop_sidebar_you_active` and the approved Home references, rather than pixel-diffed. The You reference includes Calendar and Sign out and reserves their vertical space; those approved omissions mean You sits lower in Morrow. The rest of the page is the real You placeholder rather than the reference's blank canvas; Home uses real empty states and shortcut help rather than seeded reference copy. The active desktop row follows the actual route rather than showing You on Home.
 
 The existing development log records a React hydration mismatch because the browser-side `<body>` had an extra `cz-shortcut-listen="true"` attribute absent from server HTML and Morrow source. That evidence is consistent with a browser extension or other client-side injection; the responsible extension was not independently identified. An isolated Edge context did not reproduce that body hydration warning in the correction tests. The development indicator was not disabled and the user's browser/session was not modified. Separately, the isolated connection to the already-running development server logged an HMR WebSocket handshake failure in this sandbox, so it does not establish HMR health in the user's browser.
 

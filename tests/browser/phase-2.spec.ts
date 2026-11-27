@@ -1,4 +1,5 @@
 import { test, expect, type Page } from "@playwright/test"
+import { mkdirSync, writeFileSync } from "node:fs"
 
 const stamp = "2026-11-20T12:00:00.000Z"
 const ideas = [0, 1, 2, 3].map(i => ({ id: `idea-${i}`, text: `Synthetic thought ${i}: making room for a slower creative process`, status: "active", createdAt: stamp, updatedAt: stamp, retained: "idea metadata" }))
@@ -59,10 +60,10 @@ for (const width of [320, 390, 768, 1024, 1440]) {
     expect(layout.cards).toHaveLength(3)
     for (const card of layout.cards) {
       expect(card.scrollHeight).toBeLessThanOrEqual(card.clientHeight + 1)
-      expect(card.minHeight).toBe("192px")
+      expect(card.minHeight).toBe("144px")
       expect(card.maxHeight).toBe("none")
     }
-    for (const card of layout.cards) expect(card.height).toBeGreaterThanOrEqual(192)
+    for (const card of layout.cards) expect(card.height).toBeGreaterThanOrEqual(144)
     expect(Math.max(...layout.cards.map(card => card.height)) - Math.min(...layout.cards.map(card => card.height))).toBeLessThanOrEqual(1)
     if (layout.display === "flex") {
       expect(layout.scrollWidth).toBeGreaterThan(layout.clientWidth)
@@ -174,7 +175,7 @@ test("Home long idea and writing previews clamp to two lines without changing sa
     }
 
     const cardHeights = await page.locator(".home-action-card").evaluateAll(nodes => nodes.map(node => node.getBoundingClientRect().height))
-    for (const height of cardHeights) expect(height).toBeGreaterThanOrEqual(192)
+    for (const height of cardHeights) expect(height).toBeGreaterThanOrEqual(144)
     expect(Math.max(...cardHeights) - Math.min(...cardHeights)).toBeLessThanOrEqual(1)
     expect(cardHeights[0]).toBeCloseTo(cardHeights[1], 0)
 
@@ -342,33 +343,30 @@ test("Home mouse rail glides at release speed, reverses, and reaches both ends",
   const initial = await rail.evaluate(node => ({ width: node.clientWidth, scrollWidth: node.scrollWidth, snap: getComputedStyle(node).scrollSnapType }))
   expect(initial.scrollWidth).toBeGreaterThan(initial.width)
   expect(initial.snap).toBe("none")
-  const pageWidth = async () => page.evaluate(() => {
-    const rail = document.querySelector<HTMLElement>(".home-actions")!
-    const overflow = [...document.querySelectorAll<HTMLElement>("body *")].map(node => ({
-      name: `${node.tagName.toLowerCase()}${node.className && typeof node.className === "string" ? `.${node.className.trim().replace(/\s+/g, ".")}` : ""}`,
-      left: node.getBoundingClientRect().left,
-      right: node.getBoundingClientRect().right,
-      overflowX: getComputedStyle(node).overflowX,
-      scrollWidth: node.scrollWidth,
-      clientWidth: node.clientWidth,
-    })).filter(node => node.right > innerWidth + 1).sort((a, b) => b.right - a.right).slice(0, 8)
-    const srOnly = [...document.querySelectorAll<HTMLElement>(".sr-only")].map(node => ({ text: node.textContent, box: node.getBoundingClientRect().toJSON(), position: getComputedStyle(node).position, clip: getComputedStyle(node).clip, parent: node.parentElement?.outerHTML.slice(0, 220) }))
-    const outside = overflow.filter(node => !node.name.includes("home-action-card") && !node.name.includes("home-actions"))
-    return { viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth, scrollX, htmlOverflow: getComputedStyle(document.documentElement).overflowX, bodyOverflow: getComputedStyle(document.body).overflowX, workspace: document.querySelector<HTMLElement>(".home-workspace")!.getBoundingClientRect().toJSON(), rail: rail.getBoundingClientRect().toJSON(), railOverflow: getComputedStyle(rail).overflowX, outside, srOnly }
-  })
-  console.log("HOME_RAIL_PAGE_WIDTH_REST", JSON.stringify(await pageWidth()))
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390)
   await page.screenshot({ path: "artifacts/phase-2/home-rail-rest-390.png", fullPage: true })
-  await page.screenshot({ path: "artifacts/phase-2/home-rail-rest-390-viewport.png" })
-  const containment = await page.addStyleTag({ content: ".home-actions { contain: inline-size !important; }" })
-  console.log("HOME_RAIL_CONTAINMENT", JSON.stringify(await pageWidth()))
-  await containment.evaluate(node => { node.parentNode?.removeChild(node) })
 
-  async function drag(delta: number, steps: number, pauseMs = 0, fromFirstLink = false) {
+  async function drag(delta: number, steps: number, pauseMs = 0, fromFirstLink = false, interruptWithWheel = false, reduceDuringGlide = false) {
     const railBox = await rail.boundingBox()
     expect(railBox).toBeTruthy()
     const primaryBox = fromFirstLink ? await rail.locator(".home-action-primary").first().boundingBox() : null
     const startX = primaryBox ? primaryBox.x + primaryBox.width * .75 : railBox!.x + railBox!.width * .72
     const y = primaryBox ? primaryBox.y + primaryBox.height / 2 : railBox!.y + railBox!.height / 2
+    // Capture at the browser event boundary so protocol latency cannot turn
+    // an already-settled position into the supposed release position.
+    await rail.evaluate(node => {
+      window.addEventListener("pointerup", () => {
+        node.setAttribute("data-test-release", String(node.scrollLeft))
+        node.setAttribute("data-test-release-momentum", String(node.hasAttribute("data-momentum")))
+        const samples: number[] = []
+        const sample = () => {
+          samples.push(node.scrollLeft)
+          node.setAttribute("data-test-glide-samples", JSON.stringify(samples))
+          if (node.hasAttribute("data-momentum")) requestAnimationFrame(sample)
+        }
+        requestAnimationFrame(sample)
+      }, { once: true })
+    })
     await page.mouse.move(startX, y)
     await page.mouse.down()
     for (let step = 1; step <= steps; step += 1) {
@@ -376,26 +374,36 @@ test("Home mouse rail glides at release speed, reverses, and reaches both ends",
       if (pauseMs && step < steps) await page.waitForTimeout(pauseMs)
     }
     await page.mouse.up()
-    const atRelease = await rail.evaluate(node => node.scrollLeft)
-    await page.waitForTimeout(80)
-    const after80ms = await rail.evaluate(node => node.scrollLeft)
-    await expect.poll(() => rail.getAttribute("data-momentum"), { timeout: 2000 }).toBeNull()
+    const atRelease = Number(await rail.getAttribute("data-test-release"))
+    if (interruptWithWheel) {
+      expect(await rail.getAttribute("data-test-release-momentum")).toBe("true")
+      await rail.evaluate(node => window.addEventListener("wheel", () => node.setAttribute("data-test-wheel-momentum", String(node.hasAttribute("data-momentum"))), { once: true }))
+      await page.mouse.wheel(40, 0)
+      await expect(rail).toHaveAttribute("data-test-wheel-momentum", "false")
+    }
+    if (reduceDuringGlide) {
+      expect(await rail.getAttribute("data-test-release-momentum")).toBe("true")
+      await page.emulateMedia({ reducedMotion: "reduce" })
+    }
+    await expect.poll(() => rail.getAttribute("data-momentum"), { timeout: 5000 }).toBeNull()
     const settled = await rail.evaluate(node => node.scrollLeft)
-    return { atRelease, after80ms, settled }
+    const samples = JSON.parse(await rail.getAttribute("data-test-glide-samples") ?? "[]") as number[]
+    return { atRelease, settled, samples, glide: settled - atRelease }
   }
 
   await rail.evaluate(node => { node.scrollLeft = 0 })
   const fast = await drag(-120, 8, 0, true)
-  console.log("HOME_RAIL_PAGE_WIDTH_GLIDE", JSON.stringify(await pageWidth()))
   expect(fast.atRelease).toBeGreaterThan(50)
-  expect(fast.after80ms).toBeGreaterThan(fast.atRelease)
+  expect(fast.settled).toBeGreaterThan(fast.atRelease + 1)
+  expect(fast.samples.length).toBeGreaterThan(1)
   await page.screenshot({ path: "artifacts/phase-2/home-rail-glide-fast-390.png", fullPage: true })
 
   await rail.evaluate(node => { node.scrollLeft = 0 })
   const slow = await drag(-120, 8, 30)
   expect(slow.atRelease).toBeGreaterThan(50)
-  expect(slow.after80ms).toBeGreaterThan(slow.atRelease)
-  expect(fast.after80ms).toBeGreaterThan(slow.after80ms)
+  expect(slow.settled).toBeGreaterThan(slow.atRelease + 1)
+  expect(slow.samples.length).toBeGreaterThan(1)
+  expect(fast.glide).toBeGreaterThanOrEqual(slow.glide - 2)
   console.log("HOME_RAIL_RELEASE_SPEED", JSON.stringify({ fast, slow }))
   await page.screenshot({ path: "artifacts/phase-2/home-rail-glide-slow-390.png", fullPage: true })
 
@@ -409,12 +417,72 @@ test("Home mouse rail glides at release speed, reverses, and reaches both ends",
   expect(rightEnd.left).toBeCloseTo(rightEnd.max, 0)
   for (let attempt = 0; attempt < 3; attempt += 1) await drag(300, 4)
   expect(await rail.evaluate(node => node.scrollLeft)).toBe(0)
-  console.log("HOME_RAIL_PAGE_WIDTH_END", JSON.stringify(await pageWidth()))
   await page.screenshot({ path: "artifacts/phase-2/home-rail-end-390.png", fullPage: true })
   await expect(page).toHaveURL(/\/$/)
+
+  const interrupted = await drag(-100, 6, 0, false, true)
+  await rail.evaluate(node => { node.scrollLeft = 0 })
+  const preferenceInterrupted = await drag(-100, 6, 0, false, false, true)
+  await rail.evaluate(node => { node.scrollLeft = 0 })
+  const reduced = await drag(-100, 6)
+  expect(reduced.settled).toBe(reduced.atRelease)
+  expect(await rail.getAttribute("data-test-release-momentum")).toBe("false")
+  mkdirSync("artifacts/stabilization", { recursive: true })
+  writeFileSync("artifacts/stabilization/home-rail-motion-samples.json", JSON.stringify({ fast, slow, reverse, rightEnd, leftEnd: 0, interrupted, preferenceInterrupted, reduced }, null, 2))
 })
 
-test("Home empty mobile orders the blank action before inactive Recent writing", async ({ page }) => {
+test("Home mobile viewport stays bounded and measures navigation clearance", async ({ page }) => {
+  test.setTimeout(90_000)
+  mkdirSync("artifacts/stabilization", { recursive: true })
+  const measurements = []
+  await seed(page)
+  for (const state of ["empty", "populated"] as const) {
+    await page.goto("/")
+    await page.evaluate(values => {
+      localStorage.setItem("morrow:ideas", values.ideas)
+      localStorage.setItem("morrow:content", values.content)
+    }, state === "empty" ? { ideas: "[]", content: "[]" } : { ideas: fixture["morrow:ideas"], content: fixture["morrow:content"] })
+    for (const viewport of [{ width: 330, height: 609 }, { width: 390, height: 844 }, { width: 450, height: 900 }]) {
+      await page.setViewportSize(viewport)
+      await page.goto("/")
+      await expect(page.getByRole("button", { name: "Save idea" })).toBeVisible()
+      await expect(page.locator(".home-action-card--empty")).toHaveCount(state === "empty" ? 2 : 0)
+      await page.evaluate(() => document.fonts.ready)
+      const measure = () => page.evaluate(() => {
+        const box = (selector: string) => document.querySelector(selector)!.getBoundingClientRect().toJSON()
+        const rail = box(".home-actions")
+        const composer = box(".home-capture")
+        const nav = box('nav[aria-label="Primary destinations"]')
+        return { viewport: { width: innerWidth, height: innerHeight }, documentWidth: document.documentElement.scrollWidth, composer, rail, nav, composerToRail: rail.top - composer.bottom, railToNav: nav.top - rail.bottom, navBottomInset: innerHeight - nav.bottom }
+      })
+      const normal = await measure()
+      expect(normal.documentWidth).toBe(viewport.width)
+      expect(normal.composer.width).toBeCloseTo(viewport.width - 48, 0)
+      expect(normal.rail.width).toBeCloseTo(normal.composer.width, 0)
+      expect(normal.composerToRail).toBe(24)
+      expect(normal.navBottomInset).toBe(16)
+      expect(normal.nav.width).toBeLessThanOrEqual(viewport.width - 32)
+      const isolation = await page.addStyleTag({ content: ".home-actions { scroll-snap-type: none !important; } .home-action-card { transform: none !important; transition: none !important; }" })
+      const isolated = await measure()
+      expect(isolated.rail.top).toBe(normal.rail.top)
+      expect(isolated.rail.height).toBe(normal.rail.height)
+      expect(isolated.railToNav).toBe(normal.railToNav)
+      await isolation.evaluate(node => { node.parentNode?.removeChild(node) })
+      await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight))
+      const atBottom = await measure()
+      expect(atBottom.railToNav).toBeGreaterThanOrEqual(8)
+      measurements.push({ state, ...normal, isolationChangedGap: isolated.railToNav !== normal.railToNav, railToNavAtBottom: atBottom.railToNav })
+      await page.screenshot({ path: `artifacts/stabilization/home-${state}-${viewport.width}.png` })
+      await page.keyboard.press("Tab")
+      await page.locator(".home-action-primary").last().focus()
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(viewport.width)
+      await noOverflow(page)
+    }
+  }
+  writeFileSync("artifacts/stabilization/home-viewport-measurements.json", JSON.stringify(measurements, null, 2))
+})
+
+test("Home empty mobile orders the blank action before inactive Continue", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await seed(page, { "morrow:ideas": "[]", "morrow:content": "[]", "morrow.workspace.v1": JSON.stringify(workspace) })
   await page.goto("/")

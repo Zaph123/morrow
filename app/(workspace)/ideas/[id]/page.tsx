@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Suspense } from "react"
 
+import { IdeaDetailLoading } from "@/components/layout/loading-skeletons"
 import { IdeaDetail } from "@/components/ideas/idea-detail"
 
 export const metadata: Metadata = {
@@ -23,11 +24,7 @@ async function IdeaDetailRoute({
 export default function IdeaPage({ params }: IdeaPageProps) {
   return (
     <Suspense
-      fallback={
-        <p className="text-sm text-muted-foreground" role="status">
-          Loading idea…
-        </p>
-      }
+      fallback={<IdeaDetailLoading />}
     >
       <IdeaDetailRoute params={params} />
     </Suspense>

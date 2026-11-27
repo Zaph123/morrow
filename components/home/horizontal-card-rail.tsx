@@ -9,7 +9,7 @@ import {
   type PointerEvent as ReactPointerEvent,
   type ReactNode,
 } from "react"
-import { animate, useMotionValue, useReducedMotion, type AnimationPlaybackControls } from "motion/react"
+import { animate, useMotionValue, type AnimationPlaybackControls } from "motion/react"
 
 type HorizontalCardRailProps = {
   children: ReactNode
@@ -37,7 +37,6 @@ export function HorizontalCardRail({ children, label }: HorizontalCardRailProps)
   const pointerFocusRef = useRef(false)
   const glideRef = useRef<AnimationPlaybackControls | null>(null)
   const scrollValue = useMotionValue(0)
-  const reducedMotion = useReducedMotion() ?? false
   const [dragging, setDragging] = useState(false)
 
   const attachRail = useCallback((rail: HTMLDivElement | null) => {
@@ -82,7 +81,15 @@ export function HorizontalCardRail({ children, label }: HorizontalCardRailProps)
     }
   }, [])
 
-  useEffect(() => () => glideRef.current?.stop(), [])
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const onChange = () => { if (preference.matches) cancelGlide() }
+    preference.addEventListener("change", onChange)
+    return () => {
+      preference.removeEventListener("change", onChange)
+      glideRef.current?.stop()
+    }
+  }, [cancelGlide])
 
   const finishPointer = useCallback((event: PointerEvent) => {
     const drag = dragRef.current
@@ -120,7 +127,7 @@ export function HorizontalCardRail({ children, label }: HorizontalCardRailProps)
       ? Math.sign(velocity) * Math.max(minimumGlide, Math.abs(measuredDistance))
       : 0
     const destination = Math.max(0, Math.min(maxScroll, start + Math.max(-480, Math.min(480, glideDistance))))
-    if (reducedMotion || Math.abs(destination - start) < 1) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || Math.abs(destination - start) < 1) return
 
     scrollValue.jump(start)
     rail.setAttribute("data-momentum", "true")
@@ -135,7 +142,7 @@ export function HorizontalCardRail({ children, label }: HorizontalCardRailProps)
         rail.removeAttribute("data-momentum")
       },
     })
-  }, [reducedMotion, scrollValue])
+  }, [scrollValue])
 
   useEffect(() => {
     const move = (event: PointerEvent) => {
