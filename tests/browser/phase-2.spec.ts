@@ -361,7 +361,7 @@ test("Home mouse rail glides at release speed, reverses, and reaches both ends",
   await page.screenshot({ path: "artifacts/phase-2/home-rail-rest-390-viewport.png" })
   const containment = await page.addStyleTag({ content: ".home-actions { contain: inline-size !important; }" })
   console.log("HOME_RAIL_CONTAINMENT", JSON.stringify(await pageWidth()))
-  await containment.evaluate(node => node.remove())
+  await containment.evaluate(node => { node.parentNode?.removeChild(node) })
 
   async function drag(delta: number, steps: number, pauseMs = 0, fromFirstLink = false) {
     const railBox = await rail.boundingBox()
